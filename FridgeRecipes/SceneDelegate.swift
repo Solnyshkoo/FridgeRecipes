@@ -8,15 +8,46 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let scene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: scene)
-        window?.rootViewController = RecipesAssembly.build()
-        window?.makeKeyAndVisible()
+//        guard let scene = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        let window = UIWindow(windowScene: windowScene)
+        
+        let tabBar = UITabBarController()
+        let mainScreen = MainAssembly.build()
+        let personalScreen = PersonalViewController() // FIXME: - Assembly
+
+        tabBar.setViewControllers([mainScreen, personalScreen], animated: false)
+
+        let items = tabBar.tabBar.items!
+//        let titles = ["Search", "Personal"]
+        let imageTitles = ["magnifyingglass", "person"]
+        for i in 0 ..< 2 {
+            items[i].image = UIImage(systemName: imageTitles[i])
+        }
+        tabBar.tabBar.backgroundColor = UIColor.systemBrown
+        tabBar.tabBar.tintColor = .white
+        tabBar.tabBar.barTintColor = .cyan
+
+        let nav = UINavigationController(rootViewController: tabBar)
+        window.rootViewController = nav
+        self.window = window
+
+        window.makeKeyAndVisible()
+
+//        let navigat = UINavigationController()
+//        let vcw = MainAssembly.build()
+//
+//
+//
+//        // Push the vcw  to the navigat
+//        navigat.pushViewController(vcw, animated: false)
+//
+//        window = UIWindow(windowScene: scene)
+//        window?.rootViewController = navigat
+//        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -49,7 +80,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
-
-
 }
-

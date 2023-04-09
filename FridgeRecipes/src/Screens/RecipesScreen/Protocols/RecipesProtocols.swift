@@ -1,19 +1,18 @@
 protocol RecipesBusinessLogic {
-    typealias Model = RecipesModel
-    func loadStart(_ request: Model.Start.Request)
-    func loadAction(_ request: Model.Action.Request)
+    typealias Model = MainModel
+//    func loadStart(_ request: Model.Start.Request)
+//    func loadAction(_ request: Model.Action.Request)
 }
 
 protocol RecipesPresentationLogic {
-    typealias Model = RecipesModel
-    func presentStart(_ response: Model.Start.Response)
-    func presentAction(_ response: Model.Action.Response)
+    typealias Model = MainModel
+//    func presentStart(_ response: Model.Start.Response)
+//    func presentAction(_ response: Model.Action.Response)
 }
 
 protocol RecipesDisplayLogic: AnyObject {
-    typealias Model = RecipesModel
-    func displayStart(_ viewModel: Model.Start.ViewModel)
-    func displayAction(_ viewModel: Model.Action.ViewModel)
+    typealias Model = MainModel
+    func displayRecipes(_ viewModel: [MainModel.Recipe.ViewModel])
 }
 
 protocol RecipesRoutingLogic {
@@ -21,9 +20,8 @@ protocol RecipesRoutingLogic {
 }
 
 protocol RecipesWorkerLogic {
+    typealias Model = MainModel
     func doSomething()
-}
-
-protocol NetworkRecipesServiceProtocol {
     
 }
+
