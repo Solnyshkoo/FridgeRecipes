@@ -15,14 +15,14 @@ final class MainPresenter: MainPresentationLogic {
     func presentAction(_ response: Model.Action.Response) {
     }
     
-    func presentRecipes(_ response: Model.Recipe.Response) {
-        view?.displayRecipes(parseResponse(data: response))
-    }
+//    func presentRecipes(_ response: Model.Recipe.Response) {
+//        view?.displayRecipes(parseResponse(data: response))
+//    }
     
     private func parseResponse(data: MainModel.Recipe.Response) -> [MainModel.Recipe.ViewModel] {
         var parseData: [MainModel.Recipe.ViewModel] = []
         data.meals.forEach { item in
-            parseData.append(MainModel.Recipe.ViewModel(titleText: item.name, thumbnailLink: item.thumbnailLink))
+            parseData.append(MainModel.Recipe.ViewModel(id: item.id ?? "", titleText: item.name, thumbnailLink: item.thumbnailLink))
         }
         
         return parseData

@@ -1,6 +1,6 @@
 import Foundation
 
-final class FetchingDataOperation<T>: Operation where T: Decodable {
+final class FetchingRecipesOperation<T>: Operation where T: Decodable {
     private let lockQueue = DispatchQueue(
         label: "com.swiftlee.asyncoperation",
         attributes: .concurrent
@@ -62,7 +62,7 @@ final class FetchingDataOperation<T>: Operation where T: Decodable {
     override func main() {
         guard let url = type.url else {
             completion(.failure(NetworkError.unableToMakeURL))
-            finish()
+//            finish()
             return
         }
 
@@ -79,11 +79,10 @@ final class FetchingDataOperation<T>: Operation where T: Decodable {
                 self.start()
                 return
             }
-
             do {
                 guard let data = data else {
                     self?.completion(.failure(NetworkError.noResponseData))
-                    self?.finish()
+//                    self?.finish()
                     return
                 }
 

@@ -20,11 +20,13 @@ final class RecipesViewController: UIViewController {
     // MARK: - LifeCycle
     init(
         router: RecipesRoutingLogic,
-        interactor: RecipesBusinessLogic
+        interactor: RecipesBusinessLogic,
+        data: MainModel.Recipe.Request
     ) {
         self.router = router
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
+        getData(data: data)
     }
     
     required init?(coder: NSCoder) {
@@ -32,11 +34,19 @@ final class RecipesViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         configureUI()
+        super.viewWillAppear(animated)
     }
     
     private func configureUI() {
         setupTableView()
+        title = "Your cookbook"
+    }
+
+    
+    func getData(data: MainModel.Recipe.Request) {
+        interactor.loadRecipies(data)
     }
     
     // MARK: - setup TableView
@@ -67,8 +77,11 @@ extension RecipesViewController: RecipesDisplayLogic {
     }
     
     func displayRecipes(_ viewModel: [MainModel.Recipe.ViewModel]) {
-        recipes = viewModel
-        tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return}
+            self.recipes = viewModel
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -98,6 +111,8 @@ extension RecipesViewController: UITableViewDelegate, UITableViewDataSource {
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+//        interactor.loadRecipeInfo(recipes[indexPath.row])
+        router.routeToRecipeInfoScreen(data: recipes[indexPath.row].id)
     }
     
     

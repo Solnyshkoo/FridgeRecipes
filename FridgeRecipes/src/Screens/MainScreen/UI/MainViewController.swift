@@ -13,12 +13,21 @@ final class MainViewController: UIViewController {
     }
     private lazy var searchBar: UISearchBar = factory.makeSearchBar()
     private lazy var resultCollectionView: UICollectionView = factory.makeResultCollectionView()
-    private lazy var suggestionScrollView = factory.makeSuggestionsScrollView()
+    private lazy var suggestionScrollView = factory.makeScrollView()
     private lazy var blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThinMaterial))
     private lazy var ingredientCollectionView: UICollectionView = factory.makeIngredientCollectionView()
     private lazy var ingredientSuggestionsStack: UIStackView = factory.makeIngredientSuggestionStackView()
     private lazy var ingredientSuggestionTitle: UILabel = factory.makeIngredientSuggestionTitle()
     private lazy var suggestionStackView: UIStackView = factory.makeSuggestionStackView()
+    private lazy var categoriesScrollView = factory.makeScrollView()
+    
+    private lazy var storiesScrollView = factory.makeScrollView()
+    private lazy var storiesStackView = factory.makeStoriesStackView()
+    
+    
+    private lazy var categoryStackView = factory.makeCategoryStackView()
+    private lazy var cusineStackView = factory.makeCusineStackView()
+    
     
     private var filters: String = ""
     
@@ -64,19 +73,20 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        super.viewWillDisappear(animated)
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+//        super.viewWillDisappear(animated)
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+//        view.backgroundColor = .red
         addSubviews()
         configureSearchBar()
         configureResultCollectionView()
-        configureScrollView()
+
         configureStackView()
+        configureScrollView()
         configureSuggestionsLayout()
         configureIngredientSuggestions()
         configureCollectionViewSources()
@@ -88,12 +98,23 @@ final class MainViewController: UIViewController {
         view.addSubview(resultCollectionView)
         view.addSubview(searchBar)
         view.addSubview(suggestionScrollView)
+        view.addSubview(categoriesScrollView)
+        view.addSubview(categoryStackView)
+        view.addSubview(cusineStackView)
+        
+        categoriesScrollView.addSubview(categoryStackView)
+        categoriesScrollView.addSubview(cusineStackView)
+//        categoriesScrollView.addSubview(storiesScrollView)
+        
         suggestionScrollView.addSubview(suggestionStackView)
 
         suggestionStackView.addArrangedSubview(ingredientSuggestionsStack)
         ingredientSuggestionsStack.addArrangedSubview(ingredientSuggestionTitle)
         ingredientSuggestionsStack.addArrangedSubview(ingredientCollectionView)
         
+        
+        view.addSubview(storiesScrollView)
+        storiesScrollView.addSubview(storiesStackView)
     }
     
     // MARK: - CollectionView Sources
@@ -130,18 +151,47 @@ final class MainViewController: UIViewController {
     
     private func configureScrollView() {
         suggestionScrollView.translatesAutoresizingMaskIntoConstraints = false
+        categoriesScrollView.translatesAutoresizingMaskIntoConstraints = false
+        storiesScrollView.translatesAutoresizingMaskIntoConstraints = false
+//        let height = 200 + categoryStackView.intrinsicContentSize.height + cusineStackView.intrinsicContentSize.height
         NSLayoutConstraint.activate([
             suggestionScrollView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             suggestionScrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
             suggestionScrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
             suggestionScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            storiesScrollView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            storiesScrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            storiesScrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            storiesScrollView.heightAnchor.constraint(equalToConstant: 200),
+            
+            categoriesScrollView.topAnchor.constraint(equalTo: storiesScrollView.bottomAnchor, constant: 20),
+            categoriesScrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            categoriesScrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            categoriesScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+//            storiesScrollView.topAnchor.constraint(equalTo: categoriesScrollView.topAnchor),
+//            storiesScrollView.leftAnchor.constraint(equalTo: categoriesScrollView.leftAnchor),
+//            storiesScrollView.rightAnchor.constraint(equalTo: categoriesScrollView.rightAnchor),
+//            storiesScrollView.bottomAnchor.constraint(equalTo: categoriesScrollView.topAnchor, constant: 200),
+//            storiesScrollView.heightAnchor.constraint(equalToConstant: 200),
         ])
+        
+        storiesScrollView.backgroundColor = .systemBackground
+        categoriesScrollView.backgroundColor = .systemBackground
+        
         suggestionScrollView.layer.opacity = 0
         suggestionScrollView.layer.isHidden = true
+//        categoriesScrollView.layer.isHidden = true
+        
     }
     
     private func configureStackView() {
+        categoryStackView.translatesAutoresizingMaskIntoConstraints = false
+        let offset = (UIScreen.main.bounds.width - categoryStackView.intrinsicContentSize.width) / 2
         suggestionStackView.translatesAutoresizingMaskIntoConstraints = false
+        storiesStackView.translatesAutoresizingMaskIntoConstraints = false
+        cusineStackView.translatesAutoresizingMaskIntoConstraints = false
         suggestionStackView.axis = .vertical
         suggestionStackView.distribution = .fill
         suggestionStackView.alignment = .fill
@@ -151,7 +201,25 @@ final class MainViewController: UIViewController {
             suggestionStackView.leftAnchor.constraint(equalTo: suggestionScrollView.leftAnchor),
             suggestionStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
             suggestionStackView.bottomAnchor.constraint(equalTo: suggestionScrollView.bottomAnchor),
+            
+            storiesStackView.topAnchor.constraint(equalTo: storiesScrollView.topAnchor),
+            storiesStackView.rightAnchor.constraint(equalTo: storiesScrollView.rightAnchor),
+            storiesStackView.bottomAnchor.constraint(equalTo: storiesScrollView.bottomAnchor),
+            storiesStackView.leftAnchor.constraint(equalTo: storiesScrollView.leftAnchor),
+            
+            categoryStackView.topAnchor.constraint(equalTo: categoriesScrollView.topAnchor),
+            categoryStackView.leadingAnchor.constraint(equalTo: categoriesScrollView.leadingAnchor, constant: offset),
+            categoryStackView.trailingAnchor.constraint(equalTo: categoriesScrollView.trailingAnchor, constant: -offset),
+            categoryStackView.heightAnchor.constraint(equalToConstant: categoryStackView.intrinsicContentSize.height),
+            cusineStackView.bottomAnchor.constraint(equalTo: categoriesScrollView.bottomAnchor),
+            
+            cusineStackView.leadingAnchor.constraint(equalTo: categoriesScrollView.leadingAnchor, constant: offset),
+            cusineStackView.trailingAnchor.constraint(equalTo: categoriesScrollView.trailingAnchor, constant: -offset),
+            cusineStackView.heightAnchor.constraint(equalToConstant: cusineStackView.intrinsicContentSize.height),
+            cusineStackView.topAnchor.constraint(equalTo: categoryStackView.bottomAnchor, constant: 20),
         ])
+        
+        
     }
     
     // MARK: - Ingredient Suggestions
@@ -217,17 +285,17 @@ extension MainViewController: MainDisplayLogic {
 //        view.backgroundColor = viewModel.color
     }
     
-    func displayRecipes(_ viewModel: [Model.Recipe.ViewModel]) {
+    func displayRecipes(_ viewModel: MainModel.Recipe.Request) {
         router.routeToRecipesScreen(data: viewModel)
 //        DispatchQueue.main.async { [weak self] in
 //            guard let self = self else {
 //                return
 //            }
-////            self.present(RecipesAssembly.build(data: viewModel), animated: true)
+//            self.present(RecipesAssembly.build(data: viewModel), animated: true)
 //            self.navigationController?.pushViewController(RecipesAssembly.build(data: viewModel), animated: true)
 //        }
 //
-////        self.view.navigationController?.pushViewController(RecipesAssembly.build(data: viewModel), animated: true)
+//        self.navigationController?.pushViewController(RecipesAssembly.build(data: viewModel), animated: true)
     }
 }
 
@@ -243,7 +311,8 @@ extension MainViewController: UISearchBarDelegate {
 //    }
 
     func searchBarSearchButtonClicked(_: UISearchBar) {
-        interactor.loadRecipies(MainModel.Recipe.Request(searchText: searchBar.nonOptionalText, productsFilter: []))
+        displayRecipes(MainModel.Recipe.Request(searchText: searchBar.nonOptionalText, productsFilter: []))
+//        interactor.loadRecipies(MainModel.Recipe.Request(searchText: searchBar.nonOptionalText, productsFilter: []))
 //        updateSuggestionLayout(isHidden: true)
     }
 

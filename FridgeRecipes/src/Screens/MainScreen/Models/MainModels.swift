@@ -34,6 +34,7 @@ enum MainModel {
         }
         
         struct ViewModel {
+            let id: String
             let titleText: String?
             let thumbnailLink: URL?
         }

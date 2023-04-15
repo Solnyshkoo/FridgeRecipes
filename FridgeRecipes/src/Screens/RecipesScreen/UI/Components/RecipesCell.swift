@@ -22,7 +22,7 @@ final class RecipesCell: UITableViewCell {
     private var animator: UIViewPropertyAnimator?
     private lazy var cellStack = makeStackView()
     private lazy var titleLabel = makeTitleLabel()
-    private lazy var imageViewl = makeImageView()
+    private lazy var imgView = makeImageView()
     private lazy var containerView = makeContainerView()
     private lazy var shadowLayer = makeShadowLayer()
     private lazy var indicator = makeActivityIndicator()
@@ -33,7 +33,7 @@ final class RecipesCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(cellStack)
         cellStack.addSubview(titleLabel)
-        cellStack.addSubview(imageViewl)
+        cellStack.addSubview(imgView)
         cellStack.addSubview(indicator)
         contentView.clipsToBounds = true
         configureStackView()
@@ -51,7 +51,7 @@ final class RecipesCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageViewl.image = nil
+        imgView.image = nil
         animator?.stopAnimation(true)
     }
     
@@ -72,7 +72,7 @@ final class RecipesCell: UITableViewCell {
         if animate {
             showImage(image: img)
         } else {
-            imageViewl.image = img
+            imgView.image = img
         }
     }
 
@@ -110,7 +110,7 @@ final class RecipesCell: UITableViewCell {
         )
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        label.font = UIFont.systemFont(ofSize: Constants.titleFontSize, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         return label
     }
 
@@ -128,6 +128,7 @@ final class RecipesCell: UITableViewCell {
         image.contentMode = .scaleAspectFill
         return image
     }
+
 
     func makeContainerView() -> UIView {
         let view = UIView()
@@ -161,12 +162,12 @@ final class RecipesCell: UITableViewCell {
     
     // MARK: - Picture
     private func showImage(image: UIImage?) {
-        imageViewl.alpha = 0.0
+        imgView.alpha = 0.0
         animator?.stopAnimation(false)
-        imageViewl.image = image
+        imgView.image = image
         animator = UIViewPropertyAnimator.runningPropertyAnimator(
             withDuration: 0.5, delay: 0, options: .curveLinear, animations: {
-                self.imageViewl.alpha = 1.0
+                self.imgView.alpha = 1.0
             }
         )
     }

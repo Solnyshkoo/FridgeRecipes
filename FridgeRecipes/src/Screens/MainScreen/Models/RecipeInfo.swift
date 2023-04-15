@@ -2,7 +2,7 @@ import Foundation
 
 struct RecipeInfo {
     // always present
-    let id: String // idMeal
+    let id: String? // idMeal
 
     // can be absent in some cases
     let name: String? // strMeal
@@ -54,67 +54,66 @@ extension RecipeInfo: Decodable {
             $0.components(separatedBy: ",")
         }
 
-//        var localIngredients: [Ingredient] = []
-//
-////        let otherContainer = try decoder.container(keyedBy: GenericCodingKeys.self)
-//        let decodedKeysCommon = RequiredCodingKeys.allCases.map(\.rawValue)
-//        let decodedKeysCustom = OptionalCodingKeys.allCases.map(\.rawValue)
+        var localIngredients: [Ingredient] = []
 
-//        let filteredKeys = otherContainer.allKeys.filter {
-//            !decodedKeysCommon.contains($0.stringValue) && !decodedKeysCustom
-//                .contains($0.stringValue)
-//        }
+        let otherContainer = try decoder.container(keyedBy: GenericCodingKeys.self)
+        let decodedKeysCommon = RequiredCodingKeys.allCases.map(\.rawValue)
+        let decodedKeysCustom = OptionalCodingKeys.allCases.map(\.rawValue)
 
-        // assuming return when having only RequiredCodingKeys
-//        guard !filteredKeys.isEmpty else {
-//            ingredients = nil
-//            return
-//        }
+        let filteredKeys = otherContainer.allKeys.filter {
+            !decodedKeysCommon.contains($0.stringValue) && !decodedKeysCustom
+                .contains($0.stringValue)
+        }
 
-//        let filteredKeysNames = filteredKeys.map(\.stringValue)
+//         assuming return when having only RequiredCodingKeys
+        guard !filteredKeys.isEmpty else {
+            ingredients = nil
+            return
+        }
 
-//        for num in 1...20 {
-//            let ingredientKeyName = "strIngredient\(num)"
-//            let measureKeyName = "strMeasure\(num)"
-//            guard filteredKeysNames.contains(ingredientKeyName),
-//                  filteredKeysNames.contains(measureKeyName) else {
-//                ingredients = nil
-//                assertionFailure("Unexpected data format")
-//                return
-//            }
-//            if let ingredientKey = GenericCodingKeys(stringValue: ingredientKeyName),
-//               let measureKey = GenericCodingKeys(stringValue: measureKeyName) {
-//                guard let ingredientName = try? otherContainer.decode(
-//                    String.self, forKey: ingredientKey
-//                ).trimmingCharacters(in: .whitespaces) else {
-//                    break // found end of ingredient list
-//                }
-//                guard let measure = try? otherContainer.decode(
-//                    String.self, forKey: measureKey
-//                ) else {
-//                    assertionFailure("Missing required JSON property: \(measureKeyName)")
-//                    break
-//                }
-//
-//                // Measure able to be empty (or whitespace) while corresponding ingredient not. id for testing: 53000
-//                if ingredientName.isEmpty,
-//                   measure.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-//                    break // found end of ingredient list
-//                }
-//
-//                assert(
-//                    !ingredientName.isEmpty,
-//                    "Inconsistency in data: \(ingredientKeyName) and \(measureKeyName)"
-//                )
-//                let ingredient = Ingredient(
-//                    name: ingredientName,
-//                    measure: measure.isEmpty ? nil : measure
-//                )
-//                localIngredients.append(ingredient)
-//            }
-//        }
-//        ingredients = localIngredients.isEmpty ? nil : localIngredients
-        ingredients = []
+        let filteredKeysNames = filteredKeys.map(\.stringValue)
+
+        for num in 1...20 {
+            let ingredientKeyName = "strIngredient\(num)"
+            let measureKeyName = "strMeasure\(num)"
+            guard filteredKeysNames.contains(ingredientKeyName),
+                  filteredKeysNames.contains(measureKeyName) else {
+                ingredients = nil
+                assertionFailure("Unexpected data format")
+                return
+            }
+            if let ingredientKey = GenericCodingKeys(stringValue: ingredientKeyName),
+               let measureKey = GenericCodingKeys(stringValue: measureKeyName) {
+                guard let ingredientName = try? otherContainer.decode(
+                    String.self, forKey: ingredientKey
+                ).trimmingCharacters(in: .whitespaces) else {
+                    break // found end of ingredient list
+                }
+                guard let measure = try? otherContainer.decode(
+                    String.self, forKey: measureKey
+                ) else {
+                    assertionFailure("Missing required JSON property: \(measureKeyName)")
+                    break
+                }
+
+                // Measure able to be empty (or whitespace) while corresponding ingredient not. id for testing: 53000
+                if ingredientName.isEmpty,
+                   measure.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    break // found end of ingredient list
+                }
+
+                assert(
+                    !ingredientName.isEmpty,
+                    "Inconsistency in data: \(ingredientKeyName) and \(measureKeyName)"
+                )
+                let ingredient = Ingredient(
+                    name: ingredientName,
+                    measure: measure.isEmpty ? nil : measure
+                )
+                localIngredients.append(ingredient)
+            }
+        }
+        ingredients = localIngredients.isEmpty ? nil : localIngredients
     }
 }
 
@@ -122,3 +121,18 @@ struct Ingredient: Decodable {
     let name: String
     let measure: String?
 }
+
+final class GenericCodingKeys: CodingKey {
+    var stringValue: String
+    var intValue: Int?
+
+    required init?(stringValue: String) {
+        self.stringValue = stringValue
+    }
+
+    required init?(intValue: Int) {
+        self.intValue = intValue
+        stringValue = "\(intValue)"
+    }
+}
+//https://api.edamam.com/api/nutrition-data?app_id=96ee078b&app_key=e3520d3059623ef422c7a259abb9025e&nutrition-type=logging&ingr=1.5kg%20Potatoes#imageLiteral(resourceName: "Снимок экрана 2023-04-13 в 00.46.36.png")

@@ -14,24 +14,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        guard let scene = (scene as? UIWindowScene) else { return }
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
+        let defaults = UserDefaults.standard
         
-        let tabBar = UITabBarController()
-        let mainScreen = MainAssembly.build()
-        let personalScreen = PersonalViewController() // FIXME: - Assembly
-
-        tabBar.setViewControllers([mainScreen, personalScreen], animated: false)
-
-        let items = tabBar.tabBar.items!
-//        let titles = ["Search", "Personal"]
-        let imageTitles = ["magnifyingglass", "person"]
-        for i in 0 ..< 2 {
-            items[i].image = UIImage(systemName: imageTitles[i])
+        var vc: UIViewController
+        
+        guard let name = defaults.string(forKey: "name"),
+              let age = defaults.string(forKey: "age"),
+              let gender = defaults.string(forKey: "gender"),
+              let level = defaults.string(forKey: "level")
+        else {
+            vc = RegistrationAssembly.build()
+            let nav = UINavigationController(rootViewController: vc)
+            window.rootViewController = nav
+            self.window = window
+            window.makeKeyAndVisible()
+            return
         }
-        tabBar.tabBar.backgroundColor = UIColor.systemBrown
-        tabBar.tabBar.tintColor = .white
-        tabBar.tabBar.barTintColor = .cyan
 
-        let nav = UINavigationController(rootViewController: tabBar)
+        vc = TabBar(userInfo: RegistrationInfo.ViewModel(name: name, age: age, sex: gender, level: level))
+        let nav = UINavigationController(rootViewController: vc)
         window.rootViewController = nav
         self.window = window
 

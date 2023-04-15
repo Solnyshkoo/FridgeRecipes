@@ -2,6 +2,7 @@ import Foundation
 
 final class MainWorker: MainWorkerLogic {
     private lazy var opQueue = FetchingOperations()
+    
     func doSomething() {
     }
     
@@ -12,13 +13,13 @@ final class MainWorker: MainWorkerLogic {
 //         self.service = service
 //     }
     
-    func loadRecipesByName(name: String, completion: @escaping MealsCompletion) {
-        let getMealByName = FetchingDataOperation(
-            type: .mealsByName(name: name),
-            completion: completion
-        )
-        opQueue.fetchingQueue.addOperation(getMealByName)
-    }
+//    func loadRecipesByName(name: String, completion: @escaping MealsCompletion) {
+//        let getMealByName = FetchingRecipesOperation(
+//            type: .mealsByName(name: name),
+//            completion: completion
+//        )
+//        opQueue.fetchingQueue.addOperation(getMealByName)
+//    }
     
     func loadRecipesByIngredient() {
         
