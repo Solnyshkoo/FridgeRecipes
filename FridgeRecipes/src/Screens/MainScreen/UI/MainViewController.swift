@@ -66,6 +66,7 @@ final class MainViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         blurView.frame = view.frame
+//        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,10 +74,10 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
     }
 
-//    override func viewWillDisappear(_ animated: Bool) {
-//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-//        super.viewWillDisappear(animated)
-//    }
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        super.viewWillDisappear(animated)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -186,12 +187,36 @@ final class MainViewController: UIViewController {
         
     }
     
+    @objc
+    func openStories(_ sender: UITapGestureRecognizer) {
+        router.routeToStories()
+    }
+    
+    @objc
+    func openRecipesByCuisine(_ sender: UITapGestureRecognizer) {
+        router.routeToRecipesScreen(data: RequestType.mealByCuisine(cuisine: "French"), titleText: "French")
+    }
+    
+    @objc
+    func openRecipesByCategory(_ sender: UITapGestureRecognizer) {
+        router.routeToRecipesScreen(data: RequestType.mealByCategory(category: "Dessert"), titleText: "Dessert")
+    }
+    
     private func configureStackView() {
         categoryStackView.translatesAutoresizingMaskIntoConstraints = false
         let offset = (UIScreen.main.bounds.width - categoryStackView.intrinsicContentSize.width) / 2
         suggestionStackView.translatesAutoresizingMaskIntoConstraints = false
         storiesStackView.translatesAutoresizingMaskIntoConstraints = false
         cusineStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        storiesStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openStories(_:))))
+        cusineStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openRecipesByCuisine(_:))))
+        categoryStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openRecipesByCategory(_:))))
+        
+        storiesStackView.isUserInteractionEnabled = true
+        cusineStackView.isUserInteractionEnabled = true
+        categoryStackView.isUserInteractionEnabled = true
+        
         suggestionStackView.axis = .vertical
         suggestionStackView.distribution = .fill
         suggestionStackView.alignment = .fill
@@ -211,8 +236,8 @@ final class MainViewController: UIViewController {
             categoryStackView.leadingAnchor.constraint(equalTo: categoriesScrollView.leadingAnchor, constant: offset),
             categoryStackView.trailingAnchor.constraint(equalTo: categoriesScrollView.trailingAnchor, constant: -offset),
             categoryStackView.heightAnchor.constraint(equalToConstant: categoryStackView.intrinsicContentSize.height),
-            cusineStackView.bottomAnchor.constraint(equalTo: categoriesScrollView.bottomAnchor),
             
+            cusineStackView.bottomAnchor.constraint(equalTo: categoriesScrollView.bottomAnchor),
             cusineStackView.leadingAnchor.constraint(equalTo: categoriesScrollView.leadingAnchor, constant: offset),
             cusineStackView.trailingAnchor.constraint(equalTo: categoriesScrollView.trailingAnchor, constant: -offset),
             cusineStackView.heightAnchor.constraint(equalToConstant: cusineStackView.intrinsicContentSize.height),
@@ -286,16 +311,7 @@ extension MainViewController: MainDisplayLogic {
     }
     
     func displayRecipes(_ viewModel: MainModel.Recipe.Request) {
-        router.routeToRecipesScreen(data: viewModel)
-//        DispatchQueue.main.async { [weak self] in
-//            guard let self = self else {
-//                return
-//            }
-//            self.present(RecipesAssembly.build(data: viewModel), animated: true)
-//            self.navigationController?.pushViewController(RecipesAssembly.build(data: viewModel), animated: true)
-//        }
-//
-//        self.navigationController?.pushViewController(RecipesAssembly.build(data: viewModel), animated: true)
+        router.routeToRecipesScreen(data: RequestType.mealsByName(name: viewModel.searchText), titleText: searchBar.nonOptionalText)
     }
 }
 

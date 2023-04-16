@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E06CBC629EC0F3D00AC0BE4 /* NothingFoundStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CBC529EC0F3D00AC0BE4 /* NothingFoundStack.swift */; };
+		5E06CBD929EC5B4C00AC0BE4 /* StoriesProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CBD829EC5B4C00AC0BE4 /* StoriesProtocols.swift */; };
+		5E06CBDB29EC5B6400AC0BE4 /* StoriesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CBDA29EC5B6400AC0BE4 /* StoriesModels.swift */; };
+		5E06CBDD29EC5C0100AC0BE4 /*  StoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CBDC29EC5C0100AC0BE4 /*  StoriesViewController.swift */; };
+		5E06CBE029EC5C5F00AC0BE4 /* StoriesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CBDF29EC5C5F00AC0BE4 /* StoriesScrollView.swift */; };
+		5E06CBE229EC5C7700AC0BE4 /* StackViewStories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CBE129EC5C7700AC0BE4 /* StackViewStories.swift */; };
+		5E4CA51129EAEB3D00EED734 /* NutritionMainInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA51029EAEB3D00EED734 /* NutritionMainInfoView.swift */; };
+		5E4CA51329EAEB5400EED734 /* NutritionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA51229EAEB5400EED734 /* NutritionInfoView.swift */; };
+		5E4CA51529EAEB8C00EED734 /* NutritionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA51429EAEB8C00EED734 /* NutritionFactory.swift */; };
+		5E4CA51729EAEE7700EED734 /* CaloriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA51629EAEE7700EED734 /* CaloriesView.swift */; };
+		5E4CA53229EB2D3200EED734 /* PersonalRecipesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA53129EB2D3200EED734 /* PersonalRecipesRouter.swift */; };
+		5E4CA53429EB2D4D00EED734 /* PersonalRecipesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA53329EB2D4D00EED734 /* PersonalRecipesAssembly.swift */; };
+		5E4CA53629EB2D6500EED734 /* PersonalRecipesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA53529EB2D6500EED734 /* PersonalRecipesWorker.swift */; };
+		5E4CA53829EB2D7D00EED734 /* PersonalRecipesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA53729EB2D7D00EED734 /* PersonalRecipesPresenter.swift */; };
+		5E4CA53A29EB2D9400EED734 /* PersonalRecipesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA53929EB2D9400EED734 /* PersonalRecipesInteractor.swift */; };
+		5E4CA53C29EB2DB300EED734 /* PersonalRecipesProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA53B29EB2DB300EED734 /* PersonalRecipesProtocols.swift */; };
+		5E4CA53E29EB2DCD00EED734 /* PersonalRecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA53D29EB2DCD00EED734 /* PersonalRecipesViewController.swift */; };
+		5E4CA54029EBF0F500EED734 /* RewardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA53F29EBF0F500EED734 /* RewardCell.swift */; };
 		5E9CBF3929D9E0FC00271B40 /* MainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CBF3829D9E0FC00271B40 /* MainModels.swift */; };
 		5E9CBF3B29D9E20600271B40 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CBF3A29D9E20600271B40 /* MainAssembly.swift */; };
 		5E9CBF3D29D9E22300271B40 /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CBF3C29D9E22300271B40 /* MainInteractor.swift */; };
@@ -89,6 +107,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E06CBC529EC0F3D00AC0BE4 /* NothingFoundStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NothingFoundStack.swift; sourceTree = "<group>"; };
+		5E06CBD829EC5B4C00AC0BE4 /* StoriesProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesProtocols.swift; sourceTree = "<group>"; };
+		5E06CBDA29EC5B6400AC0BE4 /* StoriesModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesModels.swift; sourceTree = "<group>"; };
+		5E06CBDC29EC5C0100AC0BE4 /*  StoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " StoriesViewController.swift"; sourceTree = "<group>"; };
+		5E06CBDF29EC5C5F00AC0BE4 /* StoriesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesScrollView.swift; sourceTree = "<group>"; };
+		5E06CBE129EC5C7700AC0BE4 /* StackViewStories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewStories.swift; sourceTree = "<group>"; };
+		5E4CA51029EAEB3D00EED734 /* NutritionMainInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionMainInfoView.swift; sourceTree = "<group>"; };
+		5E4CA51229EAEB5400EED734 /* NutritionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionInfoView.swift; sourceTree = "<group>"; };
+		5E4CA51429EAEB8C00EED734 /* NutritionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionFactory.swift; sourceTree = "<group>"; };
+		5E4CA51629EAEE7700EED734 /* CaloriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesView.swift; sourceTree = "<group>"; };
+		5E4CA53129EB2D3200EED734 /* PersonalRecipesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecipesRouter.swift; sourceTree = "<group>"; };
+		5E4CA53329EB2D4D00EED734 /* PersonalRecipesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecipesAssembly.swift; sourceTree = "<group>"; };
+		5E4CA53529EB2D6500EED734 /* PersonalRecipesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecipesWorker.swift; sourceTree = "<group>"; };
+		5E4CA53729EB2D7D00EED734 /* PersonalRecipesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecipesPresenter.swift; sourceTree = "<group>"; };
+		5E4CA53929EB2D9400EED734 /* PersonalRecipesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecipesInteractor.swift; sourceTree = "<group>"; };
+		5E4CA53B29EB2DB300EED734 /* PersonalRecipesProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecipesProtocols.swift; sourceTree = "<group>"; };
+		5E4CA53D29EB2DCD00EED734 /* PersonalRecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecipesViewController.swift; sourceTree = "<group>"; };
+		5E4CA53F29EBF0F500EED734 /* RewardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardCell.swift; sourceTree = "<group>"; };
 		5E9CBF3829D9E0FC00271B40 /* MainModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModels.swift; sourceTree = "<group>"; };
 		5E9CBF3A29D9E20600271B40 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
 		5E9CBF3C29D9E22300271B40 /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
@@ -183,6 +219,88 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E06CBD429EC5B0600AC0BE4 /* StoriesScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5E06CBD729EC5B3C00AC0BE4 /* Protocols */,
+				5E06CBD629EC5B3400AC0BE4 /* UI */,
+				5E06CBD529EC5B2600AC0BE4 /* Models */,
+			);
+			path = StoriesScreen;
+			sourceTree = "<group>";
+		};
+		5E06CBD529EC5B2600AC0BE4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5E06CBDA29EC5B6400AC0BE4 /* StoriesModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5E06CBD629EC5B3400AC0BE4 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5E06CBDE29EC5C5200AC0BE4 /* Components */,
+				5E06CBDC29EC5C0100AC0BE4 /*  StoriesViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		5E06CBD729EC5B3C00AC0BE4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5E06CBD829EC5B4C00AC0BE4 /* StoriesProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		5E06CBDE29EC5C5200AC0BE4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				5E06CBDF29EC5C5F00AC0BE4 /* StoriesScrollView.swift */,
+				5E06CBE129EC5C7700AC0BE4 /* StackViewStories.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		5E4CA52D29EB2D0D00EED734 /* PersonalRecipesScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5E4CA53029EB2D2400EED734 /* UI */,
+				5E4CA52F29EB2D1E00EED734 /* Protocols */,
+				5E4CA52E29EB2D1600EED734 /* Models */,
+				5E4CA53129EB2D3200EED734 /* PersonalRecipesRouter.swift */,
+				5E4CA53329EB2D4D00EED734 /* PersonalRecipesAssembly.swift */,
+				5E4CA53529EB2D6500EED734 /* PersonalRecipesWorker.swift */,
+				5E4CA53729EB2D7D00EED734 /* PersonalRecipesPresenter.swift */,
+				5E4CA53929EB2D9400EED734 /* PersonalRecipesInteractor.swift */,
+			);
+			path = PersonalRecipesScreen;
+			sourceTree = "<group>";
+		};
+		5E4CA52E29EB2D1600EED734 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5E4CA52F29EB2D1E00EED734 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5E4CA53B29EB2DB300EED734 /* PersonalRecipesProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		5E4CA53029EB2D2400EED734 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5E4CA53D29EB2DCD00EED734 /* PersonalRecipesViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		5E9CBF3229D9DF9000271B40 /* src */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +313,8 @@
 		5E9CBF3329D9DFA300271B40 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				5E06CBD429EC5B0600AC0BE4 /* StoriesScreen */,
+				5E4CA52D29EB2D0D00EED734 /* PersonalRecipesScreen */,
 				5EF9F56229E9C6EA009D2ABD /* RegistrationView */,
 				5EB27FE629E7414900866252 /* NutritionScreen */,
 				5EB27FC729E7064B00866252 /* RecipeInfoScreen */,
@@ -390,6 +510,7 @@
 			children = (
 				5EB27FEA29E7429000866252 /* Components */,
 				5EB27FE429E740E700866252 /* NutritionViewController.swift */,
+				5E4CA51429EAEB8C00EED734 /* NutritionFactory.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -405,6 +526,9 @@
 		5EB27FEA29E7429000866252 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				5E4CA51029EAEB3D00EED734 /* NutritionMainInfoView.swift */,
+				5E4CA51229EAEB5400EED734 /* NutritionInfoView.swift */,
+				5E4CA51629EAEE7700EED734 /* CaloriesView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -469,6 +593,7 @@
 			isa = PBXGroup;
 			children = (
 				5ECB79CC29E2D2730094CE81 /* RecipesCell.swift */,
+				5E06CBC529EC0F3D00AC0BE4 /* NothingFoundStack.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -505,6 +630,7 @@
 			children = (
 				5ECB7A0829E6CABF0094CE81 /* PersonalInfoView.swift */,
 				5EB27FC529E6F93D00866252 /* PersonalContainerView.swift */,
+				5E4CA53F29EBF0F500EED734 /* RewardCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -637,16 +763,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E06CBDB29EC5B6400AC0BE4 /* StoriesModels.swift in Sources */,
 				5E9CBF4F29DB352900271B40 /* IngredientSuggestionCell.swift in Sources */,
 				5ECB7A0029E6A66E0094CE81 /* CategoryStackView.swift in Sources */,
 				5EB27FD729E7073200866252 /* RecipeInfoAssembly.swift in Sources */,
 				5E9CBF4629DB05DA00271B40 /* MainProtocols.swift in Sources */,
 				5ECB7A0C29E6CBAD0094CE81 /* UserInfo.swift in Sources */,
+				5E4CA53629EB2D6500EED734 /* PersonalRecipesWorker.swift in Sources */,
 				5E9CBF4D29DB162E00271B40 /* API service.swift in Sources */,
 				5EAFA49D29C8BB1600F453EC /* ViewController.swift in Sources */,
 				5ECB79D529E371CF0094CE81 /* StoriesStackView.swift in Sources */,
 				5EB27FCF29E706E300866252 /* RecipeInfoWorker.swift in Sources */,
 				5ECB79C629E2CB600094CE81 /* RecipesInteractor.swift in Sources */,
+				5E4CA53A29EB2D9400EED734 /* PersonalRecipesInteractor.swift in Sources */,
+				5E06CBE229EC5C7700AC0BE4 /* StackViewStories.swift in Sources */,
+				5E4CA51729EAEE7700EED734 /* CaloriesView.swift in Sources */,
 				5ECB79CD29E2D2730094CE81 /* RecipesCell.swift in Sources */,
 				5EAFA49929C8BB1600F453EC /* AppDelegate.swift in Sources */,
 				5EF9F56B29E9C774009D2ABD /* RegistrationInteractor.swift in Sources */,
@@ -656,12 +787,17 @@
 				5EF9F56729E9C746009D2ABD /* RegistrationRouter.swift in Sources */,
 				5EB27FE129E7171600866252 /* RecipeInfoModel.swift in Sources */,
 				5E9CBF5629DC7C3500271B40 /* IngredientSuggestion.swift in Sources */,
+				5E06CBDD29EC5C0100AC0BE4 /*  StoriesViewController.swift in Sources */,
 				5EB27FEE29E7448600866252 /* NutritionInteractor.swift in Sources */,
+				5E4CA53C29EB2DB300EED734 /* PersonalRecipesProtocols.swift in Sources */,
 				5EF9F57029E9C7A2009D2ABD /* RegistrationAssembly.swift in Sources */,
 				5E9CBF3F29D9E27500271B40 /* MainPresenter.swift in Sources */,
 				5EF9F56929E9C75A009D2ABD /* RegistrationWorker.swift in Sources */,
 				5EB27FD929E70E6B00866252 /* RecipeInfoProtocols.swift in Sources */,
+				5E4CA53E29EB2DCD00EED734 /* PersonalRecipesViewController.swift in Sources */,
 				5EB27FDF29E713A200866252 /* RoundButtonWithBlur.swift in Sources */,
+				5E4CA51329EAEB5400EED734 /* NutritionInfoView.swift in Sources */,
+				5E4CA53829EB2D7D00EED734 /* PersonalRecipesPresenter.swift in Sources */,
 				5EB27FD529E7072000866252 /* RecipeInfoPresenter.swift in Sources */,
 				5ECB79C229E2CA330094CE81 /* RecipesPresenter.swift in Sources */,
 				5ECB79C829E2CB870094CE81 /* RecipesRouter.swift in Sources */,
@@ -670,9 +806,12 @@
 				5ECB79B629E1DA350094CE81 /* FoodRequestUtils.swift in Sources */,
 				5EB27FD329E7071200866252 /* RecipeInfoInteractor.swift in Sources */,
 				5EB27FF629E744FD00866252 /* NutritionModel.swift in Sources */,
+				5E4CA54029EBF0F500EED734 /* RewardCell.swift in Sources */,
 				5EB27FF029E7449A00866252 /* NutritionPresenter.swift in Sources */,
 				5EB27FF429E744D300866252 /* NutritionProtocols.swift in Sources */,
+				5E4CA53229EB2D3200EED734 /* PersonalRecipesRouter.swift in Sources */,
 				5EB27FC629E6F93D00866252 /* PersonalContainerView.swift in Sources */,
+				5E4CA53429EB2D4D00EED734 /* PersonalRecipesAssembly.swift in Sources */,
 				5EF9F57729E9CB0C009D2ABD /* RegistrationViewController.swift in Sources */,
 				5EF9F58329E9CF33009D2ABD /* PersonalWorker.swift in Sources */,
 				5EF9F56D29E9C789009D2ABD /* RegistrationPresenter.swift in Sources */,
@@ -680,7 +819,9 @@
 				5EB27FF229E744AF00866252 /* NutritionAssembly.swift in Sources */,
 				5EAFA49B29C8BB1600F453EC /* SceneDelegate.swift in Sources */,
 				5EB27FE329E71C9700866252 /* LoadingSplashScreen.swift in Sources */,
+				5E06CBE029EC5C5F00AC0BE4 /* StoriesScrollView.swift in Sources */,
 				5E9CBF4A29DB125C00271B40 /* MainWorker.swift in Sources */,
+				5E4CA51529EAEB8C00EED734 /* NutritionFactory.swift in Sources */,
 				5EB27FDD29E7138300866252 /* LikeButton.swift in Sources */,
 				5EB27FD129E706F600866252 /* RecipeInfoRouter.swift in Sources */,
 				5ECB79B229E1D8400094CE81 /* NetworkError.swift in Sources */,
@@ -697,6 +838,8 @@
 				5EF9F58629E9CF53009D2ABD /* PersonalProtocols.swift in Sources */,
 				5ECB7A0E29E6CD340094CE81 /* RewardViewController.swift in Sources */,
 				5E9CBF4829DB114500271B40 /* MainScreenFactory.swift in Sources */,
+				5E06CBD929EC5B4C00AC0BE4 /* StoriesProtocols.swift in Sources */,
+				5E4CA51129EAEB3D00EED734 /* NutritionMainInfoView.swift in Sources */,
 				5ECB79D329E33ADA0094CE81 /* PersonalViewController.swift in Sources */,
 				5E9CBF3929D9E0FC00271B40 /* MainModels.swift in Sources */,
 				5EF9F58129E9CF0F009D2ABD /* PersonalPresenter.swift in Sources */,
@@ -711,6 +854,7 @@
 				5ECB79C429E2CA470094CE81 /* RecipesProtocols.swift in Sources */,
 				5EB27FEC29E7445900866252 /* NutritionWorker.swift in Sources */,
 				5ECB79C029E2C9F20094CE81 /* RecipesAssembly.swift in Sources */,
+				5E06CBC629EC0F3D00AC0BE4 /* NothingFoundStack.swift in Sources */,
 				5E9CBF4329D9E2C900271B40 /* MainViewController.swift in Sources */,
 				5EB27FE529E740E700866252 /* NutritionViewController.swift in Sources */,
 			);

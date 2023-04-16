@@ -38,6 +38,7 @@ final class RecipeInfoViewController: UIViewController {
 
     // используется в extension UIScrollViewDelegate
     private var previousStatusBarHidden = false
+    private var recipeInfo: RecipeInfo = RecipeInfo()
     
     // MARK: - LifeCycle
     init(
@@ -99,6 +100,23 @@ final class RecipeInfoViewController: UIViewController {
     
     // executes when like button is pressed
     @objc private func updateLike(_ sender: LikeButton) {
+        if sender.isLiked {
+            let index = PersonalViewController.userInfo.favoriteRecipes.firstIndex { item in
+                item.id == recipeInfo.id
+            }
+            guard let index = index else {
+                return
+            }
+            PersonalViewController.userInfo.favoriteRecipes.remove(at: index)
+        } else {
+            PersonalViewController.userInfo.favoriteRecipes.append(
+                MainModel.Recipe.ViewModel(
+                    id: recipeInfo.id ?? "",
+                    titleText: recipeInfo.name,
+                    thumbnailLink: recipeInfo.thumbnailLink
+                )
+            )
+        }
         sender.isLiked = !sender.isLiked
 //        if preloadedMeal != nil {
 //            preloadedMeal!.isLiked = sender.isLiked
@@ -107,6 +125,23 @@ final class RecipeInfoViewController: UIViewController {
 //        }
     }
     @objc private func updateCooked(_ sender: CookedButton) {
+        if sender.isCooked {
+            let index = PersonalViewController.userInfo.cookedRecipes.firstIndex { item in
+                item.id == recipeInfo.id
+            }
+            guard let index = index else {
+                return
+            }
+            PersonalViewController.userInfo.cookedRecipes.remove(at: index)
+        } else {
+            PersonalViewController.userInfo.cookedRecipes.append(
+                MainModel.Recipe.ViewModel(
+                    id: recipeInfo.id ?? "",
+                    titleText: recipeInfo.name,
+                    thumbnailLink: recipeInfo.thumbnailLink
+                )
+            )
+        }
         sender.isCooked = !sender.isCooked
 //        if preloadedMeal != nil {
 //            preloadedMeal!.isLiked = sender.isLiked
@@ -270,6 +305,18 @@ final class RecipeInfoViewController: UIViewController {
     private func configureButtons() {
         likeButton.addTarget(self, action: #selector(updateLike), for: .touchUpInside)
         cookedButton.addTarget(self, action: #selector(updateCooked), for: .touchUpInside)
+
+    }
+    
+    private func updateButtons() {
+        let k = PersonalViewController.userInfo.favoriteRecipes.contains(where: { item in
+            item.id == recipeInfo.id
+        })
+        likeButton.isLiked = k
+        
+        cookedButton.isCooked = PersonalViewController.userInfo.cookedRecipes.contains(where: { item in
+            item.id == recipeInfo.id
+        })
     }
 
 //    private func configureCloseButton() {
@@ -335,6 +382,8 @@ extension RecipeInfoViewController: RecipeInfoDisplayLogic {
                 return
             }
             
+            self.recipeInfo = viewModel
+            self.updateButtons()
             self.likeButton.isHidden = false
 
             self.cookedButton.isHidden = false

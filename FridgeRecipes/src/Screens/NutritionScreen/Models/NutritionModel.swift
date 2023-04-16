@@ -2,30 +2,15 @@ import UIKit
 
 enum NutritionModel {
     // MARK: Use cases
-    enum Start {
-        struct Request {
-            let text: String
-        }
-        
-        struct Response: Decodable{
-            enum CodingKeys: String, CodingKey {
-                case meals
-            }
-
-            let meals: [RecipeInfo]
-        }
-        
-        struct ViewModel { }
+    struct Request {
+        let text: String
     }
     
-    enum Action {
-        struct Request
-        {}
-
-        struct Response
-        {}
-
-        struct ViewModel
-        {}
+    struct Response: Decodable {
     }
+    
+    struct ViewModel {
+        
+    }
+   
 }

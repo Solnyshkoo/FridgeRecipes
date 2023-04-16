@@ -13,6 +13,6 @@ final class NutritionInteractor: NutritionBusinessLogic {
     }
 
     // MARK: - BusinessLogic
-    func loadNutritionInfo(_ request: Model.Start.Request) {
+    func loadNutritionInfo(_ request: Model.Request) {
     }
 }

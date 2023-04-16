@@ -11,6 +11,6 @@ final class NutritionPresenter: NutritionPresentationLogic {
     weak var view: NutritionDisplayLogic?
 
     // MARK: - PresentationLogic
-    func presentNutritionInfo(_ response: Model.Start.Response) {
+    func presentNutritionInfo(_ response: Model.Response) {
     }
 }

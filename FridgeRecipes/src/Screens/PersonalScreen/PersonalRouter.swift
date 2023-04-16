@@ -19,5 +19,61 @@ final class PersonalRouter: PersonalRoutingLogic {
             self.view?.present(vc, animated: true, completion: nil)
         }
     }
+    
+    func routeToRewards(interactor: PersonalBusinessLogic) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            let vc = RewardViewController(
+                interactor: interactor
+            )
+            if let sheet = vc.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+                sheet.largestUndimmedDetentIdentifier = .medium
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+                sheet.prefersGrabberVisible = true
+            }
+            
+            self.view?.present(vc, animated: true, completion: nil)
+        }
+    }
+    
+    func routeToNutritionScreen(data: String) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            let vc = NutritionAssembly.build(data: data)
+            if let sheet = vc.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+                sheet.largestUndimmedDetentIdentifier = .medium
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+                sheet.prefersGrabberVisible = true
+            }
+            
+            self.view?.present(vc, animated: true, completion: nil)
+        }
+//            self.view?.navigationController?.pushViewController(NutritionAssembly.build(data: data), animated: true)
+//        }
+    }
+    
+    func routeToCookedRecipesScreen(data: [MainModel.Recipe.ViewModel]) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.view?.navigationController?.pushViewController(PersonalRecipesAssembly.build(data: data, title: "Your cookbook"), animated: true)
+        }
+    }
+    
+    func routeToFavoriteRecilesScreen(data: [MainModel.Recipe.ViewModel]) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.view?.navigationController?.pushViewController(PersonalRecipesAssembly.build(data: data, title: "Favorite"), animated: true)
+        }
+    }
 }
 

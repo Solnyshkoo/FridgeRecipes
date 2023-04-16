@@ -20,7 +20,8 @@ protocol MainDisplayLogic: AnyObject {
 }
 
 protocol MainRoutingLogic {
-    func routeToRecipesScreen(data: MainModel.Recipe.Request)
+    func routeToRecipesScreen(data: RequestType, titleText: String)
+    func routeToStories()
 }
 
 protocol MainWorkerLogic {

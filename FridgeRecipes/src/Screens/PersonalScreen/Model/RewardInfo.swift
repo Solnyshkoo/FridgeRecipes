@@ -9,6 +9,6 @@ enum RewardInfo {
 
     struct ViewModel {
         let rewardText: String
-        let rewardImage: UIImage
+        let rewardImage: String
     }
 }

@@ -1,11 +1,10 @@
 import UIKit
 
 final class RecipesPresenter: RecipesPresentationLogic {
-    
     weak var view: RecipesDisplayLogic?
     
-    func presentRecipes(_ response: Model.Recipe.Response) {
-        view?.displayRecipes(parseResponse(data: response))
+    func presentRecipes(_ response: Model.Recipe.Response, showNew: Bool) {
+        view?.displayRecipes(parseResponse(data: response), showNew: showNew)
     }
     
     private func parseResponse(data: MainModel.Recipe.Response) -> [MainModel.Recipe.ViewModel] {
@@ -15,6 +14,14 @@ final class RecipesPresenter: RecipesPresentationLogic {
         }
         
         return parseData
+    }
+    
+    func addRecipes(_ response: Model.Recipe.Response) {
+        view?.displayAdditionalRecipes(parseResponse(data: response))
+    }
+    
+    func presentNothing() {
+        view?.displayNothingFound()
     }
 }
 

@@ -7,8 +7,8 @@ final class PersonalViewController: UIViewController  {
     private lazy var cookedRecipes = PersonalContainerView()
     private lazy var favorite = PersonalContainerView()
     private lazy var rewards = PersonalContainerView()
-    private let imgView = UIImageView(image: UIImage(named: "reward_first_recipe"))
-    private let titleReward = UILabel()
+    
+
     private let settings = UIImageView(image: UIImage(systemName: "pencil"))
     
     private enum Constants {
@@ -17,6 +17,7 @@ final class PersonalViewController: UIViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         configureUI()
         setupValues()
     }
@@ -34,6 +35,7 @@ final class PersonalViewController: UIViewController  {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
         PersonalViewController.userInfo = UserInfo.ViewModel(personalInfo: data)
+        PersonalViewController.userInfo.rewards.append(RewardInfo.ViewModel(rewardText: "First recipe", rewardImage: "reward_first_recipe"))
         interactor.loadUserInfo()
     }
     
@@ -47,16 +49,31 @@ final class PersonalViewController: UIViewController  {
         router.routeToChangePersonalInfpScreen(interactor: interactor)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        setupValues()
-        super.viewWillAppear(animated)
+    @objc
+    func favoriteTapped(_ sender: UITapGestureRecognizer) {
+        router.routeToFavoriteRecilesScreen(data: PersonalViewController.userInfo.favoriteRecipes)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        super.viewWillDisappear(animated)
+    @objc
+    func cookesRecipesTapped(_ sender: UITapGestureRecognizer) {
+        router.routeToCookedRecipesScreen(data: PersonalViewController.userInfo.cookedRecipes)
     }
+    
+    @objc
+    func rewardsTapped(_ sender: UITapGestureRecognizer) {
+        router.routeToRewards(interactor: interactor)
+//        router.routeToNutritionScreen(data: "1")
+    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+//        setupValues()
+//        super.viewWillAppear(animated)
+//    }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+//        super.viewWillDisappear(animated)
+//    }
     
     static func changePersonalInfo(data: RegistrationInfo.Request) {
         userInfo.personalInfo.age = data.age
@@ -77,12 +94,18 @@ final class PersonalViewController: UIViewController  {
         view.addSubview(cookedRecipes)
         view.addSubview(favorite)
         view.addSubview(rewards)
-        view.addSubview(imgView)
-        view.addSubview(titleReward)
         view.addSubview(settings)
         
+        cookedRecipes.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(cookesRecipesTapped(_:))))
+        favorite.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(favoriteTapped(_:))))
+        rewards.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(rewardsTapped(_:))))
         settings.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editTapped(_:))))
+        
         settings.isUserInteractionEnabled = true
+        cookedRecipes.isUserInteractionEnabled = true
+        favorite.isUserInteractionEnabled = true
+        rewards.isUserInteractionEnabled = true
+        
         personalView.backgroundColor = .secondarySystemBackground
         cookedRecipes.backgroundColor = .secondarySystemBackground
         favorite.backgroundColor = .secondarySystemBackground
@@ -92,14 +115,8 @@ final class PersonalViewController: UIViewController  {
         cookedRecipes.translatesAutoresizingMaskIntoConstraints = false
         favorite.translatesAutoresizingMaskIntoConstraints = false
         rewards.translatesAutoresizingMaskIntoConstraints = false
-        imgView.translatesAutoresizingMaskIntoConstraints = false
-        titleReward.translatesAutoresizingMaskIntoConstraints = false
         settings.translatesAutoresizingMaskIntoConstraints = false
-        
-        titleReward.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        titleReward.textAlignment = .left
-        titleReward.textColor = .systemGray
-        titleReward.text = "First recipe"
+
         settings.tintColor = .label
         
         NSLayoutConstraint.activate([
@@ -129,16 +146,6 @@ final class PersonalViewController: UIViewController  {
             rewards.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             rewards.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             rewards.heightAnchor.constraint(equalToConstant: rewards.intrinsicContentSize.height),
-            
-            
-            imgView.topAnchor.constraint(equalTo: rewards.bottomAnchor, constant: 15),
-            imgView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            imgView.widthAnchor.constraint(equalToConstant: 60),
-            imgView.heightAnchor.constraint(equalToConstant: 60),
-            
-            titleReward.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 5),
-            titleReward.centerXAnchor.constraint(equalTo: imgView.centerXAnchor),
-            titleReward.heightAnchor.constraint(equalToConstant: 12),
         ])
     }
 }

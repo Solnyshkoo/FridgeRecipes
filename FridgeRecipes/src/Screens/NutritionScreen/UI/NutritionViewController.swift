@@ -3,18 +3,18 @@ import UIKit
 final class NutritionViewController: UIViewController {
     
     private let interactor: NutritionBusinessLogic
+    private let factory = NutritionFactory()
     
-//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-//        super.init(nibName: nil, bundle: nil)
-//
-//        self.modalPresentationStyle = .pageSheet
-//
-//        self.isModalInPresentation = false
-//    }
-    private let imgView = UIImageView(image: UIImage(named: "reward_first_recipe"))
-    private let titleReward = UILabel()
-    
-//    private lazy var image = UIImageView()
+    private lazy var scrollView = UIScrollView()
+    private let caloriesInfo = CaloriesView()
+    private lazy var mainTitle = factory.makeTittleLabel()
+    private lazy var bigSeparator = factory.makeSeparaator()
+    private lazy var smallSeparator = factory.makeSeparaator()
+    private lazy var separator = factory.makeSeparaator()
+    private lazy var amountInfo = factory.makeDiscriptionLabel()
+    private lazy var dailyValueLabel = factory.makeSubtitleLabel()
+    private let mainInfo = NutritionMainInfoView()
+    private let info = NutritionInfoView()
     
     init(interactor: NutritionBusinessLogic, data: String) {
         self.interactor = interactor
@@ -22,75 +22,6 @@ final class NutritionViewController: UIViewController {
         view.backgroundColor = .systemBackground
         self.modalPresentationStyle = .pageSheet
         self.isModalInPresentation = false
-        configUI()
-    }
-    
-    func configUI() {
-//        image.image = UIImage(named: "Nutrition")
-//        image.layer.masksToBounds = true
-//        image.contentMode = .scaleToFill
-//        view.addSubview(image)
-//        image.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            image.topAnchor.constraint(equalTo: view.topAnchor, constant: 5),
-//            image.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            image.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            image.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//
-//        ])
-        
-        view.addSubview(imgView)
-        view.addSubview(titleReward)
-        
-//        personalView.backgroundColor = .secondarySystemBackground
-//        cookedRecipes.backgroundColor = .secondarySystemBackground
-//        favorite.backgroundColor = .secondarySystemBackground
-//        rewards.backgroundColor = .secondarySystemBackground
-//
-//        personalView.translatesAutoresizingMaskIntoConstraints = false
-//        cookedRecipes.translatesAutoresizingMaskIntoConstraints = false
-//        favorite.translatesAutoresizingMaskIntoConstraints = false
-//        rewards.translatesAutoresizingMaskIntoConstraints = false
-        imgView.translatesAutoresizingMaskIntoConstraints = false
-        titleReward.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        titleReward.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        titleReward.textAlignment = .left
-        titleReward.textColor = .systemGray
-        titleReward.text = "First recipe"
-        
-        NSLayoutConstraint.activate([
-//            personalView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//            personalView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            personalView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            personalView.heightAnchor.constraint(equalToConstant: personalView.intrinsicContentSize.height),
-//
-//            cookedRecipes.topAnchor.constraint(equalTo: personalView.bottomAnchor, constant: 30),
-//            cookedRecipes.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            cookedRecipes.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            cookedRecipes.heightAnchor.constraint(equalToConstant: cookedRecipes.intrinsicContentSize.height),
-//
-//            favorite.topAnchor.constraint(equalTo: cookedRecipes.bottomAnchor, constant: 15),
-//            favorite.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            favorite.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            favorite.heightAnchor.constraint(equalToConstant: favorite.intrinsicContentSize.height),
-//
-//            rewards.topAnchor.constraint(equalTo: favorite.bottomAnchor, constant: 15),
-//            rewards.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            rewards.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            rewards.heightAnchor.constraint(equalToConstant: rewards.intrinsicContentSize.height),
-            
-            
-            imgView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
-            imgView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            imgView.widthAnchor.constraint(equalToConstant: 60),
-            imgView.heightAnchor.constraint(equalToConstant: 60),
-            
-            titleReward.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 5),
-            titleReward.centerXAnchor.constraint(equalTo: imgView.centerXAnchor),
-            titleReward.heightAnchor.constraint(equalToConstant: 12),
-        ])
     }
     
     required init?(coder: NSCoder) {
@@ -99,13 +30,96 @@ final class NutritionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor = .white
+        configUI()
+        self.view.backgroundColor = .systemBackground
+//        scrollView.scrollIndicatorInsets = view.safeAreaInsets
     }
+
+    
+    private enum Constants {
+        static let sidesOffset: CGFloat = 15
+    }
+    
+    
+    private func configUI() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(mainTitle)
+        scrollView.addSubview(bigSeparator)
+        scrollView.addSubview(amountInfo)
+        scrollView.addSubview(caloriesInfo)
+        scrollView.addSubview(smallSeparator)
+        scrollView.addSubview(separator)
+        scrollView.addSubview(mainInfo)
+        scrollView.addSubview(info)
+        scrollView.addSubview(dailyValueLabel)
+        
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        caloriesInfo.translatesAutoresizingMaskIntoConstraints = false
+        mainInfo.translatesAutoresizingMaskIntoConstraints = false
+        info.translatesAutoresizingMaskIntoConstraints = false
+        dailyValueLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        caloriesInfo.config(count: "1234")
+        mainInfo.config(title: "axascw", amount: "3,4CD", percentage: "56")
+        info.config(title: "axascw", amount: "3,4CD", percentage: "56")
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            mainTitle.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            mainTitle.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor),
+            mainTitle.heightAnchor.constraint(equalToConstant: 33),
+
+            bigSeparator.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: 15),
+            bigSeparator.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Constants.sidesOffset),
+            bigSeparator.widthAnchor.constraint(equalToConstant: view.bounds.width - 2 * Constants.sidesOffset),
+            bigSeparator.heightAnchor.constraint(equalToConstant: 10),
+
+            amountInfo.topAnchor.constraint(equalTo: bigSeparator.bottomAnchor, constant: 15),
+            amountInfo.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Constants.sidesOffset),
+            amountInfo.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Constants.sidesOffset),
+            amountInfo.heightAnchor.constraint(equalToConstant: amountInfo.intrinsicContentSize.height),
+
+            caloriesInfo.topAnchor.constraint(equalTo: amountInfo.bottomAnchor, constant: 15),
+            caloriesInfo.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Constants.sidesOffset),
+            caloriesInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.sidesOffset),
+            caloriesInfo.heightAnchor.constraint(equalToConstant: caloriesInfo.intrinsicContentSize.height),
+
+            smallSeparator.topAnchor.constraint(equalTo: caloriesInfo.bottomAnchor, constant: 15),
+            smallSeparator.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Constants.sidesOffset),
+            smallSeparator.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.sidesOffset),
+            smallSeparator.heightAnchor.constraint(equalToConstant: 5),
+
+            dailyValueLabel.topAnchor.constraint(equalTo: smallSeparator.bottomAnchor, constant: 2.5),
+            dailyValueLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.sidesOffset),
+            dailyValueLabel.heightAnchor.constraint(equalToConstant: 15),
+            
+            separator.topAnchor.constraint(equalTo: smallSeparator.bottomAnchor, constant: 20),
+            separator.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Constants.sidesOffset),
+            separator.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.sidesOffset),
+            separator.heightAnchor.constraint(equalToConstant: 2),
+            
+            mainInfo.topAnchor.constraint(equalTo: separator.bottomAnchor),
+            mainInfo.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Constants.sidesOffset),
+            mainInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.sidesOffset),
+            mainInfo.heightAnchor.constraint(equalToConstant: mainInfo.intrinsicContentSize.height),
+            
+            info.topAnchor.constraint(equalTo: mainInfo.bottomAnchor),
+            info.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Constants.sidesOffset),
+            info.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.sidesOffset),
+            info.heightAnchor.constraint(equalToConstant: mainInfo.intrinsicContentSize.height),
+    
+        ])
+
+    }
+    
 }
 
 extension NutritionViewController: NutritionDisplayLogic {
-    func displayRecipe(_ viewModel: Model.Start.ViewModel) {
+    func displayRecipe(_ viewModel: Model.ViewModel) {
     }
     
     

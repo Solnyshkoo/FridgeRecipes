@@ -14,6 +14,18 @@ struct RecipeInfo {
     let youTubeLink: String? // strYoutube
     let tags: [String]? // strTags
     let ingredients: [Ingredient]? // Ingredient(strIngredient, strMeasure)
+    
+    init() {
+        self.id = ""
+        self.name = ""
+        self.thumbnailLink = URL(fileURLWithPath: "")
+        self.category = ""
+        self.area = ""
+        self.instructions = ""
+        self.youTubeLink = ""
+        self.tags = []
+        self.ingredients = []
+    }
 }
 
 

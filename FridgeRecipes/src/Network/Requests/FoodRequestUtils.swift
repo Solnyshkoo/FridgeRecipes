@@ -7,6 +7,8 @@ enum RequestType {
     case mealsByIngredient(ingredient: String)
     case mealsByName(name: String)
     case nutritionInfo(text: String)
+    case mealByCuisine(cuisine: String)
+    case mealByCategory(category: String)
     
     private var params: [String: String] {
         switch self {
@@ -25,6 +27,10 @@ enum RequestType {
                     "app_key" : NetworkInfo.app_key,
                     "nutrition-type" : "cooking",
                     "ingr" : text]
+        case let .mealByCuisine(cuisine: cuisine):
+            return ["a": cuisine]
+        case let .mealByCategory(category: category):
+            return ["c": category]
         }
     }
 
@@ -46,6 +52,10 @@ enum RequestType {
             return "search"
         case .nutritionInfo:
             return ""
+        case .mealByCuisine:
+            return "filter"
+        case .mealByCategory:
+            return "filter"
         }
     }
 
