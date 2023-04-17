@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let defaults = UserDefaults.standard
         
         var vc: UIViewController
-        
+
         guard let name = defaults.string(forKey: "name"),
               let age = defaults.string(forKey: "age"),
               let gender = defaults.string(forKey: "gender"),

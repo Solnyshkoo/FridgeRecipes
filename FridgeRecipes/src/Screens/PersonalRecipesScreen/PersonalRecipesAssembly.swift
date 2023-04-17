@@ -1,7 +1,6 @@
 import UIKit
 
 enum PersonalRecipesAssembly {
-    // FIXME: - надо передавать через протокол [MainModel.Recipe.Response]
     static func build(data: [MainModel.Recipe.ViewModel], title: String) -> UIViewController {
         let router: PersonalRecipesRouter = PersonalRecipesRouter()
         let presenter: PersonalRecipesPresenter = PersonalRecipesPresenter()

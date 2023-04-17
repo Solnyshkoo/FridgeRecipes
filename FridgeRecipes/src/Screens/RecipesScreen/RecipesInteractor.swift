@@ -15,7 +15,6 @@ final class RecipesInteractor: RecipesBusinessLogic {
     
     func loadRecipiesByName(_ request: Model.Recipe.Request) {
         guard !(request.searchText.isEmpty && request.productsFilter.isEmpty) else {
-            // FIXME: - сделать что-то
             return
         }
         
@@ -38,7 +37,6 @@ final class RecipesInteractor: RecipesBusinessLogic {
     
     func loadRecipiesByIngredient(_ request: Model.Recipe.Request, showNew: Bool) {
         guard !(request.searchText.isEmpty && request.productsFilter.isEmpty) else {
-            // FIXME: - сделать что-то
             return
         }
         
@@ -68,7 +66,6 @@ final class RecipesInteractor: RecipesBusinessLogic {
     
     func loadRecipiesByCategory(_ request: Model.Recipe.Request) {
         guard !(request.searchText.isEmpty && request.productsFilter.isEmpty) else {
-            // FIXME: - сделать что-то
             return
         }
         
@@ -91,7 +88,6 @@ final class RecipesInteractor: RecipesBusinessLogic {
     
     func loadRecipiesByCusine(_ request: Model.Recipe.Request) {
         guard !(request.searchText.isEmpty && request.productsFilter.isEmpty) else {
-            // FIXME: - сделать что-то
             return
         }
         

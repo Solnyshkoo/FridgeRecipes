@@ -7,19 +7,16 @@ final class LikeButton: UIButton {
             weight: .bold,
             scale: .medium
         )
-//        static let fillIcon = UIImage(systemName: "heart.fill", withConfiguration: config)
-//        static let contourIcon = UIImage(systemName: "heart", withConfiguration: config)
         static let fillIcon = UIImage(named: "heart-full")?.withRenderingMode(.alwaysTemplate)
         static let contourIcon = UIImage(named: "heart")?.withRenderingMode(.alwaysTemplate)
         static let activeTint: UIColor = .red
         static let notActiveTint: UIColor = .label
     }
-    
+
     override var intrinsicContentSize: CGSize {
         CGSize(width: 35, height: 35)
     }
 
-    // достаточно просто выставить isLiked, и кнопка поменяет внешний вид
     var isLiked: Bool {
         didSet {
             updateImage()
@@ -49,7 +46,6 @@ final class LikeButton: UIButton {
     }
 }
 
-
 final class CookedButton: UIButton {
     private enum Constants {
         static let config = UIImage.SymbolConfiguration(
@@ -63,7 +59,6 @@ final class CookedButton: UIButton {
         static let notActiveTint: UIColor = .label
     }
 
-    // достаточно просто выставить isLiked, и кнопка поменяет внешний вид
     var isCooked: Bool {
         didSet {
             updateImage()
@@ -80,6 +75,7 @@ final class CookedButton: UIButton {
             tintColor = Constants.notActiveTint
         }
     }
+
     override var intrinsicContentSize: CGSize {
         CGSize(width: 35, height: 35)
     }
@@ -88,7 +84,6 @@ final class CookedButton: UIButton {
         isCooked = false
         super.init(frame: .zero)
         imageView?.contentMode = .scaleAspectFit
-//        imageEdgeInsets = UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
         updateImage()
     }
 
@@ -97,4 +92,3 @@ final class CookedButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 }
-

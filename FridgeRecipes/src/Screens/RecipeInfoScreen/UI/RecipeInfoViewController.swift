@@ -3,23 +3,17 @@ import UIKit
 final class RecipeInfoViewController: UIViewController {
     private enum Constants {
         static let heartSize = CGSize(width: 35, height: 35)
-//        static let closeButtonSize = CGSize(width: 40, height: 40)
-//        static let closeButtonTopMargin: CGFloat = 16
-//        static let closeButtonRightMargin: CGFloat = -16
         static let defaultEmoji: String = "😋"
-//        static let loadingScreenAppearanceDuration: TimeInterval = 0.5
     }
+
     // MARK: - Fields
+
     private let router: RecipeInfoRoutingLogic
     private let interactor: RecipeInfoBusinessLogic
     private let factory = RecipeInfoFactory()
-    
+
     private lazy var scrollView = factory.makeScrollView()
     private lazy var contentStackView = factory.makeContentStackView()
-    
-//    private lazy var roundCornerButton = factory.makeRoundButtonWithBlur(
-//        type: .refresh
-//    )
     private lazy var mealImageView = factory.makeMealImageView()
     private lazy var titleView = factory.makeTitleView()
     private lazy var titleLabel = factory.makeTitleLabel()
@@ -33,14 +27,14 @@ final class RecipeInfoViewController: UIViewController {
     private lazy var loadingScreen = factory.makeLoadingScreen(isHidden: true)
     private lazy var nutritionButton = factory.makeNutritionsTitle()
     private let imageContainerView = UIView()
-    
+
     private let refreshControl = UIRefreshControl()
 
-    // используется в extension UIScrollViewDelegate
     private var previousStatusBarHidden = false
-    private var recipeInfo: RecipeInfo = RecipeInfo()
-    
+    private var recipeInfo: RecipeInfo = .init()
+
     // MARK: - LifeCycle
+
     init(
         router: RecipeInfoRoutingLogic,
         interactor: RecipeInfoBusinessLogic,
@@ -50,26 +44,20 @@ final class RecipeInfoViewController: UIViewController {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
         getData(data: data)
-        
     }
-    
-    
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // putting data
-//        loadMealData()
+        setLoadingScreenAppearance(shouldHide: false, animated: false)
 
-        // configuring views
-//        if preloadedMeal == nil {
-            setLoadingScreenAppearance(shouldHide: false, animated: false)
-//            refreshControl.addTarget(self, action: #selector(reload), for: .valueChanged)
-        self.mealImageView.image = nil
-            scrollView.refreshControl = refreshControl
-//        }
+        mealImageView.image = nil
+        scrollView.refreshControl = refreshControl
+
         view.backgroundColor = .systemBackground
         setTranslatingToConstraints()
         addSubviews()
@@ -77,11 +65,10 @@ final class RecipeInfoViewController: UIViewController {
         configureImageContainer()
         configureMealImage()
         configureButtons()
-//        configureCloseButton()
         configureTextStackView()
         configureLoadingScreen()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollView.scrollIndicatorInsets = view.safeAreaInsets
@@ -97,8 +84,7 @@ final class RecipeInfoViewController: UIViewController {
         super.viewDidAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
     }
-    
-    // executes when like button is pressed
+
     @objc private func updateLike(_ sender: LikeButton) {
         if sender.isLiked {
             let index = PersonalViewController.userInfo.favoriteRecipes.firstIndex { item in
@@ -108,6 +94,7 @@ final class RecipeInfoViewController: UIViewController {
                 return
             }
             PersonalViewController.userInfo.favoriteRecipes.remove(at: index)
+            interactor.deleteFav(id: recipeInfo.id ?? "")
         } else {
             PersonalViewController.userInfo.favoriteRecipes.append(
                 MainModel.Recipe.ViewModel(
@@ -116,14 +103,16 @@ final class RecipeInfoViewController: UIViewController {
                     thumbnailLink: recipeInfo.thumbnailLink
                 )
             )
+
+            interactor.saveFav(data: MainModel.Recipe.ViewModel(
+                id: recipeInfo.id ?? "",
+                titleText: recipeInfo.name,
+                thumbnailLink: recipeInfo.thumbnailLink
+            ))
         }
         sender.isLiked = !sender.isLiked
-//        if preloadedMeal != nil {
-//            preloadedMeal!.isLiked = sender.isLiked
-//        } else if randomMeal != nil {
-//            randomMeal!.isLiked = sender.isLiked
-//        }
     }
+
     @objc private func updateCooked(_ sender: CookedButton) {
         if sender.isCooked {
             let index = PersonalViewController.userInfo.cookedRecipes.firstIndex { item in
@@ -133,6 +122,7 @@ final class RecipeInfoViewController: UIViewController {
                 return
             }
             PersonalViewController.userInfo.cookedRecipes.remove(at: index)
+            interactor.deleteCooked(id: recipeInfo.id ?? "")
         } else {
             PersonalViewController.userInfo.cookedRecipes.append(
                 MainModel.Recipe.ViewModel(
@@ -141,35 +131,34 @@ final class RecipeInfoViewController: UIViewController {
                     thumbnailLink: recipeInfo.thumbnailLink
                 )
             )
+            interactor.save(data: MainModel.Recipe.ViewModel(
+                id: recipeInfo.id ?? "",
+                titleText: recipeInfo.name,
+                thumbnailLink: recipeInfo.thumbnailLink
+            ))
+        }
+
+        if PersonalViewController.userInfo.rewards.isEmpty {
+            PersonalViewController.userInfo.rewards.append(RewardInfo.ViewModel(rewardText: "First recipe", rewardImage: "reward_first_recipe"))
+            showSimpleAlert()
+            interactor.saveReward(data: RewardInfo.ViewModel(rewardText: "First recipe", rewardImage: "reward_first_recipe"))
         }
         sender.isCooked = !sender.isCooked
-//        if preloadedMeal != nil {
-//            preloadedMeal!.isLiked = sender.isLiked
-//        } else if randomMeal != nil {
-//            randomMeal!.isLiked = sender.isLiked
-//        }
     }
-    // executes when close button is pressed
+
     @objc private func close() {
         dismiss(animated: true, completion: nil)
     }
 
-    
     func getData(data: String) {
         interactor.loadRecipe(RecipeInfoModel.Start.Request(id: data))
     }
-    
+
     // MARK: - changing appearance
 
     private func setLoadingScreenAppearance(shouldHide: Bool, animated: Bool) {
         loadingScreen.setAppearance(shouldHide: shouldHide, animated: animated)
     }
-
-//    private func loadImage(link: String) {
-//        cancellable = imageLoader.loadImage(thumbnailLink: link).sink { [weak self] image in
-//            self?.mealImageView.image = image
-//        }
-//    }
 
     private func fillIngredients(_ ingredients: [Ingredient]?, drinks: Bool = false) {
         guard let ingredients = ingredients else { return }
@@ -188,7 +177,7 @@ final class RecipeInfoViewController: UIViewController {
 
     @objc
     private func showNutritionInfo(sender: UIButton) {
-        router.routeToNutritionScreen(data: "String")
+        interactor.loadNutrition(recipeInfo.ingredients)
     }
 
     private func clearIngredientsStack() {
@@ -196,6 +185,18 @@ final class RecipeInfoViewController: UIViewController {
             ingredientStack.removeArrangedSubview(subview)
             subview.removeFromSuperview()
         }
+    }
+
+    func showSimpleAlert() {
+        let alert = UIAlertController(
+            title: "Сongratulations",
+            message: "You have received a reward! Now it is available in your personal account.",
+            preferredStyle: UIAlertController.Style.alert
+        )
+
+        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertAction.Style.default, handler: { _ in
+        }))
+        present(alert, animated: true, completion: nil)
     }
 
     // MARK: - configuring view funcs
@@ -207,40 +208,14 @@ final class RecipeInfoViewController: UIViewController {
         titleView.translatesAutoresizingMaskIntoConstraints = false
         ingredientStack.translatesAutoresizingMaskIntoConstraints = false
         recipeStack.translatesAutoresizingMaskIntoConstraints = false
-//        roundCornerButton.translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func addSubviews() {
         view.addSubview(scrollView)
-//        view.addSubview(roundCornerButton)
         view.addSubview(loadingScreen)
         titleView.addArrangedSubview(titleLabel)
         titleView.addArrangedSubview(cookedButton)
         titleView.addArrangedSubview(likeButton)
-//        
-//        titleView.addSubview(titleLabel)
-//        titleView.addSubview(cookedButton)
-//        titleView.addSubview(likeButton)
-//        
-//        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-//        cookedButton.translatesAutoresizingMaskIntoConstraints = false
-//        likeButton.translatesAutoresizingMaskIntoConstraints = false
-        
-//        NSLayoutConstraint.activate([
-//            titleLabel.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 20),
-//            titleLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
-//            titleLabel.bottomAnchor.constraint(equalTo: titleView.bottomAnchor),
-//            titleLabel.trailingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: titleView.intrinsicContentSize.width),
-//
-//            likeButton.topAnchor.constraint(equalTo: titleView.topAnchor),
-//            likeButton.bottomAnchor.constraint(equalTo: titleView.bottomAnchor),
-//            likeButton.trailingAnchor.constraint(equalTo: titleView.trailingAnchor, constant: -likeButton.intrinsicContentSize.width),
-//
-//            cookedButton.topAnchor.constraint(equalTo: titleView.topAnchor),
-//            cookedButton.bottomAnchor.constraint(equalTo: titleView.bottomAnchor),
-//            cookedButton.trailingAnchor.constraint(equalTo: likeButton.leadingAnchor, constant: -10),
-//        ])
-        
         ingredientStack.addArrangedSubview(ingredientsLabel)
         recipeStack.addArrangedSubview(recipeLabel)
         scrollView.addSubview(imageContainerView)
@@ -305,41 +280,18 @@ final class RecipeInfoViewController: UIViewController {
     private func configureButtons() {
         likeButton.addTarget(self, action: #selector(updateLike), for: .touchUpInside)
         cookedButton.addTarget(self, action: #selector(updateCooked), for: .touchUpInside)
-
     }
-    
+
     private func updateButtons() {
         let k = PersonalViewController.userInfo.favoriteRecipes.contains(where: { item in
             item.id == recipeInfo.id
         })
         likeButton.isLiked = k
-        
+
         cookedButton.isCooked = PersonalViewController.userInfo.cookedRecipes.contains(where: { item in
             item.id == recipeInfo.id
         })
     }
-
-//    private func configureCloseButton() {
-//        if preloadedMeal == nil {
-//            roundCornerButton.addTarget(self, action: #selector(reload), for: .touchUpInside)
-//        } else {
-//            roundCornerButton.addTarget(self, action: #selector(close), for: .touchUpInside)
-//        }
-//        NSLayoutConstraint.activate([
-//            roundCornerButton.trailingAnchor.constraint(
-//                equalTo: view.trailingAnchor,
-//                constant: Constants.closeButtonRightMargin
-//            ),
-//            roundCornerButton.topAnchor.constraint(
-//                equalTo: view.layoutMarginsGuide.topAnchor,
-//                constant: Constants.closeButtonTopMargin
-//            ),
-//            roundCornerButton.heightAnchor
-//                .constraint(equalToConstant: Constants.closeButtonSize.height),
-//            roundCornerButton.widthAnchor
-//                .constraint(equalToConstant: Constants.closeButtonSize.width),
-//        ])
-//    }
 
     private func configureLoadingScreen() {
         NSLayoutConstraint.activate([
@@ -374,14 +326,20 @@ extension RecipeInfoViewController: UIScrollViewDelegate {
         }
     }
 }
+
 // MARK: - Protocol DisplayLogic
+
 extension RecipeInfoViewController: RecipeInfoDisplayLogic {
+    func openNutritionInfo(data: [String]) {
+        router.routeToNutritionScreen(data: data)
+    }
+
     func displayRecipe(_ viewModel: RecipeInfo) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
             }
-            
+
             self.recipeInfo = viewModel
             self.updateButtons()
             self.likeButton.isHidden = false
@@ -399,13 +357,11 @@ extension RecipeInfoViewController: RecipeInfoDisplayLogic {
                 self.recipeStack.isHidden = false
                 self.recipeLabel.text = recipe
             } else { self.recipeStack.isHidden = true }
-//        likeButton.isLiked = meal.isLiked
         }
     }
-    
-    // FIXME: - Убрать от сюда
+
     func loadImage(url: URL) -> UIImage? {
-        guard let data = try? Data(contentsOf: url) else {return nil}
+        guard let data = try? Data(contentsOf: url) else { return nil }
         return UIImage(data: data)
     }
 }

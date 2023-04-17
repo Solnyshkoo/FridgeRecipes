@@ -1,14 +1,13 @@
+import CoreData
 import UIKit
 
-
-final class PersonalViewController: UIViewController  {
-    static var userInfo: UserInfo.ViewModel = UserInfo.ViewModel()
+final class PersonalViewController: UIViewController {
+    static var userInfo: UserInfo.ViewModel = .init()
     private lazy var personalView = PersonalInfoView()
     private lazy var cookedRecipes = PersonalContainerView()
     private lazy var favorite = PersonalContainerView()
     private lazy var rewards = PersonalContainerView()
     
-
     private let settings = UIImageView(image: UIImage(systemName: "pencil"))
     
     private enum Constants {
@@ -17,15 +16,14 @@ final class PersonalViewController: UIViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: false)
         configureUI()
         setupValues()
     }
     
     private let router: PersonalRoutingLogic
     private let interactor: PersonalBusinessLogic
-    
-    
+
     init(
         router: PersonalRoutingLogic,
         interactor: PersonalBusinessLogic,
@@ -35,14 +33,13 @@ final class PersonalViewController: UIViewController  {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
         PersonalViewController.userInfo = UserInfo.ViewModel(personalInfo: data)
-        PersonalViewController.userInfo.rewards.append(RewardInfo.ViewModel(rewardText: "First recipe", rewardImage: "reward_first_recipe"))
         interactor.loadUserInfo()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     @objc
     func editTapped(_ sender: UITapGestureRecognizer) {
@@ -62,24 +59,16 @@ final class PersonalViewController: UIViewController  {
     @objc
     func rewardsTapped(_ sender: UITapGestureRecognizer) {
         router.routeToRewards(interactor: interactor)
-//        router.routeToNutritionScreen(data: "1")
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-//        setupValues()
-//        super.viewWillAppear(animated)
-//    }
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-//        super.viewWillDisappear(animated)
-//    }
     
     static func changePersonalInfo(data: RegistrationInfo.Request) {
         userInfo.personalInfo.age = data.age
         userInfo.personalInfo.name = data.name
         userInfo.personalInfo.sex = data.sex
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupValues()
     }
     
     func setupValues() {
@@ -96,9 +85,9 @@ final class PersonalViewController: UIViewController  {
         view.addSubview(rewards)
         view.addSubview(settings)
         
-        cookedRecipes.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(cookesRecipesTapped(_:))))
-        favorite.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(favoriteTapped(_:))))
-        rewards.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(rewardsTapped(_:))))
+        cookedRecipes.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cookesRecipesTapped(_:))))
+        favorite.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(favoriteTapped(_:))))
+        rewards.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(rewardsTapped(_:))))
         settings.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editTapped(_:))))
         
         settings.isUserInteractionEnabled = true
@@ -125,8 +114,6 @@ final class PersonalViewController: UIViewController  {
             personalView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             personalView.heightAnchor.constraint(equalToConstant: personalView.intrinsicContentSize.height),
             
-            
-            
             settings.topAnchor.constraint(equalTo: personalView.topAnchor, constant: 10),
             settings.trailingAnchor.constraint(equalTo: personalView.trailingAnchor, constant: -14),
             settings.heightAnchor.constraint(equalToConstant: Constants.settingsSize),
@@ -136,7 +123,7 @@ final class PersonalViewController: UIViewController  {
             cookedRecipes.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             cookedRecipes.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             cookedRecipes.heightAnchor.constraint(equalToConstant: cookedRecipes.intrinsicContentSize.height),
-        
+            
             favorite.topAnchor.constraint(equalTo: cookedRecipes.bottomAnchor, constant: 15),
             favorite.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             favorite.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -149,6 +136,7 @@ final class PersonalViewController: UIViewController  {
         ])
     }
 }
+
 extension PersonalViewController: PersonalDisplayLogic {
     func updatePersonalData() {
         personalView.configure(data: PersonalViewController.userInfo.personalInfo)

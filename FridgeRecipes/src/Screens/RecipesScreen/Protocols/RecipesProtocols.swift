@@ -4,10 +4,6 @@ protocol RecipesBusinessLogic {
     func loadRecipiesByIngredient(_ request: Model.Recipe.Request, showNew: Bool)
     func loadRecipiesByCategory(_ request: Model.Recipe.Request)
     func loadRecipiesByCusine(_ request: Model.Recipe.Request)
-//    func loadStart(_ request: Model.Start.Request)
-//    func loadAction(_ request: Model.Action.Request)
-    
-//    func loadRecipeInfo(_ request: MainModel.Recipe.ViewModel)
 }
 
 protocol RecipesPresentationLogic {
@@ -15,8 +11,6 @@ protocol RecipesPresentationLogic {
     func presentRecipes(_ response: Model.Recipe.Response, showNew: Bool)
     func addRecipes(_ response: Model.Recipe.Response)
     func presentNothing()
-//    func presentStart(_ response: Model.Start.Response)
-//    func presentAction(_ response: Model.Action.Response)
 }
 
 protocol RecipesDisplayLogic: AnyObject {
@@ -39,4 +33,3 @@ protocol RecipesWorkerLogic {
     func loadRecipesByCategory(name: String, completion: @escaping MealsCompletion)
     func loadRecipesByCusine(name: String, completion: @escaping MealsCompletion)
 }
-

@@ -9,15 +9,13 @@ final class RecipeInfoFactory {
         static let edgeInsetValue: CGFloat = 16
         static let spacingValue: CGFloat = 8
 
-        // Edge insets, которые используются для view внутри scrollView
-        // Делаю так, чтобы CollectionView с ингридиентами не прятался по краям из-за границ ScrollView
         static let childrenEdgeInsets = UIEdgeInsets(
             top: spacingValue,
             left: edgeInsetValue,
             bottom: spacingValue,
             right: edgeInsetValue
         )
-        // накидываю эти инсеты только на scrollView
+
         static let parentInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
 
         static let titleFontSize: CGFloat = 30
@@ -80,9 +78,6 @@ final class RecipeInfoFactory {
         label.font = .systemFont(ofSize: Constants.titleFontSize, weight: .bold)
         label.numberOfLines = 0
         label.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 150).isActive = true
-//        let maxSize = CGSize(width: 150, height: 300)
-//        let size = label.sizeThatFits(maxSize)
-//        label.frame = CGRect(origin: CGPoint(x: 100, y: 100), size: size)
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return label
     }
@@ -93,7 +88,7 @@ final class RecipeInfoFactory {
         likeButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         return likeButton
     }
-    
+
     func makeCookedButton() -> CookedButton {
         let likeButton = CookedButton()
         likeButton.contentMode = .right
@@ -163,7 +158,7 @@ final class RecipeInfoFactory {
         cellStack.addArrangedSubview(emojiLabel)
         return cellStack
     }
-    
+
     func makeNutritionsTitle() -> UIButton {
         let button = UIButton()
         button.setTitle(Constants.nutritionTitle, for: .normal)

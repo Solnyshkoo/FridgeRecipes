@@ -1,6 +1,5 @@
 import UIKit
 final class NutritionFactory {
-    
     private enum Constants {
         static let titleFontSize: CGFloat = 32
         static let secondTitleFontSize: CGFloat = 24
@@ -50,5 +49,4 @@ final class NutritionFactory {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
-    
 }

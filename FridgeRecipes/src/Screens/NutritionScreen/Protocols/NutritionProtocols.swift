@@ -6,17 +6,19 @@ protocol NutritionBusinessLogic {
 
 protocol NutritionPresentationLogic {
     typealias Model = NutritionModel
-    func presentNutritionInfo(_ response: Model.Response)
+    func presentNutritionInfo(_ response: Model.Response, show: Bool)
+    func presentError(error: String)
 }
 
 protocol NutritionDisplayLogic: AnyObject {
     typealias Model = NutritionModel
-    func displayRecipe(_ viewModel: Model.ViewModel)
+    func displayInfo(_ viewModel: Model.ViewModel)
+    func addInfo(_ viewModel: Model.ViewModel)
+    func displayError(error: String)
 }
 
 protocol NutritionWorkerLogic {
     typealias Model = NutritionModel
-    typealias NutritionCompletion = (Result< Model.Response, NetworkError>) -> Void
+    typealias NutritionCompletion = (Result<Model.Response, NetworkError>) -> Void
     func getNutritionInfo(id: String, completion: @escaping NutritionCompletion)
-    
 }

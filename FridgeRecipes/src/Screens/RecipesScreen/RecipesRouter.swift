@@ -9,11 +9,8 @@ final class RecipesRouter: RecipesRoutingLogic {
             self.view?.navigationController?.pushViewController(RecipeInfoAssembly.build(data: data), animated: true)
         }
     }
-    
+
     weak var view: UIViewController?
 
-    func routeTo() {
-
-    }
+    func routeTo() {}
 }
-

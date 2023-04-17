@@ -2,7 +2,6 @@ import Foundation
 protocol PersonalBusinessLogic {
     func loadUserInfo()
     func changeValue()
-    
 }
 
 protocol PersonalPresentationLogic {
@@ -15,15 +14,14 @@ protocol PersonalDisplayLogic: AnyObject {
     func updatePersonalData()
 }
 
-protocol ChangePersonalDisplayLogic: AnyObject {
-    
-}
+protocol ChangePersonalDisplayLogic: AnyObject {}
+
 protocol PersonalRoutingLogic {
     func routeToChangePersonalInfpScreen(interactor: PersonalBusinessLogic)
     func routeToCookedRecipesScreen(data: [MainModel.Recipe.ViewModel])
     func routeToFavoriteRecilesScreen(data: [MainModel.Recipe.ViewModel])
     func routeToRewards(interactor: PersonalBusinessLogic)
-    func routeToNutritionScreen(data: String)
+    func routeToNutritionScreen(data: [String])
 }
 
 protocol PersonalWorkerLogic {

@@ -5,36 +5,34 @@ final class RegistrationInteractor: RegistrationBusinessLogic {
 
     private let presenter: RegistrationPresentationLogic
     private let worker: RegistrationWorkerLogic
-    
+
     // MARK: - Lifecycle
 
     init(presenter: RegistrationPresentationLogic, worker: RegistrationWorkerLogic) {
         self.presenter = presenter
         self.worker = worker
     }
-    
+
     func buttonTapped(_ request: Model.Request) {
-        guard
-            let name = nameError(text: request.name),
-            let age = ageError(text: request.age)
-        else {
+        let name = nameError(text: request.name)
+        let age = ageError(text: request.age)
+        if name != nil || age != nil {
+            presenter.presentError(RegistrationInfo.Response(
+                nameError: name,
+                ageError: age
+            ))
+        } else {
             let model = RegistrationInfo.ViewModel(
                 name: request.name,
                 age: request.age,
                 sex: request.sex
             )
-    
+
             presenter.presentScreen(model)
             worker.saveData(model)
-            return
         }
-        
-        presenter.presentError(RegistrationInfo.Response(
-            nameError: name,
-            ageError: age
-        ))
     }
-    
+
     private func nameError(text: String) -> String? {
         if text.isEmpty {
             return "Empty"
@@ -42,7 +40,7 @@ final class RegistrationInteractor: RegistrationBusinessLogic {
             return nil
         }
     }
-    
+
     private func ageError(text: String) -> String? {
         if text.isEmpty {
             return "Empty"

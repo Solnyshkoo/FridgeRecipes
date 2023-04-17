@@ -6,5 +6,4 @@ final class PersonalPresenter: PersonalPresentationLogic {
     func updatePersonalView() {
         view?.updatePersonalData()
     }
-    
 }

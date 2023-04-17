@@ -1,7 +1,6 @@
 import UIKit
 
 final class PersonalRecipesPresenter: PersonalRecipesPresentationLogic {
-    
     weak var view: PersonalRecipesDisplayLogic?
     
     func presentRecipes(_ response: Model.Recipe.Response) {
@@ -17,4 +16,3 @@ final class PersonalRecipesPresenter: PersonalRecipesPresentationLogic {
         return parseData
     }
 }
-

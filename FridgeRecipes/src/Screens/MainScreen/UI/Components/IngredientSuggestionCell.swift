@@ -3,9 +3,8 @@ import UIKit
 final class IngredientSuggestionCell: UICollectionViewCell {
     static let titleFont = UIFont.systemFont(ofSize: Constants.titleSize, weight: .bold)
     static let cellID = "ingredientCell"
-    
+
     private enum Constants {
-//        static let emojiSize: CGFloat = 25
         static let titleSize: CGFloat = 17
         static let cornerRadius: CGFloat = 10
         static let backgroundColor: UIColor = .cellBackgroundColor
@@ -36,12 +35,12 @@ final class IngredientSuggestionCell: UICollectionViewCell {
         super.layoutSubviews()
         ingredientName.frame = bounds
     }
-    
-    private func makeTitleLabel(){
+
+    private func makeTitleLabel() {
         ingredientName.font = .systemFont(ofSize: Constants.titleSize, weight: .regular)
         ingredientName.textAlignment = .center
     }
-    
+
     func setActiveState(isActive: Bool) {
         if isActive {
             backgroundColor = Constants.activeBackgroundColor

@@ -14,6 +14,7 @@ final class StoriesStackView: UIView {
         setnum()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -27,10 +28,13 @@ final class StoriesStackView: UIView {
             stackView.leftAnchor.constraint(equalTo: leftAnchor)
 
         ])
-        
     }
 
-    private let threeDoubles = (0...10).map() {_ in StoriesContainer(frame: .zero) }
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: threeDoubles[0].intrinsicContentSize.width, height: threeDoubles[0].intrinsicContentSize.height)
+    }
+
+    private let threeDoubles = (0 ... 2).map { _ in StoriesContainer(frame: .zero) }
     private let imagesString = ["first_recipe", "second_recipe", "third_recipe"]
     private func setnum() {
         let allViews = stackView.arrangedSubviews
@@ -40,11 +44,8 @@ final class StoriesStackView: UIView {
         
         var i = 0
         threeDoubles.forEach { item in
-            if i < 3 {
-                item.configureUI(img: UIImage(named: imagesString[i]))
-            } else {
-                item.configureUI(img: UIImage(systemName: "person"))
-            }
+
+            item.configureUI(img: UIImage(named: imagesString[i]))
             i += 1
             
             stackView.addArrangedSubview(item)
@@ -52,14 +53,10 @@ final class StoriesStackView: UIView {
         for view in stackView.arrangedSubviews {
             view.frame = CGRect(x: 0, y: 0, width: view.intrinsicContentSize.width, height: view.intrinsicContentSize.height)
         }
-        
     }
 }
 
 final class StoriesContainer: UIView {
-    
-   
-    
     lazy var gradient: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.type = .axial
@@ -85,43 +82,43 @@ final class StoriesContainer: UIView {
         gradient.frame = CGRect(x: 5, y: 5, width: view.intrinsicContentSize.width, height: view.intrinsicContentSize.height)
         gradient.cornerRadius = 25
         layer.addSublayer(gradient)
-        
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: 160, height: 190)
+        return CGSize(width: view.intrinsicContentSize.width + 10, height: view.intrinsicContentSize.height + 10)
     }
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-
 final class StorieView: UIView {
-
-    private let imageView: UIImageView = UIImageView(frame: .zero)
+    private let imageView: UIImageView = .init(frame: .zero)
+    private let width = (UIScreen.main.bounds.width - 50) / 3
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.cornerRadius = 25
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: 150, height: 180)
+        return CGSize(width: width, height: 180)
     }
     
     func configureUI(img: UIImage?) {
-//        imageView.backgroundColor = .blue
         imageView.image = img
         imageView.layer.cornerRadius = 25
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
         addSubview(imageView)
     
-        imageView.frame = CGRect(x: 0, y: 0, width: 150, height: 180)
+        imageView.frame = CGRect(x: 0, y: 0, width: width, height: 180)
     }
 }

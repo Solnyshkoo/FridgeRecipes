@@ -6,16 +6,17 @@ final class TabBar: UITabBarController {
         super.viewDidLoad()
         configureUI()
     }
-    
+
     init(userInfo: RegistrationInfo.ViewModel) {
         self.userInfo = userInfo
         super.init(nibName: nil, bundle: nil)
     }
-    
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func configureUI() {
         let mainScreen = MainAssembly.build()
         let personalScreen = PersonalAssembly.build(data: userInfo)
@@ -25,11 +26,9 @@ final class TabBar: UITabBarController {
         guard let items = tabBar.items else {
             return
         }
-//        let titles = ["Search", "Personal"]
         let imageTitles = ["magnifyingglass", "person"]
         for i in 0 ..< 2 {
             items[i].image = UIImage(systemName: imageTitles[i])
         }
-//        ta
     }
 }

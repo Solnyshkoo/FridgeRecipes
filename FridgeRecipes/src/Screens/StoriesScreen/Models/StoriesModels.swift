@@ -1,16 +1,11 @@
 import UIKit
 
 enum StoriesModels {
-    // MARK: Use cases
-    struct Request {
+    struct Request {}
     
-    }
-    
-    struct Response: Decodable {
-    }
+    struct Response: Decodable {}
     
     struct ViewModel {
         let storiesString: [String]
     }
-   
 }

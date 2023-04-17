@@ -24,7 +24,7 @@ final class RoundButtonWithBlur: UIButton {
         tintColor = Constants.tintColor
         blur.isUserInteractionEnabled = false
         blur.layer.masksToBounds = true
-        self.insertSubview(blur, at: 0)
+        insertSubview(blur, at: 0)
         if let imageView = imageView {
             bringSubviewToFront(imageView)
         }

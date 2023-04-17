@@ -62,7 +62,6 @@ final class FetchingRecipesOperation<T>: Operation where T: Decodable {
     override func main() {
         guard let url = type.url else {
             completion(.failure(NetworkError.unableToMakeURL))
-//            finish()
             return
         }
 
@@ -82,10 +81,10 @@ final class FetchingRecipesOperation<T>: Operation where T: Decodable {
             do {
                 guard let data = data else {
                     self?.completion(.failure(NetworkError.noResponseData))
-//                    self?.finish()
                     return
                 }
 
+       
                 let result = try JSONDecoder().decode(T.self, from: data)
                 self?.completion(.success(result))
                 self?.finish()

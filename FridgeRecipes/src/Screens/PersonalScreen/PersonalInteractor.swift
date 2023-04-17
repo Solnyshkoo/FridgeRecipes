@@ -21,4 +21,7 @@ final class PersonalInteractor: PersonalBusinessLogic {
         presenter.updatePersonalView()
     }
     
+    func saveData() {
+    }
+    
 }

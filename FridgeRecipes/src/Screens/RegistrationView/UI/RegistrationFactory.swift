@@ -1,7 +1,6 @@
 import Foundation
 import UIKit
 final class RegistrationFactory {
-    
     private enum Constants {
         static let titleFontSize: CGFloat = 40
         static let textFontSize: CGFloat = 18
@@ -59,5 +58,4 @@ final class RegistrationFactory {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }
-    
 }

@@ -1,6 +1,5 @@
 import UIKit
 final class PersonalFactory {
-    
     private enum Constants {
         static let textFontSize: CGFloat = 17
         static let cornerRadius: CGFloat = 15
@@ -20,7 +19,6 @@ final class PersonalFactory {
         let label = UILabel()
         label.text = text
         label.numberOfLines = 0
-//        label.textColor = .systemGray
         label.textAlignment = .left
         label.lineBreakMode = .byWordWrapping
         label.font = UIFont.systemFont(ofSize: Constants.textFontSize, weight: .medium)

@@ -2,11 +2,11 @@ import UIKit
 
 enum MainAssembly {
     static func build() -> UIViewController {
-        let router: MainRouter = MainRouter()
-        let presenter: MainPresenter = MainPresenter()
-        let worker: MainWorker = MainWorker()
-        let interactor: MainInteractor = MainInteractor(presenter: presenter, worker: worker)
-        let viewController: MainViewController = MainViewController(
+        let router = MainRouter()
+        let presenter = MainPresenter()
+        let worker = MainWorker()
+        let interactor = MainInteractor(presenter: presenter, worker: worker)
+        let viewController = MainViewController(
             router: router,
             interactor: interactor
         )

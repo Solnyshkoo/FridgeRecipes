@@ -71,9 +71,6 @@ enum RequestType {
             urlComponents.host = NetworkInfo.mealHost
             urlComponents.path = "/api/json/v2/\(NetworkInfo.apiKey)/\(path).php"
         }
-        
-        urlComponents.host = NetworkInfo.mealHost
-        urlComponents.path = "/api/json/v2/\(NetworkInfo.apiKey)/\(path).php"
 
         var queryItems: [URLQueryItem] = []
 

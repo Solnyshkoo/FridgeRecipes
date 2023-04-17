@@ -1,4 +1,5 @@
 import Foundation
+
 protocol StoriesBusinessLogic {
     typealias Model = StoriesModels
     func loadNutritionInfo(_ request: Model.Request)

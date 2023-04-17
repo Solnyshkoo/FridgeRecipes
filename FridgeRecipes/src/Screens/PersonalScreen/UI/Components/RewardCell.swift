@@ -10,6 +10,7 @@ final class RewardCell: UIView {
         configureUI()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -17,6 +18,7 @@ final class RewardCell: UIView {
     override var intrinsicContentSize: CGSize {
         CGSize(width: 80, height: 80)
     }
+
     func configure(data: RewardInfo.ViewModel) {
         titleReward.text = data.rewardText
         imgView.image = UIImage(named: data.rewardImage)
@@ -29,12 +31,10 @@ final class RewardCell: UIView {
         imgView.translatesAutoresizingMaskIntoConstraints = false
         titleReward.translatesAutoresizingMaskIntoConstraints = false
 
-        
         titleReward.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         titleReward.textAlignment = .left
         titleReward.textColor = .systemGray
     
-        
         NSLayoutConstraint.activate([
             imgView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             imgView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),

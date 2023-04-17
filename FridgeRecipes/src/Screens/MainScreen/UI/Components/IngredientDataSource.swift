@@ -11,7 +11,7 @@ final class IngredientDataSource: NSObject, UICollectionViewDataSource {
     private let updateParentFilters: (String) -> Void
 
     private(set) var filters: String = ""
-    private(set) var previousIndex: IndexPath = IndexPath(row: 0, section: 0)
+    private(set) var previousIndex: IndexPath = .init(row: 0, section: 0)
 
     init(cellID: String, updateParentFilters: @escaping (String) -> Void) {
         self.cellID = cellID
@@ -32,7 +32,6 @@ final class IngredientDataSource: NSObject, UICollectionViewDataSource {
         guard let ingredient = ingredientSuggestions[keys[indexPath.row]] else { return cell }
         ingredientCell.ingredientName.text = ingredient.fullName
         ingredientCell.isUserInteractionEnabled = true
-        ingredientCell.setActiveState(isActive: filters == keys[indexPath.row])
         return ingredientCell
     }
 

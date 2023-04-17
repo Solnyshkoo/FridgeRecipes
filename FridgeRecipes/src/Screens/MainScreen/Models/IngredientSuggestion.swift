@@ -1,7 +1,7 @@
 import Foundation
 
 struct IngredientSuggestion {
-    let name: String 
+    let name: String
     let emoji: String?
 
     init(_ name: String, _ emoji: String?) {

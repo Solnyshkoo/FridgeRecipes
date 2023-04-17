@@ -24,4 +24,3 @@ final class RecipesPresenter: RecipesPresentationLogic {
         view?.displayNothingFound()
     }
 }
-

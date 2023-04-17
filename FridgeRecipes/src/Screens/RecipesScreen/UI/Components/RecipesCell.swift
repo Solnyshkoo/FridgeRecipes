@@ -1,10 +1,10 @@
 import UIKit
 
 final class RecipesCell: UITableViewCell {
-    
     static let cellID = "recipesCell"
-    
+
     // MARK: - Constants
+
     private enum Constants {
         static let titleFontSize: CGFloat = 18
         static let cornerRadius: CGFloat = 20
@@ -17,8 +17,9 @@ final class RecipesCell: UITableViewCell {
         static let shadowOffset = CGSize(width: 0.0, height: 5.0)
         static let height: CGFloat = 150
     }
-    
+
     // MARK: - Fields
+
     private var animator: UIViewPropertyAnimator?
     private lazy var cellStack = makeStackView()
     private lazy var titleLabel = makeTitleLabel()
@@ -27,8 +28,8 @@ final class RecipesCell: UITableViewCell {
     private lazy var shadowLayer = makeShadowLayer()
     private lazy var indicator = makeActivityIndicator()
 
-    
     // MARK: - init
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(cellStack)
@@ -38,12 +39,12 @@ final class RecipesCell: UITableViewCell {
         contentView.clipsToBounds = true
         configureStackView()
     }
-    
+
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("has not been implemented")
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.insertSublayer(shadowLayer, at: 0)
@@ -54,28 +55,28 @@ final class RecipesCell: UITableViewCell {
         imgView.image = nil
         animator?.stopAnimation(true)
     }
-    
+
     // MARK: - configure
+
     func configure(
         data: MainModel.Recipe.ViewModel,
         animate: Bool = true
     ) {
         titleLabel.text = data.titleText
-        
+
         guard let link = data.thumbnailLink else {
             return
         }
         guard let img = loadImage(url: link) else {
             return
         }
-        
+
         if animate {
             showImage(image: img)
         } else {
             imgView.image = img
         }
     }
-
 
     func configureStackView() {
         NSLayoutConstraint.activate([
@@ -85,8 +86,9 @@ final class RecipesCell: UITableViewCell {
             cellStack.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
+
     // MARK: - Make UI elements
-    
+
     func makeStackView() -> UIStackView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +101,7 @@ final class RecipesCell: UITableViewCell {
         stackView.layer.cornerRadius = Constants.cornerRadius
         return stackView
     }
-    
+
     func makeTitleLabel() -> UILabel {
         let label = UILabel(
             frame: CGRect(
@@ -128,7 +130,6 @@ final class RecipesCell: UITableViewCell {
         image.contentMode = .scaleAspectFill
         return image
     }
-
 
     func makeContainerView() -> UIView {
         let view = UIView()
@@ -159,8 +160,9 @@ final class RecipesCell: UITableViewCell {
         )
         return indicator
     }
-    
+
     // MARK: - Picture
+
     private func showImage(image: UIImage?) {
         imgView.alpha = 0.0
         animator?.stopAnimation(false)
@@ -171,10 +173,9 @@ final class RecipesCell: UITableViewCell {
             }
         )
     }
-    
-    // FIXME: - Убрать от сюда
+
     func loadImage(url: URL) -> UIImage? {
-        guard let data = try? Data(contentsOf: url) else {return nil}
+        guard let data = try? Data(contentsOf: url) else { return nil }
         return UIImage(data: data)
     }
 }

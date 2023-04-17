@@ -11,6 +11,7 @@ final class PersonalContainerView: UIView {
         layer.cornerRadius = 15
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -26,8 +27,6 @@ final class PersonalContainerView: UIView {
     }
     
     private func configureUI() {
-//        title.textColor = .systemBackground
-//        subtitle.textColor = .systemBackground
         arrow.tintColor = .label
         title.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         subtitle.font = UIFont.systemFont(ofSize: 15, weight: .medium)
@@ -39,19 +38,16 @@ final class PersonalContainerView: UIView {
         subtitle.translatesAutoresizingMaskIntoConstraints = false
         arrow.translatesAutoresizingMaskIntoConstraints = false
 
-        
         addSubview(title)
         addSubview(subtitle)
         addSubview(arrow)
         
         NSLayoutConstraint.activate([
             title.bottomAnchor.constraint(equalTo: centerYAnchor, constant: 5),
-//            title.centerYAnchor.constraint(equalTo: centerYAnchor),
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             title.heightAnchor.constraint(equalToConstant: 24),
             
             subtitle.topAnchor.constraint(equalTo: centerYAnchor, constant: 5),
-//            subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 2),
             subtitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             subtitle.heightAnchor.constraint(equalToConstant: 15),
             

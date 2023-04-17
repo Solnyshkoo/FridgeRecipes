@@ -5,7 +5,6 @@ import UIKit
     @objc optional func cubeViewDidScroll(_ cubeView: StoriesScrollView)
 }
 
-
 open class StoriesScrollView: UIScrollView, UIScrollViewDelegate {
     
     weak var cubeDelegate: StoriesScrollViewDelegate?
@@ -202,7 +201,6 @@ open class StoriesScrollView: UIScrollView, UIScrollViewDelegate {
         let r2 = frameFor(origin: CGPoint(x: CGFloat(index)*w, y: 0),
                           size: CGSize(width: w, height: h))
         
-        // Only show shadow on right-hand side
         if r1.origin.x <= r2.origin.x {
             
             let intersection = r1.intersection(r2)

@@ -13,6 +13,12 @@
 		5E06CBDD29EC5C0100AC0BE4 /*  StoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CBDC29EC5C0100AC0BE4 /*  StoriesViewController.swift */; };
 		5E06CBE029EC5C5F00AC0BE4 /* StoriesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CBDF29EC5C5F00AC0BE4 /* StoriesScrollView.swift */; };
 		5E06CBE229EC5C7700AC0BE4 /* StackViewStories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E06CBE129EC5C7700AC0BE4 /* StackViewStories.swift */; };
+		5E2E96A129EDC75E0004BB38 /* Recipe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E969B29EDC75E0004BB38 /* Recipe+CoreDataClass.swift */; };
+		5E2E96A229EDC75E0004BB38 /* Recipe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E969C29EDC75E0004BB38 /* Recipe+CoreDataProperties.swift */; };
+		5E2E96A929EDC84D0004BB38 /* CoreReward+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E96A529EDC84D0004BB38 /* CoreReward+CoreDataClass.swift */; };
+		5E2E96AA29EDC84D0004BB38 /* CoreReward+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E96A629EDC84D0004BB38 /* CoreReward+CoreDataProperties.swift */; };
+		5E2E96AB29EDC84D0004BB38 /* CoreFav+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E96A729EDC84D0004BB38 /* CoreFav+CoreDataClass.swift */; };
+		5E2E96AC29EDC84D0004BB38 /* CoreFav+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E96A829EDC84D0004BB38 /* CoreFav+CoreDataProperties.swift */; };
 		5E4CA51129EAEB3D00EED734 /* NutritionMainInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA51029EAEB3D00EED734 /* NutritionMainInfoView.swift */; };
 		5E4CA51329EAEB5400EED734 /* NutritionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA51229EAEB5400EED734 /* NutritionInfoView.swift */; };
 		5E4CA51529EAEB8C00EED734 /* NutritionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4CA51429EAEB8C00EED734 /* NutritionFactory.swift */; };
@@ -113,6 +119,12 @@
 		5E06CBDC29EC5C0100AC0BE4 /*  StoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " StoriesViewController.swift"; sourceTree = "<group>"; };
 		5E06CBDF29EC5C5F00AC0BE4 /* StoriesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesScrollView.swift; sourceTree = "<group>"; };
 		5E06CBE129EC5C7700AC0BE4 /* StackViewStories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewStories.swift; sourceTree = "<group>"; };
+		5E2E969B29EDC75E0004BB38 /* Recipe+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5E2E969C29EDC75E0004BB38 /* Recipe+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5E2E96A529EDC84D0004BB38 /* CoreReward+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreReward+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5E2E96A629EDC84D0004BB38 /* CoreReward+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreReward+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5E2E96A729EDC84D0004BB38 /* CoreFav+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreFav+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5E2E96A829EDC84D0004BB38 /* CoreFav+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreFav+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5E4CA51029EAEB3D00EED734 /* NutritionMainInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionMainInfoView.swift; sourceTree = "<group>"; };
 		5E4CA51229EAEB5400EED734 /* NutritionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionInfoView.swift; sourceTree = "<group>"; };
 		5E4CA51429EAEB8C00EED734 /* NutritionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionFactory.swift; sourceTree = "<group>"; };
@@ -403,6 +415,12 @@
 		5EAFA48C29C8BB1500F453EC = {
 			isa = PBXGroup;
 			children = (
+				5E2E96A529EDC84D0004BB38 /* CoreReward+CoreDataClass.swift */,
+				5E2E96A629EDC84D0004BB38 /* CoreReward+CoreDataProperties.swift */,
+				5E2E96A729EDC84D0004BB38 /* CoreFav+CoreDataClass.swift */,
+				5E2E96A829EDC84D0004BB38 /* CoreFav+CoreDataProperties.swift */,
+				5E2E969B29EDC75E0004BB38 /* Recipe+CoreDataClass.swift */,
+				5E2E969C29EDC75E0004BB38 /* Recipe+CoreDataProperties.swift */,
 				5EAFA49729C8BB1600F453EC /* FridgeRecipes */,
 				5EAFA49629C8BB1600F453EC /* Products */,
 			);
@@ -770,6 +788,7 @@
 				5E9CBF4629DB05DA00271B40 /* MainProtocols.swift in Sources */,
 				5ECB7A0C29E6CBAD0094CE81 /* UserInfo.swift in Sources */,
 				5E4CA53629EB2D6500EED734 /* PersonalRecipesWorker.swift in Sources */,
+				5E2E96A229EDC75E0004BB38 /* Recipe+CoreDataProperties.swift in Sources */,
 				5E9CBF4D29DB162E00271B40 /* API service.swift in Sources */,
 				5EAFA49D29C8BB1600F453EC /* ViewController.swift in Sources */,
 				5ECB79D529E371CF0094CE81 /* StoriesStackView.swift in Sources */,
@@ -777,6 +796,7 @@
 				5ECB79C629E2CB600094CE81 /* RecipesInteractor.swift in Sources */,
 				5E4CA53A29EB2D9400EED734 /* PersonalRecipesInteractor.swift in Sources */,
 				5E06CBE229EC5C7700AC0BE4 /* StackViewStories.swift in Sources */,
+				5E2E96A929EDC84D0004BB38 /* CoreReward+CoreDataClass.swift in Sources */,
 				5E4CA51729EAEE7700EED734 /* CaloriesView.swift in Sources */,
 				5ECB79CD29E2D2730094CE81 /* RecipesCell.swift in Sources */,
 				5EAFA49929C8BB1600F453EC /* AppDelegate.swift in Sources */,
@@ -797,6 +817,7 @@
 				5E4CA53E29EB2DCD00EED734 /* PersonalRecipesViewController.swift in Sources */,
 				5EB27FDF29E713A200866252 /* RoundButtonWithBlur.swift in Sources */,
 				5E4CA51329EAEB5400EED734 /* NutritionInfoView.swift in Sources */,
+				5E2E96AB29EDC84D0004BB38 /* CoreFav+CoreDataClass.swift in Sources */,
 				5E4CA53829EB2D7D00EED734 /* PersonalRecipesPresenter.swift in Sources */,
 				5EB27FD529E7072000866252 /* RecipeInfoPresenter.swift in Sources */,
 				5ECB79C229E2CA330094CE81 /* RecipesPresenter.swift in Sources */,
@@ -807,6 +828,7 @@
 				5EB27FD329E7071200866252 /* RecipeInfoInteractor.swift in Sources */,
 				5EB27FF629E744FD00866252 /* NutritionModel.swift in Sources */,
 				5E4CA54029EBF0F500EED734 /* RewardCell.swift in Sources */,
+				5E2E96A129EDC75E0004BB38 /* Recipe+CoreDataClass.swift in Sources */,
 				5EB27FF029E7449A00866252 /* NutritionPresenter.swift in Sources */,
 				5EB27FF429E744D300866252 /* NutritionProtocols.swift in Sources */,
 				5E4CA53229EB2D3200EED734 /* PersonalRecipesRouter.swift in Sources */,
@@ -827,6 +849,7 @@
 				5ECB79B229E1D8400094CE81 /* NetworkError.swift in Sources */,
 				5E9CBF3B29D9E20600271B40 /* MainAssembly.swift in Sources */,
 				5E9CBF5429DC79F700271B40 /* IngredientDataSource.swift in Sources */,
+				5E2E96AC29EDC84D0004BB38 /* CoreFav+CoreDataProperties.swift in Sources */,
 				5ECB79CA29E2CBA50094CE81 /* RecipesWorker.swift in Sources */,
 				5EF9F57529E9C8FD009D2ABD /* RegistrationProtocols.swift in Sources */,
 				5EF9F58A29EAA48E009D2ABD /* ChangePersonalInfoViewController.swift in Sources */,
@@ -857,6 +880,7 @@
 				5E06CBC629EC0F3D00AC0BE4 /* NothingFoundStack.swift in Sources */,
 				5E9CBF4329D9E2C900271B40 /* MainViewController.swift in Sources */,
 				5EB27FE529E740E700866252 /* NutritionViewController.swift in Sources */,
+				5E2E96AA29EDC84D0004BB38 /* CoreReward+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

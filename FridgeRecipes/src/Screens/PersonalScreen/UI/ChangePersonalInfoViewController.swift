@@ -1,9 +1,8 @@
-import UIKit
 import CloudKit
+import UIKit
 
 // FIXME: - отдельный модуль
 final class ChangePersonalInfoViewController: UIViewController {
-    
     private let interactor: PersonalBusinessLogic
     private let factory = PersonalFactory()
     private lazy var nameTextField = factory.editTextField(text: PersonalViewController.userInfo.personalInfo.name)
@@ -14,17 +13,15 @@ final class ChangePersonalInfoViewController: UIViewController {
     private lazy var nametitle = factory.textLabel(text: "Your name")
     private lazy var ageTitle = factory.textLabel(text: "Your age")
     
-    private lazy var genderPicker: UIPickerView = UIPickerView()
+    private lazy var genderPicker: UIPickerView = .init()
     private let dataArray = ["None", "Female", "Male"]
     private lazy var nameEror = factory.errorLabel()
     private lazy var ageEror = factory.errorLabel()
     
-
     private enum Constants {
         static let textLeadingOffset: CGFloat = 10
         static let textTopOffset: CGFloat = 30
         static let buttonWidth: CGFloat = (UIScreen.main.bounds.width - 40 - 15 - 10) / 2
-//        static let cornerRadius: CGFloat = 15
     }
     
     init(interactor: PersonalBusinessLogic) {
@@ -53,15 +50,13 @@ final class ChangePersonalInfoViewController: UIViewController {
         genderPicker.dataSource = self
         genderPicker.selectRow(dataArray.firstIndex(
             of: PersonalViewController.userInfo.personalInfo.sex) ?? 0,
-            inComponent: 0,
-            animated: false
-        )
+        inComponent: 0,
+        animated: false)
         nameEror.isHidden = true
         ageEror.isHidden = true
         
         saveButon.addTarget(self, action: #selector(buttonSaveTapped), for: .touchUpInside)
         cancelButon.addTarget(self, action: #selector(buttonCancelTapped), for: .touchUpInside)
-        
         
         NSLayoutConstraint.activate([
             nametitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 62),
@@ -80,7 +75,7 @@ final class ChangePersonalInfoViewController: UIViewController {
             ageTitle.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: Constants.textTopOffset),
             ageTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             ageTitle.heightAnchor.constraint(equalToConstant: 18),
-
+            
             ageEror.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: Constants.textTopOffset),
             ageEror.leadingAnchor.constraint(equalTo: ageTitle.trailingAnchor, constant: 30),
             ageEror.heightAnchor.constraint(equalToConstant: 18),
@@ -89,29 +84,6 @@ final class ChangePersonalInfoViewController: UIViewController {
             ageTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.textLeadingOffset),
             ageTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             ageTextField.heightAnchor.constraint(equalToConstant: 50),
-            
-//            nameEmpty.topAnchor.constraint(equalTo: titleText.bottomAnchor, constant: 50),
-//            nameEmpty.leadingAnchor.constraint(equalTo: nametitle.trailingAnchor, constant: 30),
-//            nameEmpty.heightAnchor.constraint(equalToConstant: 18),
-//
-//            nameText.topAnchor.constraint(equalTo: nametitle.bottomAnchor, constant: 9),
-//            nameText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-//            nameText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-//            nameText.heightAnchor.constraint(equalToConstant: 50),
-            
-//
-//            ageTitle.topAnchor.constraint(equalTo: nameText.bottomAnchor, constant: 50),
-//            ageTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-//            ageTitle.heightAnchor.constraint(equalToConstant: 18),
-//
-//            ageEmpty.topAnchor.constraint(equalTo: nameText.bottomAnchor, constant: 50),
-//            ageEmpty.leadingAnchor.constraint(equalTo: ageTitle.trailingAnchor, constant: 30),
-//            ageEmpty.heightAnchor.constraint(equalToConstant: 18),
-//
-//            ageText.topAnchor.constraint(equalTo: ageTitle.bottomAnchor, constant: 9),
-//            ageText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-//            ageText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-//            ageText.heightAnchor.constraint(equalToConstant: 50),
             
             genderPicker.topAnchor.constraint(equalTo: ageTextField.bottomAnchor, constant: Constants.textTopOffset),
             genderPicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -156,13 +128,15 @@ final class ChangePersonalInfoViewController: UIViewController {
             nameEror.text = nameErrorText
         }
 
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     @objc
     private func buttonCancelTapped(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -170,7 +144,7 @@ final class ChangePersonalInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground
     }
 }
 
@@ -184,9 +158,9 @@ extension ChangePersonalInfoViewController: UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-       let row = dataArray[row]
-       return row
+        let row = dataArray[row]
+        return row
     }
 }
-extension ChangePersonalInfoViewController: ChangePersonalDisplayLogic {
-}
+
+extension ChangePersonalInfoViewController: ChangePersonalDisplayLogic {}

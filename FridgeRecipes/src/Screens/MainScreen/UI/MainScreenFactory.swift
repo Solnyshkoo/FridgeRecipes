@@ -1,5 +1,5 @@
-import UIKit
 import CloudKit
+import UIKit
 
 final class MainScreenFactory {
     private enum Constants {
@@ -43,35 +43,13 @@ final class MainScreenFactory {
         StoriesStackView()
     }
     
-    func makeCategoryStackView() -> UIView {
+    func makeCategoryStackView() -> CategoryStackView {
         CategoryStackView()
     }
     
-    func makeCusineStackView() -> UIView {
+    func makeCusineStackView() -> CusineStackView {
         CusineStackView()
     }
-    
-//    func makeStoriesScrollView() -> UIStackView {
-//        let stackView = UIStackView()
-//        stackView.axis = .vertical
-//        stackView.alignment = .center
-//        stackView.distribution = .fill
-//        stackView.spacing = Constants.titleSpacing
-//
-//        let view = UIScrollView()
-//        stackView.addSubview(view)
-//        view.isScrollEnabled = true
-//        view.showsVerticalScrollIndicator = true
-//        var offset = 0
-//        for _ in 0...9 {
-//            stackView.addSubview(StoriesView(
-//                frame: CGRect(x: offset, y: 0, width: 100, height: 100)))
-//
-//            offset += 110
-//        }
-//        view.contentSize = CGSize(width: offset, height: 100)
-//        return stackView
-//    }
     
     func makeIngredientCollectionView() -> UICollectionView {
         let layout = UICollectionViewFlowLayout()
@@ -106,4 +84,3 @@ final class MainScreenFactory {
         return stackView
     }
 }
-

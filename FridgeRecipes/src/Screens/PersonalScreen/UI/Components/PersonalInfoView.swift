@@ -20,22 +20,19 @@ final class PersonalInfoView: UIView {
     private let ageEdit = UITextField()
     private let sexEdit = UIButton()
     
-
-    
-
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
         layer.cornerRadius = 15
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override var intrinsicContentSize: CGSize {
-        let height: CGFloat = 128 //name.intrinsicContentSize.height + age.intrinsicContentSize.height + sex.intrinsicContentSize.height
+        let height: CGFloat = 128
         return CGSize(width: UIScreen.main.bounds.width, height: height)
     }
     
@@ -45,14 +42,9 @@ final class PersonalInfoView: UIView {
         sex.text = "Gender: " + data.sex
         level.text = "Level: " + "1"
         imgView.image = UIImage(named: "level1")
-//        imgView.image = UIImage(named: data.level)
     }
     
     private func configureUI() {
-//        name.textColor = .systemBackground
-//        age.textColor = .systemBackground
-//        sex.textColor = .systemBackground
-        
         name.font = UIFont.systemFont(ofSize: Constants.nameFontSize, weight: .bold)
         age.font = UIFont.systemFont(ofSize: Constants.infoFontSize, weight: .regular)
         sex.font = UIFont.systemFont(ofSize: Constants.infoFontSize, weight: .regular)
@@ -69,20 +61,16 @@ final class PersonalInfoView: UIView {
         imgView.translatesAutoresizingMaskIntoConstraints = false
         level.translatesAutoresizingMaskIntoConstraints = false
 
-        
-//        imgView.backgroundColor = .systemBackground
         imgView.layer.cornerRadius = 15
         imgView.layer.masksToBounds = true
         imgView.contentMode = .scaleAspectFill
 
-        
         addSubview(name)
         addSubview(age)
         addSubview(sex)
         addSubview(imgView)
         addSubview(level)
      
-        
         NSLayoutConstraint.activate([
             imgView.topAnchor.constraint(equalTo: topAnchor, constant: 14),
             imgView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 14),
@@ -93,13 +81,11 @@ final class PersonalInfoView: UIView {
             name.leadingAnchor.constraint(equalTo: imgView.trailingAnchor, constant: 20),
             name.trailingAnchor.constraint(equalTo: trailingAnchor),
             name.heightAnchor.constraint(equalToConstant: Constants.nameFontSize),
-
             
             level.topAnchor.constraint(equalTo: name.bottomAnchor, constant: Constants.textTopOffset),
             level.leadingAnchor.constraint(equalTo: imgView.trailingAnchor, constant: Constants.textLeadingOffset),
             level.trailingAnchor.constraint(equalTo: trailingAnchor),
             level.heightAnchor.constraint(equalToConstant: Constants.infoFontSize + 1),
-            
             
             age.topAnchor.constraint(equalTo: level.bottomAnchor, constant: Constants.textTopOffset),
             age.leadingAnchor.constraint(equalTo: imgView.trailingAnchor, constant: Constants.textLeadingOffset),
@@ -113,5 +99,4 @@ final class PersonalInfoView: UIView {
             
         ])
     }
-    
 }

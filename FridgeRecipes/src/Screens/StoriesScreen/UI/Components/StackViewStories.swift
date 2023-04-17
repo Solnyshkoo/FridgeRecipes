@@ -5,14 +5,13 @@ public protocol StoriesProtocol: UIView {
 }
 
 final class UIStackViewStories: UIView, StoriesProtocol {
-    // Cuszomize defined UIProgressView and UIButton object.
     var progressView2: UIProgressView!
     let iv1 = UIImageView()
     var buttonForward = UIButton()
     var buttonBack = UIButton()
     
     private lazy var pickers = (0..<storiesString.storiesString.count).map() {_ in UIProgressView(frame: .zero) }
-    private var storiesString: StoriesModels.ViewModel // ["first", "first_2"]
+    private var storiesString: StoriesModels.ViewModel
     private var currentIndex = 0
 
     var timer:Timer? = nil
@@ -27,7 +26,6 @@ final class UIStackViewStories: UIView, StoriesProtocol {
         iv1.image =  UIImage(named: storiesString.storiesString[currentIndex])
         startTimer()
     }
-
     
     init(data: StoriesModels.ViewModel) {
         storiesString = data
@@ -39,7 +37,6 @@ final class UIStackViewStories: UIView, StoriesProtocol {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // Initialize btn2 and progressView2.
     func initProgressView2Btn2(){
         addSubview(iv1)
 
@@ -82,7 +79,7 @@ final class UIStackViewStories: UIView, StoriesProtocol {
 
         buttonForward.addTarget(self, action: #selector(moveForward(_:)), for: .touchUpInside)
         buttonBack.addTarget(self, action: #selector(moveBack(_:)), for: .touchUpInside)
-//
+
         let buttonWidth = UIScreen.main.bounds.width / 2
 
         NSLayoutConstraint.activate([
@@ -90,17 +87,15 @@ final class UIStackViewStories: UIView, StoriesProtocol {
             buttonForward.bottomAnchor.constraint(equalTo: bottomAnchor),
             buttonForward.trailingAnchor.constraint(equalTo: trailingAnchor),
             buttonForward.widthAnchor.constraint(equalToConstant: buttonWidth),
-//
+
             buttonBack.topAnchor.constraint(equalTo: topAnchor),
             buttonBack.bottomAnchor.constraint(equalTo: bottomAnchor),
             buttonBack.leadingAnchor.constraint(equalTo: leadingAnchor),
             buttonBack.widthAnchor.constraint(equalToConstant: buttonWidth),
         ])
-        
-//        startTimer()
+
     }
 
-    /* This function will start a timer object and start the timer. */
     func startTimer() -> Void{
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(startDownload), userInfo: nil, repeats: true)
        
@@ -112,7 +107,7 @@ final class UIStackViewStories: UIView, StoriesProtocol {
     }
     
     @objc func moveForward(_ sender: UIButton) {
-        self.timer?.invalidate() //  Invalidate the timer object to stop it.
+        self.timer?.invalidate()
         
         if !(currentIndex == pickers.count - 1) {
             pickers[currentIndex].progress = 1
@@ -123,7 +118,7 @@ final class UIStackViewStories: UIView, StoriesProtocol {
     }
     
     @objc func moveBack(_ sender: UIButton) {
-        self.timer?.invalidate() //  Invalidate the timer object to stop it.
+        self.timer?.invalidate()
         
         if !(currentIndex == 0) {
             pickers[currentIndex].progress = 0
@@ -134,21 +129,15 @@ final class UIStackViewStories: UIView, StoriesProtocol {
         }
     }
     
-    /* This function will display the UIProgressView object. */
     func showProgressView(progressView: UIProgressView){
         
-        // Get the progressView's progress.
         var currProgress = progressView.progress
            
         // progress value plus 0.1.
         progressView.progress = currProgress + 0.1
            
         currProgress = progressView.progress
-           
-        // If current progress value is 1.5
         if(currProgress == 1.0){
-            
-            // Invalidate the timer object to stop it.
             self.timer?.invalidate()
                
             if !(currentIndex == pickers.count - 1) {
@@ -156,9 +145,6 @@ final class UIStackViewStories: UIView, StoriesProtocol {
                 iv1.image =  UIImage(named: storiesString.storiesString[currentIndex])
                 startTimer()
             }
-            
-            
-            print("All done")
         }
         
     }

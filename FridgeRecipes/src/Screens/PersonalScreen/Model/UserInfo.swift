@@ -12,14 +12,14 @@ enum UserInfo {
         var cookedRecipes: [MainModel.Recipe.ViewModel]
         var favoriteRecipes: [MainModel.Recipe.ViewModel]
         var rewards: [RewardInfo.ViewModel]
-        
+
         init() {
             self.personalInfo = RegistrationInfo.ViewModel(name: "", age: "", sex: "")
             self.cookedRecipes = []
             self.favoriteRecipes = []
             self.rewards = []
         }
-        
+
         init(personalInfo: RegistrationInfo.ViewModel) {
             self.personalInfo = personalInfo
             self.cookedRecipes = []

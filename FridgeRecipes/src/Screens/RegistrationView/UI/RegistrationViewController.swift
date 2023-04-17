@@ -16,7 +16,7 @@ final class RegistrationViewController: UIViewController {
     private lazy var ageTitle = factory.textLabel(text: "Your age")
     private lazy var ageText = factory.registrationTextField()
     
-    private lazy var genderPicker: UIPickerView = UIPickerView()
+    private lazy var genderPicker: UIPickerView = .init()
     
     private lazy var button = factory.registrationButton()
     
@@ -31,6 +31,7 @@ final class RegistrationViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -76,11 +77,10 @@ final class RegistrationViewController: UIViewController {
             nameText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             nameText.heightAnchor.constraint(equalToConstant: 50),
             
-            
             ageTitle.topAnchor.constraint(equalTo: nameText.bottomAnchor, constant: 50),
             ageTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             ageTitle.heightAnchor.constraint(equalToConstant: 18),
-
+            
             ageEmpty.topAnchor.constraint(equalTo: nameText.bottomAnchor, constant: 50),
             ageEmpty.leadingAnchor.constraint(equalTo: ageTitle.trailingAnchor, constant: 30),
             ageEmpty.heightAnchor.constraint(equalToConstant: 18),
@@ -121,8 +121,8 @@ extension RegistrationViewController: UIPickerViewDelegate, UIPickerViewDataSour
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-       let row = dataArray[row]
-       return row
+        let row = dataArray[row]
+        return row
     }
 }
 
@@ -137,6 +137,4 @@ extension RegistrationViewController: RegistrationDisplayLogic {
         nameEmpty.isHidden = false
         ageEmpty.isHidden = false
     }
-    
-    
 }

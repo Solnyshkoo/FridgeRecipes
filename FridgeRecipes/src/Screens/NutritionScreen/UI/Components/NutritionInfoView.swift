@@ -1,6 +1,7 @@
 import UIKit
-import CoreLocation
-final class NutritionInfoView: UIView {
+
+final class NutritionInfoView: UITableViewCell {
+    static let cellId = "NutritionInfoView"
     private let title = UILabel()
     private let amount = UILabel()
     private let percentage = UILabel()
@@ -11,22 +12,27 @@ final class NutritionInfoView: UIView {
         static let sidesOffset: CGFloat = 15
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: 40)
     }
     
-    func config(title: String, amount: String, percentage: String) {
-        self.title.text = title
-        self.amount.text = amount
-        self.percentage.text = percentage + " %"
+    func config(data: TotalDaily, persentage: TotalDaily?) {
+        title.text = data.label
+        amount.text = String(data.quantity.rounded(1)) + data.unit.rawValue
+        if persentage == nil {
+            percentage.isHidden = true
+        } else {
+            percentage.isHidden = false
+            percentage.text = String(persentage?.quantity.rounded(1) ?? 0.0) + (persentage?.unit.rawValue ?? "")
+        }
+        
+        if data.label == "Fatty acids, total saturated" {
+            title.text = "Saturated Fat"
+        } else if data.label.isEmpty {
+            title.text = "-"
+            amount.text = "-"
+            percentage.text = "-"
+        }
         configureUI()
     }
     

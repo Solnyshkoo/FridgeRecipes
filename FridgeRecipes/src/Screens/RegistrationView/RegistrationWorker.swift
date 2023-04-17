@@ -1,5 +1,6 @@
 import Foundation
 final class RegistrationWorker: RegistrationWorkerLogic {
+
     func saveData(_ viewModel: Model.ViewModel) {
         let defaults = UserDefaults.standard
         defaults.set(viewModel.name, forKey: "name")
