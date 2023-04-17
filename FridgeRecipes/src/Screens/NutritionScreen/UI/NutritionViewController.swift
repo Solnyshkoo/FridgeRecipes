@@ -119,9 +119,7 @@ final class NutritionViewController: UIViewController {
 }
 
 extension NutritionViewController: NutritionDisplayLogic {
-    func displayError(error: String) {
-        print("error")
-    }
+    func displayError(error: String) {}
     
     func displayInfo(_ viewModel: Model.ViewModel) {
         nutritionInfo = viewModel.plus(data: nutritionInfo)

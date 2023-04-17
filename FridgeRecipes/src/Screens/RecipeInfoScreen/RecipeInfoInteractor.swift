@@ -21,7 +21,6 @@ final class RecipeInfoInteractor: RecipeInfoBusinessLogic {
             
             switch result {
             case let .success(items):
-                print(items)
                 self.presenter.presentRecipes(items)
             case .failure:
                 break
