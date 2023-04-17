@@ -23,7 +23,7 @@ final class PersonalWorker: PersonalWorkerLogic {
         }
         
         if let fav = try? context.fetch(CoreFav.fetchRequest()) {
-            PersonalViewController.userInfo.favoriteRecipes = parse(fav)!
+            PersonalViewController.userInfo.favoriteRecipes = parse(fav)
         } else {
             PersonalViewController.userInfo.favoriteRecipes = []
         }

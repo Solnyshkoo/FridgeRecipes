@@ -37,6 +37,7 @@ final class RecipeInfoWorker: RecipeInfoWorkerLogic {
     }
     
     func getRecipeInfo(id: String, completion: @escaping MealsCompletion) {
+        loadData()
         let getMealById = FetchingRecipesOperation(
             type: .detailsById(id: id),
             completion: completion
@@ -90,6 +91,26 @@ final class RecipeInfoWorker: RecipeInfoWorkerLogic {
         } else {
             fav = []
             PersonalViewController.userInfo.favoriteRecipes = []
+        }
+    }
+    
+    private func loadData() {
+        if let notes = try? context.fetch(Recipe.fetchRequest()) {
+            cooked = notes
+        } else {
+            cooked = []
+        }
+        
+        if let favt = try? context.fetch(CoreFav.fetchRequest()) {
+            fav = favt
+        } else {
+            fav = []
+        }
+        
+        if let rewards = try? context.fetch(CoreReward.fetchRequest()) {
+            rew = rewards
+        } else {
+            rew = []
         }
     }
     
