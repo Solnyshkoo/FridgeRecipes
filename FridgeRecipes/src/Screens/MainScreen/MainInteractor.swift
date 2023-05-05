@@ -12,12 +12,4 @@ final class MainInteractor: MainBusinessLogic {
         self.presenter = presenter
         self.worker = worker
     }
-
-    // MARK: - BusinessLogic
-
-    func loadStart(_ request: Model.Start.Request) {
-        presenter.presentStart(Model.Start.Response())
-    }
-
-    func loadAction(_ request: Model.Action.Request) {}
 }

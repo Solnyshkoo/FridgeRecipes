@@ -12,6 +12,7 @@ final class MainViewController: UIViewController {
         static let ingredientCellID = IngredientSuggestionCell.cellID
     }
 
+    // MARK: - UI Fields
     private lazy var searchBar: UISearchBar = factory.makeSearchBar()
     private lazy var resultCollectionView: UICollectionView = factory.makeResultCollectionView()
     private lazy var suggestionScrollView = factory.makeScrollView()
@@ -21,12 +22,9 @@ final class MainViewController: UIViewController {
     private lazy var ingredientSuggestionTitle: UILabel = factory.makeIngredientSuggestionTitle()
     private lazy var suggestionStackView: UIStackView = factory.makeSuggestionStackView()
     private lazy var categoriesScrollView = factory.makeScrollView()
-
     private lazy var storiesStackView = factory.makeStoriesStackView()
-    
     private lazy var categoryStackView = factory.makeCategoryStackView()
     private lazy var cusineStackView = factory.makeCusineStackView()
-    
     private var filters: String = ""
     
     private lazy var ingredientDataSource = IngredientDataSource(
@@ -103,12 +101,11 @@ final class MainViewController: UIViewController {
         
         categoriesScrollView.addSubview(categoryStackView)
         categoriesScrollView.addSubview(cusineStackView)
-        
         categoriesScrollView.addSubview(storiesStackView)
         
         suggestionScrollView.addSubview(suggestionStackView)
-
         suggestionStackView.addArrangedSubview(ingredientSuggestionsStack)
+        
         ingredientSuggestionsStack.addArrangedSubview(ingredientSuggestionTitle)
         ingredientSuggestionsStack.addArrangedSubview(ingredientCollectionView)
     }
@@ -176,8 +173,8 @@ final class MainViewController: UIViewController {
     }
     
     private func configureStackView() {
-        categoryStackView.c(deleg: self)
-        cusineStackView.c(del: self)
+        categoryStackView.config(deleg: self)
+        cusineStackView.config(del: self)
         categoryStackView.translatesAutoresizingMaskIntoConstraints = false
         let offset = (UIScreen.main.bounds.width - categoryStackView.intrinsicContentSize.width) / 2
         suggestionStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -275,10 +272,6 @@ final class MainViewController: UIViewController {
 // MARK: - Protocol DisplayLogic
 
 extension MainViewController: MainDisplayLogic {
-    func displayStart(_: Model.Start.ViewModel) {}
-
-    func displayAction(_: Model.Action.ViewModel) {}
-    
     func displayRecipes(_ viewModel: MainModel.Recipe.Request) {
         router.routeToRecipesScreen(data: RequestType.mealsByName(name: viewModel.searchText), titleText: searchBar.nonOptionalText)
     }
@@ -300,12 +293,8 @@ extension MainViewController: UISearchBarDelegate {
     }
 }
 
-extension UISearchBar {
-    var nonOptionalText: String {
-        text ?? ""
-    }
-}
 
+// MARK: - CategoryStackViewProtocol, CusineStackViewProtocol
 extension MainViewController: CategoryStackViewProtocol, CusineStackViewProtocol {
     func cusinePressed(name: String) {
         router.routeToRecipesScreen(data: RequestType.mealByCuisine(cuisine: name), titleText: name)
@@ -315,3 +304,5 @@ extension MainViewController: CategoryStackViewProtocol, CusineStackViewProtocol
         router.routeToRecipesScreen(data: RequestType.mealByCategory(category: name), titleText: name)
     }
 }
+
+

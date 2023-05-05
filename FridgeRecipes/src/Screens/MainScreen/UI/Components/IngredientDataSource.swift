@@ -30,7 +30,7 @@ final class IngredientDataSource: NSObject, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
         guard let ingredientCell = cell as? IngredientSuggestionCell else { return cell }
         guard let ingredient = ingredientSuggestions[keys[indexPath.row]] else { return cell }
-        ingredientCell.ingredientName.text = ingredient.fullName
+        ingredientCell.config(name: ingredient.fullName)
         ingredientCell.isUserInteractionEnabled = true
         return ingredientCell
     }
@@ -50,6 +50,7 @@ final class IngredientDataSource: NSObject, UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout delegate
 extension IngredientDataSource: UICollectionViewDelegateFlowLayout {
     private func getCellTextWidth(_ s: String?) -> CGFloat {
         guard let s = s else { return 0 }

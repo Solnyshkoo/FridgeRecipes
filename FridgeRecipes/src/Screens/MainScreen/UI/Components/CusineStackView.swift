@@ -5,14 +5,14 @@ protocol CusineStackViewProtocol: AnyObject {
 }
 
 final class CusineStackView: UIView {
+    // MARK: - Fields
+
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
-    private var delegate: CusineStackViewProtocol?
     
     private lazy var titleText: UILabel = {
         let label = UILabel()
@@ -23,10 +23,22 @@ final class CusineStackView: UIView {
         return label
     }()
     
+    private var delegate: CusineStackViewProtocol?
+    private var offsetFirst: CGFloat = 0
+    private var offsetSecond: CGFloat = 0
+    private var offsetThird: CGFloat = 0
+    private var offsetheight: CGFloat = 0
+    private var offsetY: CGFloat = 0
+    private let categoryContainers = (0 ... 8).map { _ in CategoryContainer(frame: .zero) }
+    private let nameString = [
+        "Chinese", "French", "Greek", "Italian", "Japanese", "Mexican", "American", "British", "Irish"
+    ]
+    
+    // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        config()
-        setupStackCategore()
+        setupStackCusine()
     }
     
     @available(*, unavailable)
@@ -34,16 +46,23 @@ final class CusineStackView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - intrinsicContentSize
+
     override var intrinsicContentSize: CGSize {
         CGSize(width: offsetFirst, height: offsetheight * 3 + offsetY)
     }
     
-    func c(del: CusineStackViewProtocol) {
+    // MARK: - Config
+
+    func config(del: CusineStackViewProtocol) {
         delegate = del
     }
-    
-    func config() {
+
+    // MARK: - Setup StackCusine
+
+    private func setupStackCusine() {
         addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.rightAnchor.constraint(equalTo: rightAnchor),
@@ -51,18 +70,6 @@ final class CusineStackView: UIView {
             stackView.leftAnchor.constraint(equalTo: leftAnchor)
 
         ])
-    }
-
-    var offsetFirst: CGFloat = 0
-    var offsetSecond: CGFloat = 0
-    var offsetThird: CGFloat = 0
-    var offsetheight: CGFloat = 0
-    var offsetY: CGFloat = 0
-    private let threeDoubles = (0 ... 8).map { _ in CategoryContainer(frame: .zero) }
-    private let nameString = ["Chinese", "French", "Greek", "Italian", "Japanese", "Mexican", "American", "British", "Irish"]
-    private let imagesString = ["chinese", "french", "greek", "italy", "japan", "mexic", "American", "British", "Irish"]
-    private func setupStackCategore() {
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         let allViews = stackView.subviews
         for item in allViews {
@@ -93,68 +100,26 @@ final class CusineStackView: UIView {
         }
     }
     
-    private func initSubviews() {
-        let gestureRecognizer1 = BindableGestureRecognizer { [weak self] in
-            guard let self = self else { return }
-            let l = self.nameString[0]
-            self.delegate?.cusinePressed(name: l)
-        }
-        
-        let gestureRecognizer2 = BindableGestureRecognizer { [weak self] in
-            guard let self = self else { return }
-            self.delegate?.cusinePressed(name: self.nameString[1])
-        }
-        
-        let gestureRecognizer3 = BindableGestureRecognizer { [weak self] in
-            guard let self = self else { return }
-            self.delegate?.cusinePressed(name: self.nameString[2])
-        }
-        
-        let gestureRecognizer4 = BindableGestureRecognizer { [weak self] in
-            guard let self = self else { return }
-            self.delegate?.cusinePressed(name: self.nameString[3])
-        }
-        
-        let gestureRecognizer5 = BindableGestureRecognizer { [weak self] in
-            guard let self = self else { return }
-            self.delegate?.cusinePressed(name: self.nameString[4])
-        }
-        
-        let gestureRecognizer6 = BindableGestureRecognizer { [weak self] in
-            guard let self = self else { return }
-            self.delegate?.cusinePressed(name: self.nameString[5])
-        }
-        
-        let gestureRecognizer7 = BindableGestureRecognizer { [weak self] in
-            guard let self = self else { return }
-            self.delegate?.cusinePressed(name: self.nameString[6])
-        }
-        
-        let gestureRecognizer8 = BindableGestureRecognizer { [weak self] in
-            guard let self = self else { return }
-            self.delegate?.cusinePressed(name: self.nameString[7])
-        }
-        
-        let gestureRecognizer9 = BindableGestureRecognizer { [weak self] in
-            guard let self = self else { return }
-            self.delegate?.cusinePressed(name: self.nameString[8])
-        }
-        
-        threeDoubles[0].addGestureRecognizer(gestureRecognizer1)
-        threeDoubles[1].addGestureRecognizer(gestureRecognizer2)
-        threeDoubles[2].addGestureRecognizer(gestureRecognizer3)
-        threeDoubles[3].addGestureRecognizer(gestureRecognizer4)
-        threeDoubles[4].addGestureRecognizer(gestureRecognizer5)
-        threeDoubles[5].addGestureRecognizer(gestureRecognizer6)
-        threeDoubles[6].addGestureRecognizer(gestureRecognizer7)
-        threeDoubles[7].addGestureRecognizer(gestureRecognizer8)
-        threeDoubles[8].addGestureRecognizer(gestureRecognizer9)
+    // MARK: - Setup subviews
 
-        var l = 0
-        threeDoubles.forEach { item in
-            item.configureUI(img: UIImage(named: imagesString[l]))
-            l += 1
+    private func initSubviews() {
+        var count = 0
+        categoryContainers.forEach { item in
+            item.tag = count
+            item.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cusineTapped(_:))))
+            item.configureUI(img: UIImage(named: nameString[count]))
+            count += 1
             stackView.addSubview(item)
         }
+    }
+    
+    // MARK: - Action
+
+    @objc
+    func cusineTapped(_ sender: UITapGestureRecognizer) {
+        guard let index = sender.view?.tag else {
+            return
+        }
+        delegate?.cusinePressed(name: nameString[index])
     }
 }

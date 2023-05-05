@@ -3,6 +3,7 @@ import UIKit
 final class MainRouter: MainRoutingLogic {
     weak var view: UIViewController?
 
+    // MARK: - open Recipe screen
     func routeToRecipesScreen(data: RequestType, titleText: String) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
@@ -12,6 +13,7 @@ final class MainRouter: MainRoutingLogic {
         }
     }
     
+    // MARK: - open Stories
     func routeToStories() {
         let vc = StoriesViewController()
         if let sheet = vc.sheetPresentationController {

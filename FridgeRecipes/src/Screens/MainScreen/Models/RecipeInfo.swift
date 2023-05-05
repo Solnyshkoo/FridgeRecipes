@@ -77,7 +77,6 @@ extension RecipeInfo: Decodable {
                 .contains($0.stringValue)
         }
 
-//         assuming return when having only RequiredCodingKeys
         guard !filteredKeys.isEmpty else {
             ingredients = nil
             return
@@ -147,4 +146,3 @@ final class GenericCodingKeys: CodingKey {
         stringValue = "\(intValue)"
     }
 }
-//https://api.edamam.com/api/nutrition-data?app_id=96ee078b&app_key=e3520d3059623ef422c7a259abb9025e&nutrition-type=logging&ingr=1.5kg%20Potatoes#imageLiteral(resourceName: "Снимок экрана 2023-04-13 в 00.46.36.png")

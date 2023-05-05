@@ -101,11 +101,7 @@ final class RecipesViewController: UIViewController {
 
 // MARK: - Protocol DisplayLogic
 
-extension RecipesViewController: RecipesDisplayLogic {
-    func displayStart(_ viewModel: Model.Start.ViewModel) {}
-
-    func displayAction(_ viewModel: Model.Action.ViewModel) {}
-    
+extension RecipesViewController: RecipesDisplayLogic {    
     func displayRecipes(_ viewModel: [MainModel.Recipe.ViewModel], showNew: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }

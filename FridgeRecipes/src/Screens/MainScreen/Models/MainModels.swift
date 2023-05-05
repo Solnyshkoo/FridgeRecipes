@@ -1,23 +1,6 @@
 import UIKit
 
 enum MainModel {
-    enum Start {
-        struct Request {}
-        struct Response {}
-        struct ViewModel {}
-    }
-
-    enum Action {
-        struct Request
-        {}
-
-        struct Response
-        {}
-
-        struct ViewModel
-        {}
-    }
-
     enum Recipe {
         struct Request {
             let searchText: String

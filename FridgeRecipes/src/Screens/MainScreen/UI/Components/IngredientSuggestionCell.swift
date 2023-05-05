@@ -4,6 +4,7 @@ final class IngredientSuggestionCell: UICollectionViewCell {
     static let titleFont = UIFont.systemFont(ofSize: Constants.titleSize, weight: .bold)
     static let cellID = "ingredientCell"
 
+    // MARK: - Constants
     private enum Constants {
         static let titleSize: CGFloat = 17
         static let cornerRadius: CGFloat = 10
@@ -14,8 +15,9 @@ final class IngredientSuggestionCell: UICollectionViewCell {
         static let edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
 
-    var ingredientName = UILabel()
+    private let ingredientName = UILabel()
 
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.cornerRadius = Constants.cornerRadius
@@ -25,12 +27,18 @@ final class IngredientSuggestionCell: UICollectionViewCell {
         addSubview(ingredientName)
         makeTitleLabel()
     }
-
+    
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Config UI
+    func config(name: String) {
+        ingredientName.text = name
+    }
 
+    // MARK: - Setup layout
     override func layoutSubviews() {
         super.layoutSubviews()
         ingredientName.frame = bounds
