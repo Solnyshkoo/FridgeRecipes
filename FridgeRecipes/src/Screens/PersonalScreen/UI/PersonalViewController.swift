@@ -2,27 +2,39 @@ import CoreData
 import UIKit
 
 final class PersonalViewController: UIViewController {
-    static var userInfo: UserInfo.ViewModel = .init()
-    private lazy var personalView = PersonalInfoView()
-    private lazy var cookedRecipes = PersonalContainerView()
-    private lazy var favorite = PersonalContainerView()
-    private lazy var rewards = PersonalContainerView()
-    
-    private let settings = UIImageView(image: UIImage(systemName: "pencil"))
-    
+    // MARK: - Constants
+
     private enum Constants {
         static let settingsSize: CGFloat = 25
     }
     
+    // MARK: - Fields UI
+ 
+    private lazy var personalView = PersonalInfoView()
+    private lazy var cookedRecipes = PersonalContainerView()
+    private lazy var favorite = PersonalContainerView()
+    private lazy var rewards = PersonalContainerView()
+    private let settings = UIImageView(image: UIImage(systemName: "pencil"))
+    
+    // MARK: - Fields
+
+    static var userInfo: UserInfo.ViewModel = .init()
+    private let router: PersonalRoutingLogic
+    private let interactor: PersonalBusinessLogic
+    
+    // MARK: - LifeCicle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
         configureUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         setupValues()
     }
     
-    private let router: PersonalRoutingLogic
-    private let interactor: PersonalBusinessLogic
+    // MARK: - Init
 
     init(
         router: PersonalRoutingLogic,
@@ -40,45 +52,19 @@ final class PersonalViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    @objc
-    func editTapped(_ sender: UITapGestureRecognizer) {
-        router.routeToChangePersonalInfpScreen(interactor: interactor)
-    }
-    
-    @objc
-    func favoriteTapped(_ sender: UITapGestureRecognizer) {
-        router.routeToFavoriteRecilesScreen(data: PersonalViewController.userInfo.favoriteRecipes)
-    }
-    
-    @objc
-    func cookesRecipesTapped(_ sender: UITapGestureRecognizer) {
-        router.routeToCookedRecipesScreen(data: PersonalViewController.userInfo.cookedRecipes)
-    }
-    
-    @objc
-    func rewardsTapped(_ sender: UITapGestureRecognizer) {
-        router.routeToRewards(interactor: interactor)
-    }
-    
-    static func changePersonalInfo(data: RegistrationInfo.Request) {
-        userInfo.personalInfo.age = data.age
-        userInfo.personalInfo.name = data.name
-        userInfo.personalInfo.sex = data.sex
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        setupValues()
-    }
-    
-    func setupValues() {
+
+    // MARK: - Setup UI
+
+    private func setupValues() {
         personalView.configure(data: PersonalViewController.userInfo.personalInfo)
         cookedRecipes.configure(text: "Your cookbook", count: PersonalViewController.userInfo.cookedRecipes.count)
         favorite.configure(text: "Favorite", count: PersonalViewController.userInfo.favoriteRecipes.count)
         rewards.configure(text: "Rewards", count: PersonalViewController.userInfo.rewards.count)
     }
     
-    func configureUI() {
+    // MARK: - Config UI
+
+    private func configureUI() {
         view.addSubview(personalView)
         view.addSubview(cookedRecipes)
         view.addSubview(favorite)
@@ -135,7 +121,31 @@ final class PersonalViewController: UIViewController {
             rewards.heightAnchor.constraint(equalToConstant: rewards.intrinsicContentSize.height),
         ])
     }
+    
+    // MARK: - Actions: open new screen
+
+    @objc
+    func editTapped(_ sender: UITapGestureRecognizer) {
+        router.routeToChangePersonalInfoScreen(interactor: interactor)
+    }
+    
+    @objc
+    func favoriteTapped(_ sender: UITapGestureRecognizer) {
+        router.routeToFavoriteRecilesScreen(data: PersonalViewController.userInfo.favoriteRecipes)
+    }
+    
+    @objc
+    func cookesRecipesTapped(_ sender: UITapGestureRecognizer) {
+        router.routeToCookedRecipesScreen(data: PersonalViewController.userInfo.cookedRecipes)
+    }
+    
+    @objc
+    func rewardsTapped(_ sender: UITapGestureRecognizer) {
+        router.routeToRewards(interactor: interactor)
+    }
 }
+
+// MARK: - PersonalDisplayLogic delegate
 
 extension PersonalViewController: PersonalDisplayLogic {
     func updatePersonalData() {

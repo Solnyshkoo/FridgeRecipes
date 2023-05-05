@@ -17,7 +17,7 @@ protocol PersonalDisplayLogic: AnyObject {
 protocol ChangePersonalDisplayLogic: AnyObject {}
 
 protocol PersonalRoutingLogic {
-    func routeToChangePersonalInfpScreen(interactor: PersonalBusinessLogic)
+    func routeToChangePersonalInfoScreen(interactor: PersonalBusinessLogic)
     func routeToCookedRecipesScreen(data: [MainModel.Recipe.ViewModel])
     func routeToFavoriteRecilesScreen(data: [MainModel.Recipe.ViewModel])
     func routeToRewards(interactor: PersonalBusinessLogic)

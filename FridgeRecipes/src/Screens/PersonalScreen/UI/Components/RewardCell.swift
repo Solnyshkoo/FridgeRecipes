@@ -1,10 +1,14 @@
 import UIKit
 
 final class RewardCell: UIView {
+    // MARK: - Fields
+
     static let cellId = "RewardCell"
     private let imgView = UIImageView()
     private let titleReward = UILabel()
-    
+
+    // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -15,15 +19,21 @@ final class RewardCell: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - intrinsicContentSize
+
     override var intrinsicContentSize: CGSize {
         CGSize(width: 80, height: 80)
     }
+
+    // MARK: - Config data
 
     func configure(data: RewardInfo.ViewModel) {
         titleReward.text = data.rewardText
         imgView.image = UIImage(named: data.rewardImage)
     }
     
+    // MARK: - Config UI
+
     private func configureUI() {
         addSubview(imgView)
         addSubview(titleReward)

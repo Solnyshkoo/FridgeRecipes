@@ -1,9 +1,13 @@
 import UIKit
 
 final class PersonalRouter: PersonalRoutingLogic {
+    // MARK: - Fields
+
     weak var view: UIViewController?
-    
-    func routeToChangePersonalInfpScreen(interactor: PersonalBusinessLogic) {
+   
+    // MARK: - Open edit personal info screen
+
+    func routeToChangePersonalInfoScreen(interactor: PersonalBusinessLogic) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
@@ -20,6 +24,8 @@ final class PersonalRouter: PersonalRoutingLogic {
         }
     }
     
+    // MARK: - Open rewards screen
+
     func routeToRewards(interactor: PersonalBusinessLogic) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
@@ -39,6 +45,8 @@ final class PersonalRouter: PersonalRoutingLogic {
         }
     }
     
+    // MARK: - Open nutrition screen
+
     func routeToNutritionScreen(data: [String]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
@@ -56,6 +64,8 @@ final class PersonalRouter: PersonalRoutingLogic {
         }
     }
     
+    // MARK: - Open cooked recipes screen
+
     func routeToCookedRecipesScreen(data: [MainModel.Recipe.ViewModel]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
@@ -65,6 +75,8 @@ final class PersonalRouter: PersonalRoutingLogic {
         }
     }
     
+    // MARK: - Open favorite recipes screen
+
     func routeToFavoriteRecilesScreen(data: [MainModel.Recipe.ViewModel]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {

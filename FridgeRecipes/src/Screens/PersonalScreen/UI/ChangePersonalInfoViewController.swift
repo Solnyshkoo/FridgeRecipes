@@ -1,27 +1,37 @@
-import CloudKit
 import UIKit
 
-// FIXME: - отдельный модуль
 final class ChangePersonalInfoViewController: UIViewController {
-    private let interactor: PersonalBusinessLogic
-    private let factory = PersonalFactory()
+    // MARK: - Fields UI
+   
     private lazy var nameTextField = factory.editTextField(text: PersonalViewController.userInfo.personalInfo.name)
     private lazy var ageTextField = factory.editTextField(text: PersonalViewController.userInfo.personalInfo.age)
     private lazy var saveButon = factory.makeButton(text: "Save")
     private lazy var cancelButon = factory.makeButton(text: "Cancel")
-    
     private lazy var nametitle = factory.textLabel(text: "Your name")
     private lazy var ageTitle = factory.textLabel(text: "Your age")
-    
     private lazy var genderPicker: UIPickerView = .init()
-    private let dataArray = ["None", "Female", "Male"]
     private lazy var nameEror = factory.errorLabel()
     private lazy var ageEror = factory.errorLabel()
     
+    // MARK: - Fields
+
+    private let interactor: PersonalBusinessLogic
+    private let factory = PersonalFactory()
+    private let dataArray = ["None", "Female", "Male"]
+    
+    // MARK: - Constants
+
     private enum Constants {
         static let textLeadingOffset: CGFloat = 10
         static let textTopOffset: CGFloat = 30
         static let buttonWidth: CGFloat = (UIScreen.main.bounds.width - 40 - 15 - 10) / 2
+    }
+    
+    // MARK: - LifeCicle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
     }
     
     init(interactor: PersonalBusinessLogic) {
@@ -32,8 +42,15 @@ final class ChangePersonalInfoViewController: UIViewController {
         self.isModalInPresentation = false
         configUI()
     }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-    func configUI() {
+    // MARK: - Config UI
+
+    private func configUI() {
         view.addSubview(nameTextField)
         view.addSubview(ageTextField)
         view.addSubview(genderPicker)
@@ -101,6 +118,8 @@ final class ChangePersonalInfoViewController: UIViewController {
         ])
     }
     
+    // MARK: - Action: Save changes
+
     @objc
     private func buttonSaveTapped(_ sender: UIButton) {
         guard
@@ -131,22 +150,15 @@ final class ChangePersonalInfoViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    // MARK: - Action: Cancel changes
+
     @objc
     private func buttonCancelTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .systemBackground
-    }
 }
+
+// MARK: -  UIPickerViewDelegate, UIPickerViewDataSource
 
 extension ChangePersonalInfoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -162,5 +174,7 @@ extension ChangePersonalInfoViewController: UIPickerViewDelegate, UIPickerViewDa
         return row
     }
 }
+
+// MARK: - ChangePersonalDisplayLogic
 
 extension ChangePersonalInfoViewController: ChangePersonalDisplayLogic {}

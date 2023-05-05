@@ -1,10 +1,14 @@
 import UIKit
 
 final class PersonalContainerView: UIView {
+    // MARK: - Fields
+
     private let title = UILabel()
     private let subtitle = UILabel()
     private let arrow = UIImageView()
-    
+
+    // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -16,16 +20,22 @@ final class PersonalContainerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - intrinsicContentSize
+
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: 70)
     }
     
+    // MARK: - Configure data
+
     func configure(text: String, count: Int, isImage: Bool = true) {
         title.text = text
         subtitle.text = "recipes: " + String(count)
         arrow.image = isImage ? UIImage(systemName: "greaterthan") : nil
     }
     
+    // MARK: - Configure UI
+
     private func configureUI() {
         arrow.tintColor = .label
         title.font = UIFont.systemFont(ofSize: 24, weight: .medium)

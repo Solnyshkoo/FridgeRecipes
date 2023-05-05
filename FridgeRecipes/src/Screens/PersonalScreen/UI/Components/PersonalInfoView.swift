@@ -1,6 +1,8 @@
 import UIKit
 
 final class PersonalInfoView: UIView {
+    // MARK: - Constants
+
     private enum Constants {
         static let nameFontSize: CGFloat = 32
         static let imageSize: CGFloat = 100
@@ -10,16 +12,19 @@ final class PersonalInfoView: UIView {
         static let textLeadingOffset: CGFloat = 20
     }
     
+    // MARK: - Fields
+
     private let name = UILabel()
     private let age = UILabel()
     private let sex = UILabel()
     private let level = UILabel()
     private let imgView = UIImageView()
-    
     private let nameEdit = UITextField()
     private let ageEdit = UITextField()
     private let sexEdit = UIButton()
-    
+   
+    // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -31,11 +36,15 @@ final class PersonalInfoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - intrinsicContentSize
+
     override var intrinsicContentSize: CGSize {
         let height: CGFloat = 128
         return CGSize(width: UIScreen.main.bounds.width, height: height)
     }
     
+    // MARK: - Configure data
+
     func configure(data: RegistrationInfo.ViewModel) {
         name.text = data.name
         age.text = "Age: " + data.age
@@ -44,6 +53,8 @@ final class PersonalInfoView: UIView {
         imgView.image = UIImage(named: "level1")
     }
     
+    // MARK: - Configure UI
+
     private func configureUI() {
         name.font = UIFont.systemFont(ofSize: Constants.nameFontSize, weight: .bold)
         age.font = UIFont.systemFont(ofSize: Constants.infoFontSize, weight: .regular)

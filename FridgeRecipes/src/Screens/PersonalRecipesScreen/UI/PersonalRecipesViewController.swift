@@ -66,12 +66,6 @@ final class PersonalRecipesViewController: UIViewController {
 
 // MARK: - Protocol DisplayLogic
 extension PersonalRecipesViewController: PersonalRecipesDisplayLogic {
-    func displayStart(_ viewModel: Model.Start.ViewModel) {
-
-    }
-
-    func displayAction(_ viewModel: Model.Action.ViewModel) {
-    }
     
     func displayRecipes(_ viewModel: [MainModel.Recipe.ViewModel]) {
         DispatchQueue.main.async { [weak self] in

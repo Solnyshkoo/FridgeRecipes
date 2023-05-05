@@ -1,6 +1,8 @@
 import CoreData
 import Foundation
 final class PersonalWorker: PersonalWorkerLogic {
+    // MARK: - Fields
+
     let context: NSManagedObjectContext = {
         let container = NSPersistentContainer(name: "FridgeRecipes")
         container.loadPersistentStores { _, error in
@@ -11,11 +13,24 @@ final class PersonalWorker: PersonalWorkerLogic {
         return container.viewContext
     }()
     
-    func getUserInfo() {
-        loadData()
-    }
+    // MARK: - Save user personal info to UserDefaults
 
-    private func loadData() {
+    func saveUserInfo() {
+        let defaults = UserDefaults.standard
+        defaults.set(PersonalViewController.userInfo.personalInfo.name, forKey: "name")
+        defaults.set(PersonalViewController.userInfo.personalInfo.age, forKey: "age")
+        defaults.set(PersonalViewController.userInfo.personalInfo.sex, forKey: "gender")
+    }
+    
+    // MARK: - Get user info from CoreData
+
+    func getUserInfo() {
+        loadDataFromCoreData()
+    }
+    
+    // MARK: - load data from CoreData
+
+    private func loadDataFromCoreData() {
         if let notes = try? context.fetch(Recipe.fetchRequest()) {
             PersonalViewController.userInfo.cookedRecipes = parse(notes)
         } else {
@@ -29,12 +44,14 @@ final class PersonalWorker: PersonalWorkerLogic {
         }
         
         if let rewards = try? context.fetch(CoreReward.fetchRequest()) {
-            PersonalViewController.userInfo.rewards = parse(rewards) 
+            PersonalViewController.userInfo.rewards = parse(rewards)
         } else {
             PersonalViewController.userInfo.rewards = []
         }
     }
     
+    // MARK: - Parse data
+
     private func parse(_ notes: [CoreReward]) -> [RewardInfo.ViewModel] {
         var k: [RewardInfo.ViewModel] = []
         notes.forEach { item in
@@ -57,12 +74,5 @@ final class PersonalWorker: PersonalWorkerLogic {
             k.append(MainModel.Recipe.ViewModel(id: item.id, titleText: item.titleText, thumbnailLink: item.thumbnailLink))
         }
         return k
-    }
-    
-    func saveUserInfo() {
-        let defaults = UserDefaults.standard
-        defaults.set(PersonalViewController.userInfo.personalInfo.name, forKey: "name")
-        defaults.set(PersonalViewController.userInfo.personalInfo.age, forKey: "age")
-        defaults.set(PersonalViewController.userInfo.personalInfo.sex, forKey: "gender")
     }
 }
