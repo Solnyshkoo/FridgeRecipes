@@ -5,8 +5,8 @@ protocol CategoryStackViewProtocol: AnyObject {
 }
 
 final class CategoryStackView: UIView {
-    
     // MARK: - Fields
+
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -29,9 +29,10 @@ final class CategoryStackView: UIView {
     private var offsetFirst: CGFloat = 0
     private var offsetSecond: CGFloat = 0
     private var offsetheight: CGFloat = 0
-    private  var offsetY: CGFloat = 0
+    private var offsetY: CGFloat = 0
     
     // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupStackCategory()
@@ -43,16 +44,19 @@ final class CategoryStackView: UIView {
     }
     
     // MARK: - intrinsicContentSize
+
     override var intrinsicContentSize: CGSize {
         CGSize(width: offsetFirst, height: offsetheight * 2 + offsetY)
     }
     
     // MARK: - Config
+
     func config(deleg: CategoryStackViewProtocol) {
         delegate = deleg
     }
 
     // MARK: - Setup Stack Category
+
     private func setupStackCategory() {
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -98,11 +102,12 @@ final class CategoryStackView: UIView {
     }
     
     // MARK: - Action
+
     @objc
     func categoryTapped(_ sender: UITapGestureRecognizer) {
         guard let index = sender.view?.tag else {
             return
         }
-        delegate?.wasPressed(name: self.nameString[index])
+        delegate?.wasPressed(name: nameString[index])
     }
 }

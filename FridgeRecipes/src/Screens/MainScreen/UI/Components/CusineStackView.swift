@@ -13,7 +13,7 @@ final class CusineStackView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
     private lazy var titleText: UILabel = {
         let label = UILabel()
         label.text = "Search by cuisine"
@@ -22,7 +22,7 @@ final class CusineStackView: UIView {
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         return label
     }()
-    
+
     private var delegate: CusineStackViewProtocol?
     private var offsetFirst: CGFloat = 0
     private var offsetSecond: CGFloat = 0
@@ -33,25 +33,25 @@ final class CusineStackView: UIView {
     private let nameString = [
         "Chinese", "French", "Greek", "Italian", "Japanese", "Mexican", "American", "British", "Irish"
     ]
-    
+
     // MARK: - Init
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupStackCusine()
     }
-    
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - intrinsicContentSize
 
     override var intrinsicContentSize: CGSize {
         CGSize(width: offsetFirst, height: offsetheight * 3 + offsetY)
     }
-    
+
     // MARK: - Config
 
     func config(del: CusineStackViewProtocol) {
@@ -70,7 +70,7 @@ final class CusineStackView: UIView {
             stackView.leftAnchor.constraint(equalTo: leftAnchor)
 
         ])
-        
+
         let allViews = stackView.subviews
         for item in allViews {
             stackView.removeArrangedSubview(item)
@@ -78,7 +78,7 @@ final class CusineStackView: UIView {
         stackView.addSubview(titleText)
 
         initSubviews()
-        
+
         var i = 0
 
         for view in stackView.subviews {
@@ -99,7 +99,7 @@ final class CusineStackView: UIView {
             i += 1
         }
     }
-    
+
     // MARK: - Setup subviews
 
     private func initSubviews() {
@@ -112,7 +112,7 @@ final class CusineStackView: UIView {
             stackView.addSubview(item)
         }
     }
-    
+
     // MARK: - Action
 
     @objc

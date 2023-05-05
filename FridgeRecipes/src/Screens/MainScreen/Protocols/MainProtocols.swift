@@ -1,5 +1,4 @@
-protocol MainBusinessLogic {
-}
+protocol MainBusinessLogic {}
 
 protocol MainPresentationLogic {
     typealias Model = MainModel
@@ -15,7 +14,6 @@ protocol MainRoutingLogic {
     func routeToStories()
 }
 
-protocol MainWorkerLogic {
-}
+protocol MainWorkerLogic {}
 
 protocol NetworkRecipesServiceProtocol {}

@@ -13,6 +13,7 @@ final class MainViewController: UIViewController {
     }
 
     // MARK: - UI Fields
+
     private lazy var searchBar: UISearchBar = factory.makeSearchBar()
     private lazy var resultCollectionView: UICollectionView = factory.makeResultCollectionView()
     private lazy var suggestionScrollView = factory.makeScrollView()
@@ -26,7 +27,7 @@ final class MainViewController: UIViewController {
     private lazy var categoryStackView = factory.makeCategoryStackView()
     private lazy var cusineStackView = factory.makeCusineStackView()
     private var filters: String = ""
-    
+
     private lazy var ingredientDataSource = IngredientDataSource(
         cellID: Constants.ingredientCellID,
         updateParentFilters: { [weak self] newFilters in
@@ -37,13 +38,13 @@ final class MainViewController: UIViewController {
             self.router.routeToRecipesScreen(data: .mealsByIngredient(ingredient: newFilters), titleText: newFilters)
         }
     )
-    
+
     // MARK: - Fields
 
     private let router: MainRoutingLogic
     private let interactor: MainBusinessLogic
     private let factory = MainScreenFactory()
-    
+
     // MARK: - LifeCycle
 
     init(
@@ -56,7 +57,7 @@ final class MainViewController: UIViewController {
     }
 
     @available(*, unavailable)
-    required init?(coder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError(Constants.fatalError)
     }
 
@@ -64,7 +65,7 @@ final class MainViewController: UIViewController {
         super.viewDidLayoutSubviews()
         blurView.frame = view.frame
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
@@ -74,7 +75,7 @@ final class MainViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: false)
         super.viewWillDisappear(animated)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
@@ -87,7 +88,7 @@ final class MainViewController: UIViewController {
         configureIngredientSuggestions()
         configureCollectionViewSources()
     }
-    
+
     // MARK: - Set up all subviews
 
     private func addSubviews() {
@@ -98,18 +99,18 @@ final class MainViewController: UIViewController {
         view.addSubview(categoriesScrollView)
         view.addSubview(categoryStackView)
         view.addSubview(cusineStackView)
-        
+
         categoriesScrollView.addSubview(categoryStackView)
         categoriesScrollView.addSubview(cusineStackView)
         categoriesScrollView.addSubview(storiesStackView)
-        
+
         suggestionScrollView.addSubview(suggestionStackView)
         suggestionStackView.addArrangedSubview(ingredientSuggestionsStack)
-        
+
         ingredientSuggestionsStack.addArrangedSubview(ingredientSuggestionTitle)
         ingredientSuggestionsStack.addArrangedSubview(ingredientCollectionView)
     }
-    
+
     // MARK: - CollectionView Sources
 
     private func configureCollectionViewSources() {
@@ -132,7 +133,7 @@ final class MainViewController: UIViewController {
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
-    
+
     // MARK: - CollectionView & ScrollView & StackView
 
     private func configureResultCollectionView() {
@@ -144,7 +145,7 @@ final class MainViewController: UIViewController {
             resultCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
-    
+
     private func configureScrollView() {
         suggestionScrollView.translatesAutoresizingMaskIntoConstraints = false
         categoriesScrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -154,24 +155,24 @@ final class MainViewController: UIViewController {
             suggestionScrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
             suggestionScrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
             suggestionScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
+
             categoriesScrollView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             categoriesScrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
             categoriesScrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
             categoriesScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
- 
+
         ])
         categoriesScrollView.backgroundColor = .systemBackground
-        
+
         suggestionScrollView.layer.opacity = 0
         suggestionScrollView.layer.isHidden = true
     }
-    
+
     @objc
     func openStories(_: UITapGestureRecognizer) {
         router.routeToStories()
     }
-    
+
     private func configureStackView() {
         categoryStackView.config(deleg: self)
         cusineStackView.config(del: self)
@@ -180,13 +181,13 @@ final class MainViewController: UIViewController {
         suggestionStackView.translatesAutoresizingMaskIntoConstraints = false
         storiesStackView.translatesAutoresizingMaskIntoConstraints = false
         cusineStackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         storiesStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openStories(_:))))
-        
+
         storiesStackView.isUserInteractionEnabled = true
         cusineStackView.isUserInteractionEnabled = true
         categoryStackView.isUserInteractionEnabled = true
-        
+
         suggestionStackView.axis = .vertical
         suggestionStackView.distribution = .fill
         suggestionStackView.alignment = .fill
@@ -196,17 +197,17 @@ final class MainViewController: UIViewController {
             suggestionStackView.leftAnchor.constraint(equalTo: suggestionScrollView.leftAnchor),
             suggestionStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
             suggestionStackView.bottomAnchor.constraint(equalTo: suggestionScrollView.bottomAnchor),
-            
+
             storiesStackView.topAnchor.constraint(equalTo: categoriesScrollView.topAnchor),
             storiesStackView.leadingAnchor.constraint(equalTo: categoriesScrollView.leadingAnchor, constant: offset),
             storiesStackView.trailingAnchor.constraint(equalTo: categoriesScrollView.trailingAnchor, constant: -offset),
             storiesStackView.heightAnchor.constraint(equalToConstant: storiesStackView.intrinsicContentSize.height),
-            
+
             categoryStackView.leadingAnchor.constraint(equalTo: categoriesScrollView.leadingAnchor, constant: offset),
             categoryStackView.trailingAnchor.constraint(equalTo: categoriesScrollView.trailingAnchor, constant: -offset),
             categoryStackView.heightAnchor.constraint(equalToConstant: categoryStackView.intrinsicContentSize.height),
             categoryStackView.topAnchor.constraint(equalTo: storiesStackView.bottomAnchor, constant: 20),
-            
+
             cusineStackView.bottomAnchor.constraint(equalTo: categoriesScrollView.bottomAnchor),
             cusineStackView.leadingAnchor.constraint(equalTo: categoriesScrollView.leadingAnchor, constant: offset),
             cusineStackView.trailingAnchor.constraint(equalTo: categoriesScrollView.trailingAnchor, constant: -offset),
@@ -214,7 +215,7 @@ final class MainViewController: UIViewController {
             cusineStackView.topAnchor.constraint(equalTo: categoryStackView.bottomAnchor, constant: 20),
         ])
     }
-    
+
     // MARK: - Ingredient Suggestions
 
     private func configureSuggestionsLayout() {
@@ -245,7 +246,7 @@ final class MainViewController: UIViewController {
             ),
         ])
     }
-    
+
     private func updateSuggestionLayout(isHidden: Bool) {
         searchBar.setShowsCancelButton(!isHidden, animated: true)
         switch isHidden {
@@ -293,16 +294,14 @@ extension MainViewController: UISearchBarDelegate {
     }
 }
 
-
 // MARK: - CategoryStackViewProtocol, CusineStackViewProtocol
+
 extension MainViewController: CategoryStackViewProtocol, CusineStackViewProtocol {
     func cusinePressed(name: String) {
         router.routeToRecipesScreen(data: RequestType.mealByCuisine(cuisine: name), titleText: name)
     }
-    
+
     func wasPressed(name: String) {
         router.routeToRecipesScreen(data: RequestType.mealByCategory(category: name), titleText: name)
     }
 }
-
-

@@ -1,4 +1,3 @@
 import Foundation
 
-final class MainWorker: MainWorkerLogic { }
-
+final class MainWorker: MainWorkerLogic {}

@@ -13,6 +13,8 @@ final class RecipesInteractor: RecipesBusinessLogic {
         self.worker = worker
     }
     
+    // MARK: - Get recipies by name
+
     func loadRecipiesByName(_ request: Model.Recipe.Request) {
         guard !(request.searchText.isEmpty && request.productsFilter.isEmpty) else {
             return
@@ -35,6 +37,8 @@ final class RecipesInteractor: RecipesBusinessLogic {
         }
     }
     
+    // MARK: - Get recipies by ingredient
+
     func loadRecipiesByIngredient(_ request: Model.Recipe.Request, showNew: Bool) {
         guard !(request.searchText.isEmpty && request.productsFilter.isEmpty) else {
             return
@@ -64,6 +68,8 @@ final class RecipesInteractor: RecipesBusinessLogic {
         }
     }
     
+    // MARK: - Get recipies by category
+
     func loadRecipiesByCategory(_ request: Model.Recipe.Request) {
         guard !(request.searchText.isEmpty && request.productsFilter.isEmpty) else {
             return
@@ -86,6 +92,8 @@ final class RecipesInteractor: RecipesBusinessLogic {
         }
     }
     
+    // MARK: - Get recipies by cusine
+
     func loadRecipiesByCusine(_ request: Model.Recipe.Request) {
         guard !(request.searchText.isEmpty && request.productsFilter.isEmpty) else {
             return

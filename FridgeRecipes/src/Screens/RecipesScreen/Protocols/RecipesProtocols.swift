@@ -21,7 +21,6 @@ protocol RecipesDisplayLogic: AnyObject {
 }
 
 protocol RecipesRoutingLogic {
-    func routeTo()
     func routeToRecipeInfoScreen(data: String)
 }
 

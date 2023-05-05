@@ -51,6 +51,7 @@ final class IngredientDataSource: NSObject, UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout delegate
+
 extension IngredientDataSource: UICollectionViewDelegateFlowLayout {
     private func getCellTextWidth(_ s: String?) -> CGFloat {
         guard let s = s else { return 0 }

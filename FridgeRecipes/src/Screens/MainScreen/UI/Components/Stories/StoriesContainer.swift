@@ -1,8 +1,8 @@
 import UIKit
 
 final class StoriesContainer: UIView {
-    
     // MARK: - Fields
+
     lazy var gradient: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.type = .axial
@@ -15,8 +15,9 @@ final class StoriesContainer: UIView {
     }()
 
     private let view = StorieView(frame: .zero)
-    
+
     // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .systemBackground
@@ -26,14 +27,15 @@ final class StoriesContainer: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - intrinsicContentSize
+
     override var intrinsicContentSize: CGSize {
         return CGSize(width: view.intrinsicContentSize.width + 10, height: view.intrinsicContentSize.height + 10)
     }
 
-    
     // MARK: - Configure UI
+
     func configureUI(img: UIImage?) {
         view.configureUI(img: img)
         addSubview(view)

@@ -1,8 +1,8 @@
 import UIKit
 
 final class StoriesStackView: UIView {
-    
     // MARK: - Fields
+
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -14,6 +14,7 @@ final class StoriesStackView: UIView {
     private let imagesString = ["first_recipe", "second_recipe", "third_recipe"]
     
     // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -25,6 +26,7 @@ final class StoriesStackView: UIView {
     }
     
     // MARK: - intrinsicContentSize
+
     override var intrinsicContentSize: CGSize {
         CGSize(width: threeDoubles[0].intrinsicContentSize.width, height: threeDoubles[0].intrinsicContentSize.height)
     }

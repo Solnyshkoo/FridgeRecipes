@@ -28,7 +28,7 @@ final class RecipesCell: UITableViewCell {
     private lazy var shadowLayer = makeShadowLayer()
     private lazy var indicator = makeActivityIndicator()
 
-    // MARK: - init
+    // MARK: - Init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -56,7 +56,7 @@ final class RecipesCell: UITableViewCell {
         animator?.stopAnimation(true)
     }
 
-    // MARK: - configure
+    // MARK: - Configure
 
     func configure(
         data: MainModel.Recipe.ViewModel,
@@ -78,7 +78,7 @@ final class RecipesCell: UITableViewCell {
         }
     }
 
-    func configureStackView() {
+    private func configureStackView() {
         NSLayoutConstraint.activate([
             cellStack.leadingAnchor.constraint(equalTo: leadingAnchor),
             cellStack.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -89,7 +89,7 @@ final class RecipesCell: UITableViewCell {
 
     // MARK: - Make UI elements
 
-    func makeStackView() -> UIStackView {
+    private func makeStackView() -> UIStackView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -102,7 +102,7 @@ final class RecipesCell: UITableViewCell {
         return stackView
     }
 
-    func makeTitleLabel() -> UILabel {
+    private func makeTitleLabel() -> UILabel {
         let label = UILabel(
             frame: CGRect(
                 x: contentView.frame.width / 2 + Constants.labelGap, y: 0,
@@ -131,7 +131,7 @@ final class RecipesCell: UITableViewCell {
         return image
     }
 
-    func makeContainerView() -> UIView {
+    private func makeContainerView() -> UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -151,7 +151,7 @@ final class RecipesCell: UITableViewCell {
         return shadowLayer
     }
 
-    func makeActivityIndicator() -> UIActivityIndicatorView {
+    private func makeActivityIndicator() -> UIActivityIndicatorView {
         let indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         indicator.style = UIActivityIndicatorView.Style.medium
         indicator.center = CGPoint(
@@ -174,7 +174,7 @@ final class RecipesCell: UITableViewCell {
         )
     }
 
-    func loadImage(url: URL) -> UIImage? {
+    private func loadImage(url: URL) -> UIImage? {
         guard let data = try? Data(contentsOf: url) else { return nil }
         return UIImage(data: data)
     }

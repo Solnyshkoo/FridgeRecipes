@@ -14,20 +14,19 @@ struct RecipeInfo {
     let youTubeLink: String? // strYoutube
     let tags: [String]? // strTags
     let ingredients: [Ingredient]? // Ingredient(strIngredient, strMeasure)
-    
+
     init() {
-        self.id = ""
-        self.name = ""
-        self.thumbnailLink = URL(fileURLWithPath: "")
-        self.category = ""
-        self.area = ""
-        self.instructions = ""
-        self.youTubeLink = ""
-        self.tags = []
-        self.ingredients = []
+        id = ""
+        name = ""
+        thumbnailLink = URL(fileURLWithPath: "")
+        category = ""
+        area = ""
+        instructions = ""
+        youTubeLink = ""
+        tags = []
+        ingredients = []
     }
 }
-
 
 extension RecipeInfo: Decodable {
     private enum RequiredCodingKeys: String, CodingKey, CaseIterable {
@@ -84,17 +83,19 @@ extension RecipeInfo: Decodable {
 
         let filteredKeysNames = filteredKeys.map(\.stringValue)
 
-        for num in 1...20 {
+        for num in 1 ... 20 {
             let ingredientKeyName = "strIngredient\(num)"
             let measureKeyName = "strMeasure\(num)"
             guard filteredKeysNames.contains(ingredientKeyName),
-                  filteredKeysNames.contains(measureKeyName) else {
+                  filteredKeysNames.contains(measureKeyName)
+            else {
                 ingredients = nil
                 assertionFailure("Unexpected data format")
                 return
             }
             if let ingredientKey = GenericCodingKeys(stringValue: ingredientKeyName),
-               let measureKey = GenericCodingKeys(stringValue: measureKeyName) {
+               let measureKey = GenericCodingKeys(stringValue: measureKeyName)
+            {
                 guard let ingredientName = try? otherContainer.decode(
                     String.self, forKey: ingredientKey
                 ).trimmingCharacters(in: .whitespaces) else {
@@ -109,7 +110,8 @@ extension RecipeInfo: Decodable {
 
                 // Measure able to be empty (or whitespace) while corresponding ingredient not. id for testing: 53000
                 if ingredientName.isEmpty,
-                   measure.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                   measure.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                {
                     break // found end of ingredient list
                 }
 

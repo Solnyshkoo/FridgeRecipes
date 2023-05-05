@@ -1,11 +1,15 @@
 import UIKit
 
 final class TabBar: UITabBarController {
+    // MARK: - Fields
+
     private let userInfo: RegistrationInfo.ViewModel
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
+
+    // MARK: - Init
 
     init(userInfo: RegistrationInfo.ViewModel) {
         self.userInfo = userInfo
@@ -16,6 +20,8 @@ final class TabBar: UITabBarController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Configure UI
 
     func configureUI() {
         let mainScreen = MainAssembly.build()

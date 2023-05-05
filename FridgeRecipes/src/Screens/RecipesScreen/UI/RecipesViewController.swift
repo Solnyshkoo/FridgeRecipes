@@ -30,18 +30,18 @@ final class RecipesViewController: UIViewController {
         self.router = router
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
-        configureUI()
+        setupTableView()
         getData(data: data)
         title = titleText
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,11 +50,9 @@ final class RecipesViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     
-    private func configureUI() {
-        setupTableView()
-    }
+    // MARK: - Get data to display
 
-    func getData(data: RequestType) {
+    private func getData(data: RequestType) {
         switch data {
         case .mealsByIngredient(let ingredient):
             interactor.loadRecipiesByIngredient(MainModel.Recipe.Request(searchText: ingredient, productsFilter: []), showNew: true)
@@ -69,7 +67,7 @@ final class RecipesViewController: UIViewController {
         }
     }
     
-    // MARK: - setup TableView
+    // MARK: - Setup TableView
 
     private func setupTableView() {
         view.addSubview(tableView)
@@ -101,7 +99,7 @@ final class RecipesViewController: UIViewController {
 
 // MARK: - Protocol DisplayLogic
 
-extension RecipesViewController: RecipesDisplayLogic {    
+extension RecipesViewController: RecipesDisplayLogic {
     func displayRecipes(_ viewModel: [MainModel.Recipe.ViewModel], showNew: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -139,8 +137,6 @@ extension RecipesViewController: RecipesDisplayLogic {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension RecipesViewController: UITableViewDelegate, UITableViewDataSource {
-    // MARK: create cells
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipes.count
     }
