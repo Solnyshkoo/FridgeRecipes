@@ -1,6 +1,8 @@
 import UIKit
 
 final class LikeButton: UIButton {
+    // MARK: - Constants
+
     private enum Constants {
         static let config = UIImage.SymbolConfiguration(
             pointSize: 30,
@@ -13,9 +15,7 @@ final class LikeButton: UIButton {
         static let notActiveTint: UIColor = .label
     }
 
-    override var intrinsicContentSize: CGSize {
-        CGSize(width: 35, height: 35)
-    }
+    // MARK: - Fields
 
     var isLiked: Bool {
         didSet {
@@ -23,16 +23,7 @@ final class LikeButton: UIButton {
         }
     }
 
-    private func updateImage() {
-        switch isLiked {
-        case true:
-            setImage(Constants.fillIcon, for: .normal)
-            tintColor = Constants.activeTint
-        case false:
-            setImage(Constants.contourIcon, for: .normal)
-            tintColor = Constants.notActiveTint
-        }
-    }
+    // MARK: - Init
 
     init() {
         isLiked = false
@@ -44,9 +35,30 @@ final class LikeButton: UIButton {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - intrinsicContentSize
+
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: 35, height: 35)
+    }
+
+    // MARK: - Update image
+
+    private func updateImage() {
+        switch isLiked {
+        case true:
+            setImage(Constants.fillIcon, for: .normal)
+            tintColor = Constants.activeTint
+        case false:
+            setImage(Constants.contourIcon, for: .normal)
+            tintColor = Constants.notActiveTint
+        }
+    }
 }
 
 final class CookedButton: UIButton {
+    // MARK: - Constants
+
     private enum Constants {
         static let config = UIImage.SymbolConfiguration(
             pointSize: 30,
@@ -59,26 +71,15 @@ final class CookedButton: UIButton {
         static let notActiveTint: UIColor = .label
     }
 
+    // MARK: - Fields
+
     var isCooked: Bool {
         didSet {
             updateImage()
         }
     }
 
-    private func updateImage() {
-        switch isCooked {
-        case true:
-            setImage(Constants.fillIcon, for: .normal)
-            tintColor = Constants.activeTint
-        case false:
-            setImage(Constants.contourIcon, for: .normal)
-            tintColor = Constants.notActiveTint
-        }
-    }
-
-    override var intrinsicContentSize: CGSize {
-        CGSize(width: 35, height: 35)
-    }
+    // MARK: - Init
 
     init() {
         isCooked = false
@@ -90,5 +91,24 @@ final class CookedButton: UIButton {
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - intrinsicContentSize
+
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: 35, height: 35)
+    }
+
+    // MARK: - Update image
+
+    private func updateImage() {
+        switch isCooked {
+        case true:
+            setImage(Constants.fillIcon, for: .normal)
+            tintColor = Constants.activeTint
+        case false:
+            setImage(Constants.contourIcon, for: .normal)
+            tintColor = Constants.notActiveTint
+        }
     }
 }

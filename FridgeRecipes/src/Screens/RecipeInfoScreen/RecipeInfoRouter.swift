@@ -1,8 +1,10 @@
 import UIKit
 
 final class RecipeInfoRouter: RecipeInfoRoutingLogic {
+    // MARK: - Fields
     weak var view: UIViewController?
 
+    // MARK: - Open nutrition screen
     func routeToNutritionScreen(data: [String]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {

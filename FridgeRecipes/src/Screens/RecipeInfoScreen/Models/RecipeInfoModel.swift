@@ -1,8 +1,6 @@
 import UIKit
 
 enum RecipeInfoModel {
-    // MARK: Use cases
-
     enum Start {
         struct Request {
             let id: String
@@ -13,20 +11,9 @@ enum RecipeInfoModel {
                 case meals
             }
 
-            let meals: [RecipeInfo]
+            var meals: [RecipeInfo]
         }
 
         struct ViewModel {}
-    }
-
-    enum Action {
-        struct Request
-        {}
-
-        struct Response
-        {}
-
-        struct ViewModel
-        {}
     }
 }

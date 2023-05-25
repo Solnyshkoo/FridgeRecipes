@@ -1,6 +1,7 @@
 import UIKit
 
 final class RoundButtonWithBlur: UIButton {
+    
     enum ButtonType {
         case refresh
         case close

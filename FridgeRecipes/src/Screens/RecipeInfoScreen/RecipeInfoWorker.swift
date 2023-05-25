@@ -1,7 +1,10 @@
 import CoreData
+import UIKit
 final class RecipeInfoWorker: RecipeInfoWorkerLogic {
-    private lazy var opQueue = FetchingOperations()
     
+    // MARK: - Fields
+
+    private lazy var opQueue = FetchingOperations()
     private var fav: [CoreFav] = []
     private var cooked: [Recipe] = []
     private var rew: [CoreReward] = []
@@ -15,7 +18,38 @@ final class RecipeInfoWorker: RecipeInfoWorkerLogic {
         }
         return container.viewContext
     }()
-     
+    
+    init() {
+        loadData()
+    }
+    
+    // MARK: - Load recipe info
+
+    func getRecipeInfo(id: String, completion: @escaping MealsCompletion) {
+        let getMealById = FetchingRecipesOperation(
+            type: .detailsById(id: id),
+            completion: completion
+        )
+        opQueue.fetchingQueue.addOperation(getMealById)
+    }
+//
+//    func downloadImage(url: String) -> Data {
+//        if let url = URL(string: url) {
+//          URLSession.shared.dataTask(with: url) { (data, response, error) in
+//            // Error handling...
+//            guard let imageData = data else { return }
+//            return imageData
+//
+//          }.resume()
+//        }
+//    }
+    
+    func downloadImage(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    // MARK: - Delete favorite recipe from Core Data
+
     func deleteFav(id: String) {
         let index = fav.firstIndex { item in
             item.idFav == id
@@ -26,6 +60,8 @@ final class RecipeInfoWorker: RecipeInfoWorkerLogic {
         saveChangesFav()
     }
     
+    // MARK: - Delete cooked recipe from Core Data
+
     func deleteCooked(id: String) {
         let index = cooked.firstIndex { item in
             item.id == id
@@ -36,16 +72,9 @@ final class RecipeInfoWorker: RecipeInfoWorkerLogic {
         saveChanges()
     }
     
-    func getRecipeInfo(id: String, completion: @escaping MealsCompletion) {
-        loadData()
-        let getMealById = FetchingRecipesOperation(
-            type: .detailsById(id: id),
-            completion: completion
-        )
-        opQueue.fetchingQueue.addOperation(getMealById)
-    }
-    
-    func save(data: MainModel.Recipe.ViewModel) {
+    // MARK: - Save cooked recipe to Core Data
+
+    func saveCooked(data: MainModel.Recipe.ViewModel) {
         let k = Recipe(context: context)
         k.id = data.id
         k.thumbnailLink = data.thumbnailLink ?? URL(string: "")!
@@ -53,6 +82,8 @@ final class RecipeInfoWorker: RecipeInfoWorkerLogic {
         saveChanges()
     }
     
+    // MARK: - Save favorite recipe to Core Data
+
     func saveFav(data: MainModel.Recipe.ViewModel) {
         let k = CoreFav(context: context)
         k.idFav = data.id
@@ -61,6 +92,8 @@ final class RecipeInfoWorker: RecipeInfoWorkerLogic {
         saveChangesFav()
     }
     
+    // MARK: - Save reward to Core Data
+
     func saveReward(data: RewardInfo.ViewModel) {
         let k = CoreReward(context: context)
         k.title = data.rewardText
@@ -68,6 +101,8 @@ final class RecipeInfoWorker: RecipeInfoWorkerLogic {
         saveChangesRew()
     }
     
+    // MARK: - Update cooked recipe in Core Data
+
     private func saveChanges() {
         if context.hasChanges {
             try? context.save()
@@ -81,6 +116,8 @@ final class RecipeInfoWorker: RecipeInfoWorkerLogic {
         }
     }
     
+    // MARK: - Update favorite recipe in Core Data
+
     private func saveChangesFav() {
         if context.hasChanges {
             try? context.save()
@@ -94,6 +131,23 @@ final class RecipeInfoWorker: RecipeInfoWorkerLogic {
         }
     }
     
+    // MARK: - Update rewards in Core Data
+
+    private func saveChangesRew() {
+        if context.hasChanges {
+            try? context.save()
+        }
+        if let note = try? context.fetch(CoreReward.fetchRequest()) {
+            PersonalViewController.userInfo.rewards = parse(note)
+            rew = note
+        } else {
+            rew = []
+            PersonalViewController.userInfo.rewards = []
+        }
+    }
+    
+    // MARK: - Load recipes from Core Data
+
     private func loadData() {
         if let notes = try? context.fetch(Recipe.fetchRequest()) {
             cooked = notes
@@ -114,19 +168,8 @@ final class RecipeInfoWorker: RecipeInfoWorkerLogic {
         }
     }
     
-    private func saveChangesRew() {
-        if context.hasChanges {
-            try? context.save()
-        }
-        if let note = try? context.fetch(CoreReward.fetchRequest()) {
-            PersonalViewController.userInfo.rewards = parse(note)
-            rew = note
-        } else {
-            rew = []
-            PersonalViewController.userInfo.rewards = []
-        }
-    }
-    
+    // MARK: - Parse data
+
     private func parse(_ notes: [CoreReward]) -> [RewardInfo.ViewModel] {
         var k: [RewardInfo.ViewModel] = []
         notes.forEach { item in

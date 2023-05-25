@@ -6,12 +6,8 @@ final class MainRouter: MainRoutingLogic {
     // MARK: - Open Recipe screen
 
     func routeToRecipesScreen(data: RequestType, titleText: String) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            self.view?.navigationController?.pushViewController(RecipesAssembly.build(data: data, titleText: titleText), animated: true)
-        }
+        let viewController = RecipesAssembly.build(data: data, titleText: titleText)
+        view?.navigationController?.pushViewController(viewController, animated: false)
     }
 
     // MARK: - Open Stories

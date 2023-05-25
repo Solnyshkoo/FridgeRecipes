@@ -11,7 +11,8 @@ final class RewardViewController: UIViewController {
 
     private lazy var scrollView = UIScrollView()
     private lazy var stackView = UIStackView()
-    private let rewardsCell = (0 ... PersonalViewController.userInfo.rewards.count - 1).map { _ in RewardCell(frame: .zero) }
+    private let rewardsCell = (0 ... (PersonalViewController.userInfo.rewards.count == 0 ? 0 : PersonalViewController.userInfo.rewards.count - 1 ) 
+                                     ).map { _ in RewardCell(frame: .zero) }
 
     // MARK: - Fields
 
@@ -73,10 +74,12 @@ final class RewardViewController: UIViewController {
         var count = 0
 
         rewardsCell.forEach { item in
-            item.configure(data: rewards[count])
-
-            count += 1
-            stackView.addSubview(item)
+            if rewards.count > count {
+                item.configure(data: rewards[count])
+                
+                count += 1
+                stackView.addSubview(item)
+            }
         }
 
         count = 0

@@ -1,10 +1,11 @@
-
 import UIKit
 
 final class NutritionPresenter: NutritionPresentationLogic {
+    // MARK: - Fields
+
     weak var view: NutritionDisplayLogic?
 
-    // MARK: - PresentationLogic
+    // MARK: - Present nutrition info
 
     func presentNutritionInfo(_ response: Model.Response, show: Bool) {
         if show {
@@ -13,6 +14,14 @@ final class NutritionPresenter: NutritionPresentationLogic {
             view?.addInfo(parseData(data: response))
         }
     }
+
+    // MARK: - Present error
+
+    func presentError(error: String) {
+        view?.displayError(error: "s")
+    }
+
+    // MARK: - Parse data
 
     private func parseData(data: Model.Response) -> NutritionModel.ViewModel {
         let k = NutritionModel.ViewModel(
@@ -62,9 +71,5 @@ final class NutritionPresenter: NutritionPresentationLogic {
             ])
 
         return k
-    }
-
-    func presentError(error: String) {
-        view?.displayError(error: "s")
     }
 }

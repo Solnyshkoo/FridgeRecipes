@@ -1,16 +1,14 @@
 import UIKit
 
 final class RecipeInfoViewController: UIViewController {
+    // MARK: - Constants
+
     private enum Constants {
         static let heartSize = CGSize(width: 35, height: 35)
         static let defaultEmoji: String = "😋"
     }
 
-    // MARK: - Fields
-
-    private let router: RecipeInfoRoutingLogic
-    private let interactor: RecipeInfoBusinessLogic
-    private let factory = RecipeInfoFactory()
+    // MARK: - Fields UI
 
     private lazy var scrollView = factory.makeScrollView()
     private lazy var contentStackView = factory.makeContentStackView()
@@ -27,9 +25,13 @@ final class RecipeInfoViewController: UIViewController {
     private lazy var loadingScreen = factory.makeLoadingScreen(isHidden: true)
     private lazy var nutritionButton = factory.makeNutritionsTitle()
     private let imageContainerView = UIView()
-
     private let refreshControl = UIRefreshControl()
 
+    // MARK: - Fields
+
+    private let router: RecipeInfoRoutingLogic
+    private let interactor: RecipeInfoBusinessLogic
+    private let factory = RecipeInfoFactory()
     private var previousStatusBarHidden = false
     private var recipeInfo: RecipeInfo = .init()
 
@@ -85,7 +87,10 @@ final class RecipeInfoViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
     }
 
-    @objc private func updateLike(_ sender: LikeButton) {
+    // MARK: - Action: add or delete recipe from favorite
+
+    @objc
+    private func updateLike(_ sender: LikeButton) {
         if sender.isLiked {
             let index = PersonalViewController.userInfo.favoriteRecipes.firstIndex { item in
                 item.id == recipeInfo.id
@@ -113,7 +118,10 @@ final class RecipeInfoViewController: UIViewController {
         sender.isLiked = !sender.isLiked
     }
 
-    @objc private func updateCooked(_ sender: CookedButton) {
+    // MARK: - Action: add or delete recipe from cooked
+
+    @objc
+    private func updateCooked(_ sender: CookedButton) {
         if sender.isCooked {
             let index = PersonalViewController.userInfo.cookedRecipes.firstIndex { item in
                 item.id == recipeInfo.id
@@ -131,7 +139,7 @@ final class RecipeInfoViewController: UIViewController {
                     thumbnailLink: recipeInfo.thumbnailLink
                 )
             )
-            interactor.save(data: MainModel.Recipe.ViewModel(
+            interactor.saveCooked(data: MainModel.Recipe.ViewModel(
                 id: recipeInfo.id ?? "",
                 titleText: recipeInfo.name,
                 thumbnailLink: recipeInfo.thumbnailLink
@@ -146,15 +154,20 @@ final class RecipeInfoViewController: UIViewController {
         sender.isCooked = !sender.isCooked
     }
 
-    @objc private func close() {
+    // MARK: - Action: close screen
+
+    @objc
+    private func close() {
         dismiss(animated: true, completion: nil)
     }
+
+    // MARK: - Get recipe info
 
     func getData(data: String) {
         interactor.loadRecipe(RecipeInfoModel.Start.Request(id: data))
     }
 
-    // MARK: - changing appearance
+    // MARK: - Changing appearance
 
     private func setLoadingScreenAppearance(shouldHide: Bool, animated: Bool) {
         loadingScreen.setAppearance(shouldHide: shouldHide, animated: animated)
@@ -199,7 +212,7 @@ final class RecipeInfoViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    // MARK: - configuring view funcs
+    // MARK: - Configuring views
 
     private func setTranslatingToConstraints() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -303,6 +316,8 @@ final class RecipeInfoViewController: UIViewController {
     }
 }
 
+// MARK: - UIScrollViewDelegate
+
 extension RecipeInfoViewController: UIScrollViewDelegate {
     private var shouldHideStatusBar: Bool {
         let frame = titleLabel.convert(titleView.bounds, to: view)
@@ -340,14 +355,15 @@ extension RecipeInfoViewController: RecipeInfoDisplayLogic {
                 return
             }
 
+            if let url = viewModel.thumbnailLink {
+                self.interactor.getImage(url: url)
+            }
             self.recipeInfo = viewModel
             self.updateButtons()
             self.likeButton.isHidden = false
 
             self.cookedButton.isHidden = false
-            if let link = viewModel.thumbnailLink {
-                self.mealImageView.image = self.loadImage(url: link)
-            }
+            
             self.titleLabel.text = viewModel.name
             if let ingredients = viewModel.ingredients, !ingredients.isEmpty {
                 self.ingredientStack.isHidden = false
@@ -359,9 +375,25 @@ extension RecipeInfoViewController: RecipeInfoDisplayLogic {
             } else { self.recipeStack.isHidden = true }
         }
     }
-
-    func loadImage(url: URL) -> UIImage? {
-        guard let data = try? Data(contentsOf: url) else { return nil }
-        return UIImage(data: data)
+    
+    func setImage(data: Data) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.mealImageView.image = UIImage(data: data)
+        }
     }
+
+//    func loadImage(url: URL) -> UIImage? {
+//
+//        interactor.getImage(from: url) { data in
+//            <#code#>
+//        }
+//        return UIImage(data: interactor.getImage(url: url))
+//
+////        guard let data = try? Data(contentsOf: url) else { return nil }
+////        return UIImage(data: data)
+//    }
 }

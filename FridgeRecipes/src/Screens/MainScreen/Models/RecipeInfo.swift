@@ -13,6 +13,7 @@ struct RecipeInfo {
     let instructions: String? // strInstructions
     let youTubeLink: String? // strYoutube
     let tags: [String]? // strTags
+    var data: Data?
     let ingredients: [Ingredient]? // Ingredient(strIngredient, strMeasure)
 
     init() {

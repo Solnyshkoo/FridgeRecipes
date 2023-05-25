@@ -6,7 +6,7 @@ final class NutritionFactory {
         static let cornerRadius: CGFloat = 15
         static let subtitleFontSize: CGFloat = 15
     }
-    
+
     func makeTittleLabel() -> UILabel {
         let label = UILabel()
         label.text = "Nutrition Facts"
@@ -18,14 +18,14 @@ final class NutritionFactory {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
-    
+
     func makeSeparaator() -> UIView {
         let view = UIView()
         view.backgroundColor = .secondarySystemBackground
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }
-    
+
     func makeDiscriptionLabel() -> UILabel {
         let label = UILabel()
         label.text = "Amount Per Serving"
@@ -37,7 +37,7 @@ final class NutritionFactory {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
-    
+
     func makeSubtitleLabel() -> UILabel {
         let label = UILabel()
         label.text = "% Daily Value "

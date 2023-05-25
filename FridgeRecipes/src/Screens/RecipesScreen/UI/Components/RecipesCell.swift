@@ -67,15 +67,10 @@ final class RecipesCell: UITableViewCell {
         guard let link = data.thumbnailLink else {
             return
         }
-        guard let img = loadImage(url: link) else {
-            return
-        }
 
-        if animate {
-            showImage(image: img)
-        } else {
-            imgView.image = img
-        }
+        downloadImage(from: link, animate: animate)
+
+        
     }
 
     private func configureStackView() {
@@ -173,9 +168,22 @@ final class RecipesCell: UITableViewCell {
             }
         )
     }
+    
+    private func downloadImage(from url: URL, animate: Bool) {
+        loadImage(url: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            DispatchQueue.main.async() { [weak self] in
+                guard let self = self else { return }
+                if animate {
+                    self.showImage(image: UIImage(data: data))
+                } else {
+                    self.imgView.image = UIImage(data: data)
+                }
+            }
+        }
+    }
 
-    private func loadImage(url: URL) -> UIImage? {
-        guard let data = try? Data(contentsOf: url) else { return nil }
-        return UIImage(data: data)
+    private func loadImage(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
 }

@@ -1,3 +1,4 @@
+import Foundation
 protocol RecipesBusinessLogic {
     typealias Model = MainModel
     func loadRecipiesByName(_ request: Model.Recipe.Request)

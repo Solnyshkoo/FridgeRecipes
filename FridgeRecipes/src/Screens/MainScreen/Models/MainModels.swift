@@ -12,7 +12,7 @@ enum MainModel {
                 case meals
             }
 
-            let meals: [RecipeInfo]
+            var meals: [RecipeInfo]
         }
 
         struct ViewModel {

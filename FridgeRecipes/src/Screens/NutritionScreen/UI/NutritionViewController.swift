@@ -1,9 +1,14 @@
 import UIKit
 
 final class NutritionViewController: UIViewController {
-    private let interactor: NutritionBusinessLogic
-    private let factory = NutritionFactory()
-    
+    // MARK: - Constants
+
+    private enum Constants {
+        static let sidesOffset: CGFloat = 15
+    }
+
+    // MARK: - Fields UI
+
     private lazy var scrollView = UIScrollView()
     private let caloriesInfo = CaloriesView()
     private lazy var mainTitle = factory.makeTittleLabel()
@@ -14,6 +19,11 @@ final class NutritionViewController: UIViewController {
     private lazy var dailyValueLabel = factory.makeSubtitleLabel()
     private let tableView: UITableView = .init()
     
+    // MARK: - Fields
+
+    private let interactor: NutritionBusinessLogic
+    private let factory = NutritionFactory()
+    
     private var l = 1
     
     private var nutritionInfo: NutritionModel.ViewModel = .init(
@@ -22,6 +32,8 @@ final class NutritionViewController: UIViewController {
         cellId: [String](repeating: "main", count: 26)
     )
     
+    // MARK: - Init
+
     init(interactor: NutritionBusinessLogic, data: [String]) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -42,9 +54,7 @@ final class NutritionViewController: UIViewController {
         view.backgroundColor = .systemBackground
     }
 
-    private enum Constants {
-        static let sidesOffset: CGFloat = 15
-    }
+    // MARK: - Config UI
     
     private func configUI() {
         view.addSubview(scrollView)
@@ -118,6 +128,8 @@ final class NutritionViewController: UIViewController {
     }
 }
 
+// MARK: - CNutritionDisplayLogic delegate
+
 extension NutritionViewController: NutritionDisplayLogic {
     func displayError(error: String) {}
     
@@ -137,6 +149,8 @@ extension NutritionViewController: NutritionDisplayLogic {
         nutritionInfo = viewModel.plus(data: nutritionInfo)
     }
 }
+
+// MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension NutritionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

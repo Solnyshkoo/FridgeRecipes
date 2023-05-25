@@ -1,5 +1,5 @@
 import CoreGraphics
-
+import Foundation
 final class RecipeInfoInteractor: RecipeInfoBusinessLogic {
     // MARK: - Fields
 
@@ -13,6 +13,8 @@ final class RecipeInfoInteractor: RecipeInfoBusinessLogic {
         self.worker = worker
     }
 
+    // MARK: - Load recipes
+
     func loadRecipe(_ request: Model.Start.Request) {
         worker.getRecipeInfo(id: request.id) { [weak self] result in
             guard let self = self else {
@@ -21,13 +23,23 @@ final class RecipeInfoInteractor: RecipeInfoBusinessLogic {
             
             switch result {
             case let .success(items):
-                self.presenter.presentRecipes(items)
+                self.presenter.presentRecipes(items, nil)
+                
+                
             case .failure:
                 break
             }
         }
     }
     
+    func getImage(url: URL) {
+        worker.downloadImage(from: url) { data, _ , _ in
+            self.presenter.presentImage(data: data)
+        }
+    }
+    
+    // MARK: - Load Nutrition Info
+
     func loadNutrition(_ request: [Ingredient]?) {
         guard let request = request else {
             return
@@ -46,22 +58,33 @@ final class RecipeInfoInteractor: RecipeInfoBusinessLogic {
         return parseData
     }
     
+    
+    // MARK: - Save favorite recipe
+
     func saveFav(data: MainModel.Recipe.ViewModel) {
         worker.saveFav(data: data)
     }
     
+    // MARK: - Save reward
+
     func saveReward(data: RewardInfo.ViewModel) {
         worker.saveReward(data: data)
     }
     
-    func save(data: MainModel.Recipe.ViewModel) {
-        worker.save(data: data)
+    // MARK: - Save cooked recipe
+
+    func saveCooked(data: MainModel.Recipe.ViewModel) {
+        worker.saveCooked(data: data)
     }
     
+    // MARK: - Delete favorite recipe
+
     func deleteFav(id: String) {
         worker.deleteFav(id: id)
     }
-    
+   
+    // MARK: - Delete cooked recipe
+
     func deleteCooked(id: String) {
         worker.deleteCooked(id: id)
     }

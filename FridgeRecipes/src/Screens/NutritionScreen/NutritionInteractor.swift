@@ -5,7 +5,7 @@ final class NutritionInteractor: NutritionBusinessLogic {
 
     private let presenter: NutritionPresentationLogic
     private let worker: NutritionWorkerLogic
-    
+
     // MARK: - Lifecycle
 
     init(presenter: NutritionPresentationLogic, worker: NutritionWorkerLogic) {
@@ -21,10 +21,10 @@ final class NutritionInteractor: NutritionBusinessLogic {
                 guard let self = self else {
                     return
                 }
-                
+
                 switch result {
                 case let .success(items):
-                    
+
                     if i == request.text.count - 1 {
                         self.presenter.presentNutritionInfo(items, show: true)
                     } else {

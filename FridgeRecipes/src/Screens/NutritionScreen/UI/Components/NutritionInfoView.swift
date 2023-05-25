@@ -1,21 +1,29 @@
 import UIKit
 
 final class NutritionInfoView: UITableViewCell {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let textFontSize: CGFloat = 18
+        static let sidesOffset: CGFloat = 15
+    }
+
+    // MARK: - Fields
+
     static let cellId = "NutritionInfoView"
     private let title = UILabel()
     private let amount = UILabel()
     private let percentage = UILabel()
     private let secondSeparator = UIView()
     
-    private enum Constants {
-        static let textFontSize: CGFloat = 18
-        static let sidesOffset: CGFloat = 15
-    }
-    
+    // MARK: - intrinsicContentSize
+
     override var intrinsicContentSize: CGSize {
         CGSize(width: UIScreen.main.bounds.width, height: 40)
     }
     
+    // MARK: - Config data
+
     func config(data: TotalDaily, persentage: TotalDaily?) {
         title.text = data.label
         amount.text = String(data.quantity.rounded(1)) + data.unit.rawValue
@@ -33,9 +41,15 @@ final class NutritionInfoView: UITableViewCell {
             amount.text = "-"
             percentage.text = "-"
         }
+        
+        if persentage?.unit ?? Unit.g == Unit.g {
+            percentage.text = "-"
+        }
         configureUI()
     }
     
+    // MARK: - Config UI
+
     private func configureUI() {
         title.numberOfLines = 0
         title.textColor = .label

@@ -24,7 +24,12 @@ final class NutritionMainInfoView: UITableViewCell {
             percentage.isHidden = true
         } else {
             percentage.isHidden = false
-            percentage.text = String(persentage?.quantity.rounded(1) ?? 0.0) + (persentage?.unit.rawValue ?? "")
+            if let num = persentage?.quantity.rounded(1),
+               let unit = persentage?.unit.rawValue {
+                   percentage.text = String(persentage?.quantity.rounded(1) ?? 0.0) + (persentage?.unit.rawValue ?? "")
+            } else {
+                percentage.text = "-"
+            }
         }
         
         if data.label == "Carbohydrate, by difference" {
@@ -33,6 +38,9 @@ final class NutritionMainInfoView: UITableViewCell {
             title.text = "-"
             amount.text = "-"
             percentage.text = "-"
+        }
+        if persentage?.unit ??  Unit.g == Unit.g {
+            percentage.text  = "-"
         }
         configureUI()
     }

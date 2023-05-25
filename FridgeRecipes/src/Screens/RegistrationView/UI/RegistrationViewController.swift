@@ -57,6 +57,8 @@ final class RegistrationViewController: UIViewController {
         view.addSubview(nameEmpty)
         view.addSubview(ageEmpty)
         nameEmpty.isHidden = true
+        nameText.delegate = self
+        ageText.delegate = self
         ageEmpty.isHidden = true
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         NSLayoutConstraint.activate([
@@ -136,5 +138,12 @@ extension RegistrationViewController: RegistrationDisplayLogic {
         ageEmpty.text = response.ageError
         nameEmpty.isHidden = false
         ageEmpty.isHidden = false
+    }
+}
+
+extension RegistrationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(false)
+        return true
     }
 }
