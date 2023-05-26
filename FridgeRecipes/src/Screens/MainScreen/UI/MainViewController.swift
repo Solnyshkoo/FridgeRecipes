@@ -54,6 +54,7 @@ final class MainViewController: UIViewController {
         self.router = router
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
+        view.backgroundColor = .systemBackground
     }
 
     @available(*, unavailable)

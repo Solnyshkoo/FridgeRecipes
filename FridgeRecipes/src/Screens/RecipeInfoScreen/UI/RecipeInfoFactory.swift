@@ -161,6 +161,7 @@ final class RecipeInfoFactory {
 
     func makeNutritionsTitle() -> UIButton {
         let button = UIButton()
+        button.setTitleColor(.label, for: .normal)
         button.setTitle(Constants.nutritionTitle, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         button.backgroundColor = .secondarySystemBackground

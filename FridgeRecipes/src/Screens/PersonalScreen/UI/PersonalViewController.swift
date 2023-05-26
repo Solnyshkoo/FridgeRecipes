@@ -28,6 +28,7 @@ final class PersonalViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
         configureUI()
+        view.backgroundColor = .systemBackground
     }
     
     override func viewWillAppear(_ animated: Bool) {

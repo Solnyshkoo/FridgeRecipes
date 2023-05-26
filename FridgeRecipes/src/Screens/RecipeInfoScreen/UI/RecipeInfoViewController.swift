@@ -46,6 +46,7 @@ final class RecipeInfoViewController: UIViewController {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
         getData(data: data)
+        view.backgroundColor = .systemBackground
     }
 
     @available(*, unavailable)

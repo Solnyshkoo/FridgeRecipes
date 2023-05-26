@@ -29,6 +29,7 @@ final class PersonalRecipesViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         recipes = data
         self.title = title
+        view.backgroundColor = .systemBackground
         
     }
     

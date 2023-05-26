@@ -33,6 +33,7 @@ final class RecipesViewController: UIViewController {
         setupTableView()
         getData(data: data)
         title = titleText
+        view.backgroundColor = .systemBackground
     }
     
     @available(*, unavailable)
